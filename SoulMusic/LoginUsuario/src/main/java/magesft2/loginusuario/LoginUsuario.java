@@ -172,9 +172,9 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
-        Inicio i = new Inicio(); //Importar desde el modulo crear usuario el JFrame Inicio
+        /*Inicio i = new Inicio(); //Importar desde el modulo crear usuario el JFrame Inicio
         i.setVisible(true);
-        this.setVisible(false);
+        this.setVisible(false);*/
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**
