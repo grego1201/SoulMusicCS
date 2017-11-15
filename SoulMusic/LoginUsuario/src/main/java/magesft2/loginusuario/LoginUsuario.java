@@ -10,8 +10,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import magesft.crearusuario.Inicio;
 
 /**
@@ -122,7 +124,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         Socket s=null;
         ObjectInputStream in=null;
         ObjectOutputStream out=null;
-        String[] campos = {"Nombre_user", "Contrasenia"};
+        String[] campos = {};
         boolean no_preparado=false;
         try {
             String serverAddress = "localhost";
@@ -140,9 +142,17 @@ public class LoginUsuario extends javax.swing.JFrame {
             out = new ObjectOutputStream(s.getOutputStream());
             out.writeObject(1);//Modelar en el servidor que cuando le pase 1 es consultas a BBDD
             out.writeObject("usuarios"); //tabla
-            out.writeObject(campos);// campos sobre los que insertar
+            out.writeObject(campos);// campos sobre los que conusltar
             String condicion = "Nombre_user = '" + txtUsuario.getText() + "' AND Contrasenia = '" + txtPass.getText() + "'";//Condicion
             out.writeObject(condicion);
+            ArrayList<String[]> arr=(ArrayList<String[]>) in.readObject();
+            if(arr.size()==1){
+                //siguiente ventana
+                System.out.println("correcto");
+            }else{
+                JOptionPane.showMessageDialog(this, "No existe el Usuario,\n intentelo de nuevo");
+            }
+            
         } catch (IOException ex) {
             Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
             

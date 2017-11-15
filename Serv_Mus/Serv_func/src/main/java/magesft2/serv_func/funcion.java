@@ -44,6 +44,7 @@ public class funcion {
                     
                     switch((int)in.readObject()){
                         case 0: insertar(in); break; 
+                        case 1: logearse(in,out); break;
                         
                     }
 
@@ -67,6 +68,16 @@ public class funcion {
         String[] v_insertar = (String[]) in.readObject();
         Conexion_BBDD c = new Conexion_BBDD();
         c.insertar(tabla, valores, v_insertar);
+        
+    }
+    
+    public void logearse(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
+        
+        String tabla = (String) in.readObject();
+        String [] campos = (String[]) in.readObject();
+        String condicion = (String) in.readObject();
+        Conexion_BBDD c = new Conexion_BBDD();
+        out.writeObject(c.consulta(tabla, campos, condicion));
         
     }
 }
