@@ -5,9 +5,14 @@
  */
 package magesft.crearmusica;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import magesft.sockets.Sockets;
 import magesft2.conectar.Conexion_BBDD;
 
 /**
@@ -25,7 +30,24 @@ public class CrearMusica extends javax.swing.JFrame {
         String tabla="musica";
         String [] campo={"id"};
         String condicion="ORDER BY 'ID' DESC LIMIT 1";
-        co.consulta(tabla, campo, condicion);
+        Sockets so=new Sockets();
+        ObjectInputStream in= so.getIn();
+        ObjectOutputStream out= so.getOut();
+        Socket s=so.getS();
+        try {
+            String recibido = (String) in.readObject();
+            System.out.println(recibido);
+            out.writeObject(1);
+            out.writeObject(tabla);
+            out.writeObject(campo);
+            out.writeObject(condicion);
+            String [] str=((ArrayList<String[]>)in.readObject()).get(0);
+            int iden=Integer.parseInt(str[0])+1;
+            t_id.setText(String.valueOf(iden));
+        }catch(Exception ex){
+            t_id.setText("0");
+        }
+                
     }
      
 
