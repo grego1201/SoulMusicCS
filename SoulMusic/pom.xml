@@ -8,6 +8,8 @@
     <modules>
         <module>CrearUsuario</module>
         <module>LoginUsuario</module>
+        <module>CrearMusica</module>
+        <module>Sockets</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

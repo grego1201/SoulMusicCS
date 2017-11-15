@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import magesft.crearusuario.Inicio;
+import magesft.sockets.Sockets;
 
 /**
  *
@@ -28,7 +29,7 @@ public class LoginUsuario extends javax.swing.JFrame {
     public LoginUsuario() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
 
     /**
@@ -121,44 +122,34 @@ public class LoginUsuario extends javax.swing.JFrame {
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
-        Socket s=null;
-        ObjectInputStream in=null;
-        ObjectOutputStream out=null;
+        
+        Sockets so = new Sockets();
+        ObjectInputStream in = so.getIn();
+        ObjectOutputStream out = so.getOut();
+        Socket s = so.getS();
         String[] campos = {};
-        boolean no_preparado=false;
         try {
-            String serverAddress = "localhost";
-            do{
-                try{
-                  s = new Socket(serverAddress, 4445);  
-                  no_preparado=false;
-                }catch(Exception ex){
-                    no_preparado=true;
-                }
-            }while(no_preparado);
-            in = new ObjectInputStream(s.getInputStream());
-            String recibido=(String)in.readObject();
+            String recibido = (String) in.readObject();
             System.out.println(recibido);
-            out = new ObjectOutputStream(s.getOutputStream());
             out.writeObject(1);//Modelar en el servidor que cuando le pase 1 es consultas a BBDD
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que conusltar
-            String condicion = "Nombre_user = '" + txtUsuario.getText() + "' AND Contrasenia = '" + txtPass.getText() + "'";//Condicion
+            String condicion = "WHERE Nombre_user = '" + txtUsuario.getText() + "' AND Contrasenia = '" + txtPass.getText() + "'";//Condicion
             out.writeObject(condicion);
-            ArrayList<String[]> arr=(ArrayList<String[]>) in.readObject();
-            if(arr.size()==1){
+            ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+            if (arr.size() == 1) {
                 //siguiente ventana
                 System.out.println("correcto");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(this, "No existe el Usuario,\n intentelo de nuevo");
             }
-            
+
         } catch (IOException ex) {
             Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 out.flush();
                 out.close();
@@ -191,16 +182,24 @@ public class LoginUsuario extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginUsuario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginUsuario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginUsuario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginUsuario.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

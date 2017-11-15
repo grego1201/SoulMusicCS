@@ -12,6 +12,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import magesft.sockets.Sockets;
 
 /**
  *
@@ -138,26 +139,17 @@ public class CrearUsuario extends javax.swing.JFrame {
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
         // TODO add your handling code here:
         u = new Usuario(txtUsuario.getText(), txtContraseña.getText(), txtCorreo.getText());
-        
-        Socket s=null;
-        ObjectInputStream in=null;
-        ObjectOutputStream out=null;
-        String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo"};
-        boolean no_preparado=false;
+
+        Sockets so = new Sockets();
+        ObjectInputStream in = so.getIn();
+        ObjectOutputStream out = so.getOut();
+        Socket s = so.getS();
         try {
-            String serverAddress = "localhost";
-            do{
-                try{
-                  s = new Socket(serverAddress, 4445);  
-                  no_preparado=false;
-                }catch(Exception ex){
-                    no_preparado=true;
-                }
-            }while(no_preparado);
-            in = new ObjectInputStream(s.getInputStream());
-            String recibido=(String)in.readObject();
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo"};
+
+            String recibido = (String) in.readObject();
             System.out.println(recibido);
-            out = new ObjectOutputStream(s.getOutputStream());
+
             out.writeObject(0);//opcion insertar
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que insertar
@@ -165,10 +157,10 @@ public class CrearUsuario extends javax.swing.JFrame {
             out.writeObject(v_insertar);
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
-            
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             try {
                 out.flush();
                 out.close();
@@ -234,6 +226,6 @@ public class CrearUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-    
+
     private Usuario u;
 }
