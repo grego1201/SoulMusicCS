@@ -44,7 +44,7 @@ public class funcion {
                     
                     switch((int)in.readObject()){
                         case 0: insertar(in); break; 
-                        case 1: logearse(in,out); break;
+                        case 1: consulta(in,out); break;
                         
                     }
 
@@ -71,7 +71,7 @@ public class funcion {
         
     }
     
-    public void logearse(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
+    public void consulta(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
         
         String tabla = (String) in.readObject();
         String [] campos = (String[]) in.readObject();

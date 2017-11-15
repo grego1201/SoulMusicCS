@@ -10,6 +10,7 @@
         <module>LoginUsuario</module>
         <module>CrearMusica</module>
         <module>Sockets</module>
+        <module>CrearArtistas</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
