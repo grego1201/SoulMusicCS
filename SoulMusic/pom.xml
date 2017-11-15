@@ -11,6 +11,7 @@
         <module>CrearMusica</module>
         <module>Sockets</module>
         <module>CrearArtistas</module>
+        <module>Reproductor</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
