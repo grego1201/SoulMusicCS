@@ -44,7 +44,7 @@ public class Conexion_BBDD {
             }
             v=v+valores[valores.length-1];
         }
-        String url = "select "+v+" from "+tabla+" where "+condicion;
+        String url = "select "+v+" from "+tabla+" "+condicion;
         ResultSet rs = s.executeQuery (url);
 
 
