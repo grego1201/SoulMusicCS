@@ -5,10 +5,13 @@
  */
 package magesft.crearmusica;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import magesft.sockets.Sockets;
@@ -18,26 +21,26 @@ import magesft.sockets.Sockets;
  * @author Gonzalo
  */
 public class CancionesAlbum extends javax.swing.JFrame {
-DefaultListModel dfm_al,dfm_mus;
-int iden=0;
+
+    DefaultListModel dfm_al, dfm_mus;
+    int iden = 0;
+
     /**
      * Creates new form CancionesAlbum
      */
     public CancionesAlbum() {
         initComponents();
-        dfm_al=new DefaultListModel<>();
-        dfm_mus=new DefaultListModel<>();
-        
-        
-        
+        dfm_al = new DefaultListModel<>();
+        dfm_mus = new DefaultListModel<>();
+
         ArrayList cancion;
-        String tabla2="musica";
-        String [] campo2={"ID","Nombre_cancion"};
-        String condicion2="";
-        Sockets so=new Sockets();
-        ObjectInputStream in= so.getIn();
-        ObjectOutputStream out= so.getOut();
-        Socket s=so.getS();
+        String tabla2 = "musica";
+        String[] campo2 = {"ID", "Nombre_cancion"};
+        String condicion2 = "";
+        Sockets so = new Sockets();
+        ObjectInputStream in = so.getIn();
+        ObjectOutputStream out = so.getOut();
+        Socket s = so.getS();
         try {
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -45,30 +48,28 @@ int iden=0;
             out.writeObject(tabla2);
             out.writeObject(campo2);
             out.writeObject(condicion2);
-            cancion=(ArrayList<String[]>)in.readObject();
+            cancion = (ArrayList<String[]>) in.readObject();
             for (int i = 0; i < cancion.size(); i++) {
-                dfm_mus.add(i, ((String)((String[])(cancion.get(i)))[0])+"\n -"+((String)((String[])(cancion.get(i)))[1]));
+                dfm_mus.add(i, ((String) ((String[]) (cancion.get(i)))[0]) + "\n -" + ((String) ((String[]) (cancion.get(i)))[1]));
             }
             lis_canciones.setModel(dfm_mus);
             list_canciones.updateUI();
-            if(cancion.size()==0){
+            if (cancion.size() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay canciones");
                 //IR ATRAS
             }
-        }catch(Exception ex){
-            
+        } catch (Exception ex) {
+
         }
-        
-        
-        
+
         ArrayList albun;
-        String tabla3="album";
-        String [] campo3={"ID","Nombre_album","Autor"};
-        String condicion3="";
-        so=new Sockets();
-        in= so.getIn();
-        out= so.getOut();
-        s=so.getS();
+        String tabla3 = "album";
+        String[] campo3 = {"ID", "Nombre_album", "Autor"};
+        String condicion3 = "";
+        so = new Sockets();
+        in = so.getIn();
+        out = so.getOut();
+        s = so.getS();
         try {
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -76,18 +77,18 @@ int iden=0;
             out.writeObject(tabla3);
             out.writeObject(campo3);
             out.writeObject(condicion3);
-            albun=(ArrayList<String[]>)in.readObject();
+            albun = (ArrayList<String[]>) in.readObject();
             for (int i = 0; i < albun.size(); i++) {
-                dfm_al.add(i, ((String)((String[])(albun.get(i)))[0])+"\n -"+((String)((String[])(albun.get(i)))[1])+" del autor "+((String)((String[])(albun.get(i)))[2]));
+                dfm_al.add(i, ((String) ((String[]) (albun.get(i)))[0]) + "\n -" + ((String) ((String[]) (albun.get(i)))[1]) + " del autor " + ((String) ((String[]) (albun.get(i)))[2]));
             }
             list_album.setModel(dfm_al);
             list_album.updateUI();
-            if(albun.size()==0){
+            if (albun.size() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay canciones");
                 //IR ATRAS
             }
-        }catch(Exception ex){
-            
+        } catch (Exception ex) {
+
         }
     }
 
@@ -110,6 +111,11 @@ int iden=0;
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        list_album.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                list_albumValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(list_album);
 
         jLabel1.setText("Album");
@@ -168,37 +174,91 @@ int iden=0;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        String nombre_album=list_album.getSelectedValue().substring(0,list_album.getSelectedValue().indexOf("\n")).trim();
-        String nombre_cancion=lis_canciones.getSelectedValue().substring(0,lis_canciones.getSelectedValue().indexOf("\n")).trim();
+
+        String nombre_album = list_album.getSelectedValue().substring(0, list_album.getSelectedValue().indexOf("\n")).trim();
+        String nombre_cancion = lis_canciones.getSelectedValue().substring(0, lis_canciones.getSelectedValue().indexOf("\n")).trim();
         Integer.parseInt(nombre_album);
         Integer.parseInt(nombre_cancion);
-        String tabla="linea_album";
-        String [] campos={"ID_Musica","ID_Album"};
-        String [] insertar={nombre_cancion,nombre_album};
-        if(list_album.getSelectedIndex()!=-1 || lis_canciones.getSelectedIndex()==-1){
-            Sockets so=new Sockets();
-            ObjectInputStream in=so.getIn();
-            ObjectOutputStream out=so.getOut();
-            Socket s=so.getS();
+        String tabla = "linea_album";
+        String[] campos = {"ID_Musica", "ID_Album"};
+        String[] insertar = {nombre_cancion, nombre_album};
+        if (list_album.getSelectedIndex() != -1 || lis_canciones.getSelectedIndex() == -1) {
+            Sockets so = new Sockets();
+            ObjectInputStream in = so.getIn();
+            ObjectOutputStream out = so.getOut();
+            Socket s = so.getS();
 
-            try{
+            try {
                 System.out.println(in.readObject());
                 out.writeObject(0);
                 out.writeObject(tabla);
                 out.writeObject(campos);
                 out.writeObject(insertar);
-            }catch(Exception ex){
+            } catch (Exception ex) {
 
             }
-        
-            CancionesAlbum c=new CancionesAlbum();
+
+            CancionesAlbum c = new CancionesAlbum();
             this.setVisible(false);
             c.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecciona un album y cancion");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void list_albumValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_list_albumValueChanged
+        try {
+            // TODO add your handling code here:
+            dfm_mus = new DefaultListModel();
+            Sockets so = new Sockets();
+            Socket s = so.getS();
+            ObjectInputStream in = so.getIn();
+            ObjectOutputStream out = so.getOut();
+
+            String[] campos = {"ID_Musica"};
+            String condicion = "where ID_Album='" + list_album.getSelectedValue().substring(0, list_album.getSelectedValue().indexOf("\n")).trim() + "'";
+
+            out.writeObject(1);
+            System.out.println(in.readObject());
+            out.writeObject("linea_album");
+            out.writeObject(campos);
+            out.writeObject(condicion);
+            ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+
+            so = new Sockets();
+            s = so.getS();
+            in = so.getIn();
+            out = so.getOut();
+
+            String[] campos2 = {"ID", "Nombre_cancion"};
+            String condicion2 = "";
+            if (!arr.isEmpty()) {
+                condicion2="where ";
+                for (int i = 0; i < arr.size() - 1; i++) {
+                    condicion2 = condicion2 + "ID <> '" + (String) ((String[]) arr.get(i))[0] + "' AND ";
+                }
+                condicion2 = condicion2 + "ID <> '" + (String) ((String[]) arr.get(arr.size() - 1))[0] + "'";
+            }
+
+            out.writeObject(1);
+            System.out.println(in.readObject());
+            out.writeObject("musica");
+            out.writeObject(campos2);
+            out.writeObject(condicion2);
+            ArrayList<String[]> arr2 = (ArrayList<String[]>) in.readObject();
+
+            for (int i = 0; i < arr2.size(); i++) {
+                dfm_mus.add(i, ((String) ((String[]) (arr2.get(i)))[0]) + "\n -" + ((String) ((String[]) (arr2.get(i)))[1]));
+            }
+            lis_canciones.setModel(dfm_mus);
+            list_canciones.updateUI();
+
+        } catch (IOException ex) {
+            Logger.getLogger(CancionesAlbum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CancionesAlbum.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_list_albumValueChanged
 
     /**
      * @param args the command line arguments
