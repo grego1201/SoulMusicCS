@@ -5,22 +5,95 @@
  */
 package magesft.reproductor;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import javazoom.jl.decoder.JavaLayerException;
+import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 /**
  *
  * @author greg
  */
 public class Panel extends javax.swing.JFrame {
-    
+
     static Reproductor rp = new Reproductor();
+    static LinkedList<String> lista = new LinkedList();
+    static int indice = 0;
+
+    Thread t = new Thread() {
+        public void run() {
+            System.out.println("Entro en hilo");
+            System.out.println(t.getState());
+            
+            while (indice<lista.size()) {
+                try {
+                    rp.AbrirFichero(lista.get(indice));
+                    rp.Play();
+                    File f = new File(lista.get(indice));
+                    int m = getDurationWithMp3Spi(f);
+                    System.out.println(m);
+                    Thread.sleep(m);
+                    siguienteCancion();
+                } catch (Exception ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+
+            try {
+                System.out.println("Entro al try");
+                siguienteCancion();
+            } catch (Exception ex) {
+                Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    };
+
+    private static int getDurationWithMp3Spi(File file) throws UnsupportedAudioFileException, IOException {
+
+        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
+        if (fileFormat instanceof TAudioFileFormat) {
+            Map<?, ?> properties = ((TAudioFileFormat) fileFormat).properties();
+            String key = "duration";
+            Long microseconds = (Long) properties.get(key);
+            int mili = (int) (microseconds / 1000);
+            int sec = (mili / 1000) % 60;
+            int min = (mili / 1000) / 60;
+            return mili;
+            //System.out.println("time = " + min + ":" + sec);
+        } else {
+            throw new UnsupportedAudioFileException();
+        }
+
+    }
 
     /**
      * Creates new form Prueba
      */
     public Panel() {
         initComponents();
+    }
+
+    private void siguienteCancion() throws Exception {
+        indice++;
+        if (indice == lista.size()) {
+            indice = 0;
+        }
+    }
+
+    private void anteriorCancion() throws Exception {
+        indice--;
+        if (indice < 0) {
+            indice = lista.size() - 1;
+        }
     }
 
     /**
@@ -32,46 +105,56 @@ public class Panel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        buttonReproducir = new javax.swing.JButton();
+        buttonPausa = new javax.swing.JButton();
+        buttonContinuar = new javax.swing.JButton();
+        buttonParar = new javax.swing.JButton();
+        buttonSiguiente = new javax.swing.JButton();
+        buttonAnterior = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Reproducir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonReproducir.setText("Reproducir");
+        buttonReproducir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonReproducirActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Pausar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonPausa.setText("Pausar");
+        buttonPausa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonPausaActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Continuar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        buttonContinuar.setText("Continuar");
+        buttonContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                buttonContinuarActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Parar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        buttonParar.setText("Parar");
+        buttonParar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                buttonPararActionPerformed(evt);
             }
         });
 
-        jButton6.setText("Siguiente");
+        buttonSiguiente.setText("Siguiente");
+        buttonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSiguienteActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Anterior");
+        buttonAnterior.setText("Anterior");
+        buttonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAnteriorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,77 +162,99 @@ public class Panel extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(120, 120, 120)
-                .addComponent(jButton1)
+                .addComponent(buttonReproducir)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton4)
-                    .addComponent(jButton7))
+                    .addComponent(buttonParar)
+                    .addComponent(buttonAnterior))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(buttonPausa)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(buttonContinuar))
+                    .addComponent(buttonSiguiente, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(102, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(buttonReproducir)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(buttonParar)
+                    .addComponent(buttonPausa)
+                    .addComponent(buttonContinuar))
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton7))
+                    .addComponent(buttonSiguiente)
+                    .addComponent(buttonAnterior))
                 .addGap(66, 66, 66))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonReproducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReproducirActionPerformed
         try {
             // TODO add your handling code here:
             rp.Play();
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonReproducirActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void buttonPausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPausaActionPerformed
         try {
             // TODO add your handling code here:
             rp.Pausa();
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_buttonPausaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void buttonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonContinuarActionPerformed
         try {
             // TODO add your handling code here:
-            rp.Continuar();
+            //rp.Continuar();
+            t.start();
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_buttonContinuarActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void buttonPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPararActionPerformed
         try {
             // TODO add your handling code here:
             rp.Stop();
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_buttonPararActionPerformed
+
+    private void buttonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSiguienteActionPerformed
+        // TODO add your handling code here:
+        try {
+            siguienteCancion();
+            t.interrupt();
+            t.resume();
+        } catch (Exception ex) {
+            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonSiguienteActionPerformed
+
+    private void buttonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnteriorActionPerformed
+        try {
+            anteriorCancion();
+            t.interrupt();
+            t.resume();
+        } catch (Exception ex) {
+            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buttonAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,17 +287,37 @@ public class Panel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                lista.add("1.mp3");
+                lista.add("2.mp3");
+                lista.add("3.mp3");
+                lista.add("4.mp3");
+
+                File f = new File("4.mp3");
+                try {
+                    getDurationWithMp3Spi(f);
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                System.out.println(lista.size());
+                try {
+                    rp.AbrirFichero(lista.get(indice));
+                } catch (Exception ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new Panel().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton buttonAnterior;
+    private javax.swing.JButton buttonContinuar;
+    private javax.swing.JButton buttonParar;
+    private javax.swing.JButton buttonPausa;
+    private javax.swing.JButton buttonReproducir;
+    private javax.swing.JButton buttonSiguiente;
     // End of variables declaration//GEN-END:variables
 }
