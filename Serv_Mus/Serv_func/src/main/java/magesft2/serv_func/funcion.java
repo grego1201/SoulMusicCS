@@ -45,7 +45,7 @@ public class funcion {
                     switch((int)in.readObject()){
                         case 0: insertar(in); break; 
                         case 1: consulta(in,out); break;
-                        
+                        case 2: modificar(in); break;
                     }
 
                 } finally {
@@ -68,6 +68,17 @@ public class funcion {
         String[] v_insertar = (String[]) in.readObject();
         Conexion_BBDD c = new Conexion_BBDD();
         c.insertar(tabla, valores, v_insertar);
+        
+    }
+    
+    public void modificar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+        
+        String tabla = (String) in.readObject();
+        String[] valores = (String[]) in.readObject();
+        String[] v_insertar = (String[]) in.readObject();
+        String condicion = (String) in.readObject();
+        Conexion_BBDD c = new Conexion_BBDD();
+        c.update(tabla, valores, v_insertar,condicion);
         
     }
     
