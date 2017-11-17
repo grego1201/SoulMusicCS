@@ -5,9 +5,11 @@
  */
 package magesft.reproductor;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.ImageIcon;
 import javazoom.jl.decoder.JavaLayerException;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
@@ -81,6 +84,11 @@ public class Panel extends javax.swing.JFrame {
     public Panel() {
         initComponents();
     }
+    
+    public Panel(LinkedList<String> arr) {
+        initComponents();
+        this.lista=arr;
+    }
 
     private void siguienteCancion() throws Exception {
         indice++;
@@ -114,42 +122,42 @@ public class Panel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        buttonReproducir.setText("Reproducir");
+        buttonReproducir.setText("|>");
         buttonReproducir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonReproducirActionPerformed(evt);
             }
         });
 
-        buttonPausa.setText("Pausar");
+        buttonPausa.setText("| |");
         buttonPausa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPausaActionPerformed(evt);
             }
         });
 
-        buttonContinuar.setText("Continuar");
+        buttonContinuar.setText("||>");
         buttonContinuar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonContinuarActionPerformed(evt);
             }
         });
 
-        buttonParar.setText("Parar");
+        buttonParar.setText("|_|");
         buttonParar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPararActionPerformed(evt);
             }
         });
 
-        buttonSiguiente.setText("Siguiente");
+        buttonSiguiente.setText(">");
         buttonSiguiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSiguienteActionPerformed(evt);
             }
         });
 
-        buttonAnterior.setText("Anterior");
+        buttonAnterior.setText("<");
         buttonAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAnteriorActionPerformed(evt);
@@ -161,38 +169,39 @@ public class Panel extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(120, 120, 120)
-                .addComponent(buttonReproducir)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonParar)
-                    .addComponent(buttonAnterior))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(buttonParar)
+                        .addGap(51, 51, 51)
                         .addComponent(buttonPausa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(51, 51, 51)
                         .addComponent(buttonContinuar))
-                    .addComponent(buttonSiguiente, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(102, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(buttonAnterior)
+                        .addGap(80, 80, 80)
+                        .addComponent(buttonSiguiente))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(buttonReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(buttonReproducir)
-                .addGap(28, 28, 28)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(buttonReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonParar)
                     .addComponent(buttonPausa)
+                    .addComponent(buttonParar)
                     .addComponent(buttonContinuar))
-                .addGap(40, 40, 40)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonSiguiente)
-                    .addComponent(buttonAnterior))
-                .addGap(66, 66, 66))
+                    .addComponent(buttonAnterior)
+                    .addComponent(buttonSiguiente))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         pack();
@@ -287,12 +296,9 @@ public class Panel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                lista.add("1.mp3");
-                lista.add("2.mp3");
-                lista.add("3.mp3");
-                lista.add("4.mp3");
+                
 
-                File f = new File("4.mp3");
+                File f = new File(lista.get(0));
                 try {
                     getDurationWithMp3Spi(f);
                 } catch (UnsupportedAudioFileException ex) {
