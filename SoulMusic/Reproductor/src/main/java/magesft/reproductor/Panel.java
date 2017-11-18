@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.logging.Level;
@@ -30,21 +31,44 @@ public class Panel extends javax.swing.JFrame {
     static Reproductor rp = new Reproductor();
     static LinkedList<String> lista = new LinkedList();
     static int indice = 0;
+    boolean pausado = false;
+    boolean continuar = false;
+    long tInicio = 0;
+    long tPausa = 0;
+    long restante = 0;
+    Calendar cal = Calendar.getInstance();
 
     Thread t = new Thread() {
         public void run() {
             System.out.println("Entro en hilo");
             System.out.println(t.getState());
-            
-            while (indice<lista.size()) {
+
+            while (indice < lista.size()) {
                 try {
-                    rp.AbrirFichero(lista.get(indice));
-                    rp.Play();
                     File f = new File(lista.get(indice));
                     int m = getDurationWithMp3Spi(f);
-                    System.out.println(m);
-                    Thread.sleep(m);
-                    siguienteCancion();
+                    if (continuar) {
+                        rp.Continuar();
+                        Thread.sleep(m-(tInicio-tPausa));
+                        System.out.println("Reproduciendo: " + indice);
+                        System.out.println("tiempo espera: " + m);
+                        continuar=false;
+                        siguienteCancion();
+
+                    } else if (pausado){
+                        
+                    }else {
+                        tInicio = cal.getTimeInMillis();
+                        rp.AbrirFichero(lista.get(indice));
+                        labelCancion.setText(lista.get(indice));
+                        rp.Play();
+                        System.out.println("Reproduciendo: " + indice);
+                        System.out.println("tiempo espera: " + m);
+                        Thread.sleep(m);
+                        siguienteCancion();
+                    }
+
+                    
                 } catch (Exception ex) {
                     Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -84,10 +108,10 @@ public class Panel extends javax.swing.JFrame {
     public Panel() {
         initComponents();
     }
-    
+
     public Panel(LinkedList<String> arr) {
         initComponents();
-        this.lista=arr;
+        this.lista = arr;
     }
 
     private void siguienteCancion() throws Exception {
@@ -95,6 +119,8 @@ public class Panel extends javax.swing.JFrame {
         if (indice == lista.size()) {
             indice = 0;
         }
+        System.out.println("Indice: " + indice);
+
     }
 
     private void anteriorCancion() throws Exception {
@@ -102,6 +128,7 @@ public class Panel extends javax.swing.JFrame {
         if (indice < 0) {
             indice = lista.size() - 1;
         }
+        System.out.println("Indice: " + indice);
     }
 
     /**
@@ -119,6 +146,7 @@ public class Panel extends javax.swing.JFrame {
         buttonParar = new javax.swing.JButton();
         buttonSiguiente = new javax.swing.JButton();
         buttonAnterior = new javax.swing.JButton();
+        labelCancion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -164,6 +192,8 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
+        labelCancion.setText("Cancion");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -171,20 +201,23 @@ public class Panel extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(buttonParar)
-                        .addGap(51, 51, 51)
-                        .addComponent(buttonPausa)
-                        .addGap(51, 51, 51)
-                        .addComponent(buttonContinuar))
+                        .addGap(148, 148, 148)
+                        .addComponent(buttonReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(104, 104, 104)
                         .addComponent(buttonAnterior)
                         .addGap(80, 80, 80)
                         .addComponent(buttonSiguiente))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(buttonReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(57, 57, 57)
+                        .addComponent(buttonParar)
+                        .addGap(51, 51, 51)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelCancion)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonPausa)
+                                .addGap(51, 51, 51)
+                                .addComponent(buttonContinuar)))))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -201,8 +234,13 @@ public class Panel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAnterior)
                     .addComponent(buttonSiguiente))
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(labelCancion)
+                .addGap(30, 30, 30))
         );
+
+        labelCancion.getAccessibleContext().setAccessibleName("labelCancion");
+        labelCancion.getAccessibleContext().setAccessibleDescription("labelCancion");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -210,7 +248,12 @@ public class Panel extends javax.swing.JFrame {
     private void buttonReproducirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReproducirActionPerformed
         try {
             // TODO add your handling code here:
-            rp.Play();
+            pausado = false;
+            continuar = false;
+            if (t.getState() == Thread.State.RUNNABLE) t.resume();
+            else t.start();
+            /*System.out.println(t.getState());
+            t.start();*/
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -219,7 +262,12 @@ public class Panel extends javax.swing.JFrame {
     private void buttonPausaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPausaActionPerformed
         try {
             // TODO add your handling code here:
+            pausado = true;
+            continuar = false;
+            tPausa = cal.getTimeInMillis();
+            
             rp.Pausa();
+            t.interrupt();
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -229,7 +277,10 @@ public class Panel extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             //rp.Continuar();
-            t.start();
+            pausado = false;
+            continuar = true;
+            t.resume();
+            rp.Continuar();
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -238,7 +289,11 @@ public class Panel extends javax.swing.JFrame {
     private void buttonPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPararActionPerformed
         try {
             // TODO add your handling code here:
+            pausado = true;
+            continuar = false;
+            t.interrupt();
             rp.Stop();
+            System.out.println(t.getState());
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -248,6 +303,7 @@ public class Panel extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             siguienteCancion();
+            System.out.println(t.getState());
             t.interrupt();
             t.resume();
         } catch (Exception ex) {
@@ -296,16 +352,25 @@ public class Panel extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+
+                lista.add("1.mp3");
+                lista.add("2.mp3");
+                lista.add("3.mp3");
+                lista.add("4.mp3");
+                
                 
 
-                File f = new File(lista.get(0));
+                File f = new File("1.mp3");
+                int m=0;
                 try {
-                    getDurationWithMp3Spi(f);
+                    m = getDurationWithMp3Spi(f);
+                    System.out.println(m);
                 } catch (UnsupportedAudioFileException ex) {
                     Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
 
                 System.out.println(lista.size());
                 try {
@@ -325,5 +390,6 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JButton buttonPausa;
     private javax.swing.JButton buttonReproducir;
     private javax.swing.JButton buttonSiguiente;
+    private javax.swing.JLabel labelCancion;
     // End of variables declaration//GEN-END:variables
 }
