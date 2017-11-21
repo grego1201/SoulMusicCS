@@ -14,6 +14,8 @@
         <module>Reproductor</module>
         <module>BuscarCanciones</module>
         <module>Clases</module>
+        <module>EliminarCanciones</module>
+        <module>EliminarUsuario</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

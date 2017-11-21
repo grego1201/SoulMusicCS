@@ -61,7 +61,7 @@ public class Panel extends javax.swing.JFrame {
                     }else {
                         tInicio = cal.getTimeInMillis();
                         rp.AbrirFichero(lista.get(indice).getEnlace());
-                        labelCancion.setText(lista.get(indice).getEnlace());
+                        labelCancion.setText(lista.get(indice).getNombre());
                         rp.Play();
                         System.out.println("Reproduciendo: " + indice);
                         System.out.println("tiempo espera: " + m);
@@ -376,12 +376,6 @@ public class Panel extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                /*lista.add("1.mp3");
-                lista.add("2.mp3");
-                lista.add("3.mp3");
-                lista.add("4.mp3");*/
-                
-                
                 
                 
             }

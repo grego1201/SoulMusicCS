@@ -46,6 +46,7 @@ public class funcion {
                         case 0: insertar(in); break; 
                         case 1: consulta(in,out); break;
                         case 2: modificar(in); break;
+                        case 3: eliminar(in); break;
                     }
 
                 } finally {
@@ -91,4 +92,14 @@ public class funcion {
         out.writeObject(c.consulta(tabla, campos, condicion));
         
     }
+    
+    public void eliminar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+        
+        String tabla = (String) in.readObject();
+        String condicion = (String) in.readObject();
+        Conexion_BBDD c = new Conexion_BBDD();
+        c.delete(tabla,condicion);
+        
+    }
+    
 }

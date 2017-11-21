@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magesft.crearusuario;
+package magesft.clases;
 
 /**
  *
@@ -52,4 +52,11 @@ public class Usuario {
     public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
+
+    @Override
+    public String toString() {
+        return "usuario=" + usuario + ", contrasenia=" + contrasenia + ", correo=" + correo + ", saldo=" + saldo ;
+    }
+    
+    
 }

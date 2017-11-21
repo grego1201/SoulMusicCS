@@ -6,9 +6,14 @@
         <artifactId>SoulMusic</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>CrearUsuario</artifactId>
+    <artifactId>EliminarUsuario</artifactId>
     <packaging>jar</packaging>
     <dependencies>
+        <dependency>
+            <groupId>MaGeSft2</groupId>
+            <artifactId>Conectar</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Sockets</artifactId>
