@@ -207,6 +207,7 @@ public class CrearMusica extends javax.swing.JFrame {
         String enlace=l_enlace.getText();
         String precio=l_precio.getText();
         
+        
         String tabla="musica";
         String [] campos={"Nombre_cancion","Autor","ID","Duracion","enlace","precio"};
         String [] insertar={nombre,autor,iden,duracion,enlace,precio};
@@ -228,8 +229,9 @@ public class CrearMusica extends javax.swing.JFrame {
         
             try {
                 CrearMusica c=new CrearMusica();
-                this.setVisible(false);
+                
                 c.setVisible(true);
+                this.setVisible(false);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(CrearMusica.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

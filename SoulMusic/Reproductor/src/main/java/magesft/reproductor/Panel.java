@@ -20,6 +20,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javazoom.jl.decoder.JavaLayerException;
+import magesft.clases.Musica;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
 
 /**
@@ -29,7 +30,7 @@ import org.tritonus.share.sampled.file.TAudioFileFormat;
 public class Panel extends javax.swing.JFrame {
 
     static Reproductor rp = new Reproductor();
-    static LinkedList<String> lista = new LinkedList();
+    static LinkedList<Musica> lista = new LinkedList();
     static int indice = 0;
     boolean pausado = false;
     boolean continuar = false;
@@ -45,7 +46,7 @@ public class Panel extends javax.swing.JFrame {
 
             while (indice < lista.size()) {
                 try {
-                    File f = new File(lista.get(indice));
+                    File f = new File(lista.get(indice).getEnlace());
                     int m = getDurationWithMp3Spi(f);
                     if (continuar) {
                         rp.Continuar();
@@ -59,8 +60,8 @@ public class Panel extends javax.swing.JFrame {
                         
                     }else {
                         tInicio = cal.getTimeInMillis();
-                        rp.AbrirFichero(lista.get(indice));
-                        labelCancion.setText(lista.get(indice));
+                        rp.AbrirFichero(lista.get(indice).getEnlace());
+                        labelCancion.setText(lista.get(indice).getEnlace());
                         rp.Play();
                         System.out.println("Reproduciendo: " + indice);
                         System.out.println("tiempo espera: " + m);
@@ -109,9 +110,31 @@ public class Panel extends javax.swing.JFrame {
         initComponents();
     }
 
-    public Panel(LinkedList<String> arr) {
+    
+
+    public Panel(LinkedList l_musica) {
         initComponents();
-        this.lista = arr;
+        lista=(LinkedList<Musica>)l_musica;
+        labelCancion.setText(lista.getFirst().getNombre());
+        File f = new File(lista.getFirst().getEnlace());
+                int m=0;
+                try {
+                    m = getDurationWithMp3Spi(f);
+                    System.out.println(m);
+                } catch (UnsupportedAudioFileException ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+
+                System.out.println(lista.size());
+                try {
+                    rp.AbrirFichero(lista.get(indice).getEnlace());
+                } catch (Exception ex) {
+                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
     }
 
     private void siguienteCancion() throws Exception {
@@ -348,37 +371,19 @@ public class Panel extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                lista.add("1.mp3");
+                /*lista.add("1.mp3");
                 lista.add("2.mp3");
                 lista.add("3.mp3");
-                lista.add("4.mp3");
+                lista.add("4.mp3");*/
                 
                 
-
-                File f = new File("1.mp3");
-                int m=0;
-                try {
-                    m = getDurationWithMp3Spi(f);
-                    System.out.println(m);
-                } catch (UnsupportedAudioFileException ex) {
-                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex) {
-                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-                }
                 
-
-                System.out.println(lista.size());
-                try {
-                    rp.AbrirFichero(lista.get(indice));
-                } catch (Exception ex) {
-                    Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                new Panel().setVisible(true);
+                
             }
         });
     }

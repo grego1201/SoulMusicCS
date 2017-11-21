@@ -12,6 +12,8 @@
         <module>Sockets</module>
         <module>CrearArtistas</module>
         <module>Reproductor</module>
+        <module>BuscarCanciones</module>
+        <module>Clases</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
