@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import magesft.clases.Usuario;
 import magesft.sockets.Sockets;
 
@@ -25,10 +26,12 @@ import magesft.sockets.Sockets;
 public class EliminarUsuario extends javax.swing.JFrame {
 DefaultListModel<Usuario> dfm;
 LinkedList<Usuario> l_user;
+JFrame jf;
     /**
      * Creates new form EliminarUsuario
      */
-    public EliminarUsuario() {
+    public EliminarUsuario(JFrame jf) {
+        this.jf=jf;
         try {
             initComponents();
             Sockets so=new Sockets();
@@ -37,7 +40,7 @@ LinkedList<Usuario> l_user;
             Socket s=so.getS();
             ObjectInputStream in=so.getIn();
             ObjectOutputStream out=so.getOut();
-            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo"};
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo","rol"};
             
             System.out.println(in.readObject());
             out.writeObject(1);
@@ -46,7 +49,7 @@ LinkedList<Usuario> l_user;
             out.writeObject("");
             ArrayList<String[]> arr=(ArrayList<String[]>) in.readObject();
             for (int i = 0; i < arr.size(); i++) {
-                Usuario u=new Usuario(((String[])arr.get(i))[0], ((String[])arr.get(i))[1], ((String[])arr.get(i))[2]);
+                Usuario u=new Usuario(((String[])arr.get(i))[0],(String[])arr.get(i))[1],(String[])arr.get(i))[2],(String[])arr.get(i))[3],Integer.parseInt((String[])arr.get(i))[4]));
                 l_user.add(u);
                 dfm.add(i, u);
             }
@@ -71,6 +74,7 @@ LinkedList<Usuario> l_user;
         lista_user = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        Btnatras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,6 +86,13 @@ LinkedList<Usuario> l_user;
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        Btnatras.setText("Atrás");
+        Btnatras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnatrasActionPerformed(evt);
             }
         });
 
@@ -97,13 +108,14 @@ LinkedList<Usuario> l_user;
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 178, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(180, 180, 180))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(190, 190, 190))))))
+                        .addComponent(jLabel1)
+                        .addGap(180, 180, 180))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(Btnatras)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(190, 190, 190))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,7 +125,9 @@ LinkedList<Usuario> l_user;
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(Btnatras))
                 .addContainerGap())
         );
 
@@ -138,48 +152,24 @@ LinkedList<Usuario> l_user;
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(EliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
     }
-    EliminarUsuario el=new EliminarUsuario();
+    EliminarUsuario el=new EliminarUsuario(this);
     this.setVisible(false);
     el.setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void BtnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnatrasActionPerformed
+        jf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BtnatrasActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EliminarUsuario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btnatras;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -3,20 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magesft.crearusuario;
+package magesft.cliente;
+
+import javax.swing.JFrame;
+import magesft.crearusuario.CrearUsuario;
+import magesft2.loginusuario.LoginUsuario;
 
 /**
  *
  * @author 9alej COMENTARIO DE PRUEBA PARA USAR GITCRACKER
  */
 public class Inicio extends javax.swing.JFrame {
-
+JFrame jf, jfMn;
     /**
      * Creates new form CrearUsuario
      */
     public Inicio() {
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+    public Inicio(JFrame jf) {
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.jf=jf;
     }
 
     /**
@@ -49,6 +58,11 @@ public class Inicio extends javax.swing.JFrame {
         });
 
         btnLogin.setText("Login");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("Salir");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +114,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
         // TODO add your handling code here:
-        CrearUsuario l = new CrearUsuario();
+        CrearUsuario l = new CrearUsuario(this);
         l.setVisible(true);
         this.setVisible(false);
         
@@ -110,6 +124,14 @@ public class Inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        jfMn = new MenuUsuario();
+        LoginUsuario n=new LoginUsuario(this, jfMn);
+        n.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments

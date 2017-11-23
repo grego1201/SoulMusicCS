@@ -13,8 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import magesft.crearusuario.Inicio;
 import magesft.sockets.Sockets;
 
 /**
@@ -22,14 +22,19 @@ import magesft.sockets.Sockets;
  * @author Gonzalo
  */
 public class LoginUsuario extends javax.swing.JFrame {
-
+    JFrame jf, jfMn;
     /**
      * Creates new form LoginUsuario
      */
-    public LoginUsuario() {
+    public LoginUsuario(JFrame jf, JFrame jfMn) {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.jf=jf;
+        this.jfMn=jfMn;
 
+    }
+    public LoginUsuario() {
+        initComponents();
     }
 
     /**
@@ -155,6 +160,8 @@ public class LoginUsuario extends javax.swing.JFrame {
                 out.close();
                 in.close();
                 s.close();
+                jfMn.setVisible(true);
+                this.setVisible(false);
             } catch (IOException ex) {
                 Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -166,6 +173,8 @@ public class LoginUsuario extends javax.swing.JFrame {
         /*Inicio i = new Inicio(); //Importar desde el modulo crear usuario el JFrame Inicio
         i.setVisible(true);
         this.setVisible(false);*/
+        jf.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     /**

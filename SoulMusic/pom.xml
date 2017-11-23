@@ -16,6 +16,7 @@
         <module>Clases</module>
         <module>EliminarCanciones</module>
         <module>EliminarUsuario</module>
+        <module>Cliente</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

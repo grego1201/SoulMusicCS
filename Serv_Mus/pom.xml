@@ -8,6 +8,9 @@
     <modules>
         <module>Conectar</module>
         <module>Serv_func</module>
+        <module>Servidor</module>
+        <module>CrearUsuario</module>
+        <module>Mensajes</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -14,6 +14,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import magesft.clases.Musica;
 import magesft.reproductor.Panel;
@@ -26,10 +27,12 @@ import magesft.sockets.Sockets;
 public class BuscarCanciones extends javax.swing.JFrame {
     DefaultListModel<Musica> dfm;
     LinkedList<Musica> l_musica;
+    JFrame jf;
     /**
      * Creates new form BuscarCanciones
      */
-    public BuscarCanciones() {
+    public BuscarCanciones(JFrame jf) {
+        this.jf=jf;
         try {
             initComponents();
             dfm=new DefaultListModel<>();
@@ -97,6 +100,7 @@ public class BuscarCanciones extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         list_musica = new javax.swing.JList<>();
         jButton2 = new javax.swing.JButton();
+        Btnatras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,6 +132,13 @@ public class BuscarCanciones extends javax.swing.JFrame {
             }
         });
 
+        Btnatras.setText("Atrás");
+        Btnatras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnatrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,13 +161,15 @@ public class BuscarCanciones extends javax.swing.JFrame {
                             .addComponent(c_album, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(l_titulo)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
+                        .addContainerGap()
+                        .addComponent(Btnatras)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(44, 44, 44)
                         .addComponent(jButton2)))
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +193,8 @@ public class BuscarCanciones extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton2)))
+                            .addComponent(jButton2)
+                            .addComponent(Btnatras)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 20, Short.MAX_VALUE)))
@@ -302,47 +316,22 @@ public class BuscarCanciones extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        Panel p=new Panel(l_musica);
+        Panel p=new Panel(l_musica,this);
         p.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void BtnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnatrasActionPerformed
+        jf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BtnatrasActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BuscarCanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BuscarCanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BuscarCanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BuscarCanciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new BuscarCanciones().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btnatras;
     private javax.swing.JComboBox<String> c_album;
     private javax.swing.JComboBox<String> c_artistas;
     private javax.swing.JButton jButton1;

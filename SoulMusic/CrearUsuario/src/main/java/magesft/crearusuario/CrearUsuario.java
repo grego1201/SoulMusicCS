@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import magesft.sockets.Sockets;
 
 /**
@@ -21,13 +22,17 @@ import magesft.sockets.Sockets;
  * @author 9alej
  */
 public class CrearUsuario extends javax.swing.JFrame {
-
+    JFrame jf;
     /**
      * Creates new form CrearUsuario
      */
-    public CrearUsuario() {
+    public CrearUsuario(JFrame jf) {
         initComponents();
         lblError.setText("");
+        this.jf=jf;
+    }
+    public CrearUsuario() {
+        initComponents();
     }
 
     /**
@@ -141,10 +146,11 @@ public class CrearUsuario extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegistrarte)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAtras)
-                    .addComponent(jButton1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnRegistrarte)
+                        .addComponent(jButton1)))
                 .addGap(21, 21, 21)
                 .addComponent(lblError)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -155,7 +161,7 @@ public class CrearUsuario extends javax.swing.JFrame {
 
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
         // TODO add your handling code here:
-        u = new Usuario(txtUsuario.getText(), txtContraseña.getText(), txtCorreo.getText());
+        u = new Usuario(txtUsuario.getText(), txtContraseña.getText(), txtCorreo.getText(),0);
 
         Sockets so = new Sockets();
         ObjectInputStream in = so.getIn();
@@ -190,9 +196,7 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarteActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        // TODO add your handling code here:
-        Inicio i = new Inicio();
-        i.setVisible(true);
+        jf.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
@@ -221,7 +225,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         
         
         
-        u = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com");
+        u = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com",0);
 
         so = new Sockets();
         in = so.getIn();

@@ -13,12 +13,14 @@ public class Usuario {
     
     private String usuario, contrasenia, correo;
     private float saldo;
+    private int rol;
     
-    public Usuario(String usuario, String contrasenia, String correo) {
+    public Usuario(String usuario, String contrasenia, String correo,int rol) {
         this.usuario = usuario;
         this.contrasenia = contrasenia;
         this.correo = correo;
         this.saldo = 0;
+        this.rol=rol;
     }
 
     public String getUsuario() {
@@ -51,6 +53,10 @@ public class Usuario {
 
     public void setSaldo(float saldo) {
         this.saldo = saldo;
+    }
+    
+    public float getRol() {
+        return rol;
     }
 
     @Override

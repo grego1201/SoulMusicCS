@@ -19,6 +19,7 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javazoom.jl.decoder.JavaLayerException;
 import magesft.clases.Musica;
 import org.tritonus.share.sampled.file.TAudioFileFormat;
@@ -38,6 +39,7 @@ public class Panel extends javax.swing.JFrame {
     long tPausa = 0;
     long restante = 0;
     Calendar cal = Calendar.getInstance();
+    JFrame jf;
 
     Thread t = new Thread() {
         public void run() {
@@ -106,14 +108,13 @@ public class Panel extends javax.swing.JFrame {
     /**
      * Creates new form Prueba
      */
-    public Panel() {
-        initComponents();
-    }
 
+ 
     
 
-    public Panel(LinkedList l_musica) {
+    public Panel(LinkedList l_musica,JFrame jf) {
         initComponents();
+        this.jf=jf;
         lista=(LinkedList<Musica>)l_musica;
         labelCancion.setText(lista.getFirst().getNombre());
         File f = new File(lista.getFirst().getEnlace());
@@ -170,6 +171,7 @@ public class Panel extends javax.swing.JFrame {
         buttonSiguiente = new javax.swing.JButton();
         buttonAnterior = new javax.swing.JButton();
         labelCancion = new javax.swing.JLabel();
+        Btnatras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,6 +219,13 @@ public class Panel extends javax.swing.JFrame {
 
         labelCancion.setText("Cancion");
 
+        Btnatras.setText("Atrás");
+        Btnatras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnatrasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -232,8 +241,13 @@ public class Panel extends javax.swing.JFrame {
                         .addGap(80, 80, 80)
                         .addComponent(buttonSiguiente))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(57, 57, 57)
-                        .addComponent(buttonParar)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(57, 57, 57)
+                                .addComponent(buttonParar))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(Btnatras)))
                         .addGap(51, 51, 51)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelCancion)
@@ -257,9 +271,11 @@ public class Panel extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAnterior)
                     .addComponent(buttonSiguiente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(labelCancion)
-                .addGap(30, 30, 30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelCancion)
+                    .addComponent(Btnatras))
+                .addGap(25, 25, 25))
         );
 
         labelCancion.getAccessibleContext().setAccessibleName("labelCancion");
@@ -344,6 +360,11 @@ public class Panel extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonAnteriorActionPerformed
 
+    private void BtnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnatrasActionPerformed
+        jf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BtnatrasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -383,6 +404,7 @@ public class Panel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btnatras;
     private javax.swing.JButton buttonAnterior;
     private javax.swing.JButton buttonContinuar;
     private javax.swing.JButton buttonParar;
@@ -391,4 +413,5 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JButton buttonSiguiente;
     private javax.swing.JLabel labelCancion;
     // End of variables declaration//GEN-END:variables
+
 }
