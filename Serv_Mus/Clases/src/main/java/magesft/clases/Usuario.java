@@ -22,6 +22,13 @@ public class Usuario {
         this.saldo = 0;
         this.rol=rol;
     }
+    public Usuario(String usuario, String contrasenia, String correo,float saldo,int rol) {
+        this.usuario = usuario;
+        this.contrasenia = contrasenia;
+        this.correo = correo;
+        this.saldo = saldo;
+        this.rol=rol;
+    }
 
     public String getUsuario() {
         return usuario;

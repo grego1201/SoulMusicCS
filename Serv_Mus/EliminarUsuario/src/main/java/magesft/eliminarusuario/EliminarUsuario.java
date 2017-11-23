@@ -49,7 +49,8 @@ JFrame jf;
             out.writeObject("");
             ArrayList<String[]> arr=(ArrayList<String[]>) in.readObject();
             for (int i = 0; i < arr.size(); i++) {
-                Usuario u=new Usuario(((String[])arr.get(i))[0],(String[])arr.get(i))[1],(String[])arr.get(i))[2],(String[])arr.get(i))[3],Integer.parseInt((String[])arr.get(i))[4]));
+                
+                Usuario u = new Usuario(((String[])arr.get(i))[0], ((String[])arr.get(i))[1], ((String[])arr.get(i))[2], Float.parseFloat(((String[])arr.get(i))[3]), Integer.parseInt(((String[])arr.get(i))[4]));
                 l_user.add(u);
                 dfm.add(i, u);
             }
@@ -152,7 +153,7 @@ JFrame jf;
     } catch (ClassNotFoundException ex) {
         Logger.getLogger(EliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
     }
-    EliminarUsuario el=new EliminarUsuario(this);
+    EliminarUsuario el=new EliminarUsuario(jf);
     this.setVisible(false);
     el.setVisible(true);
         

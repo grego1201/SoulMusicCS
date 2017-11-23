@@ -6,7 +6,7 @@
 package magesft.cliente;
 
 import javax.swing.JFrame;
-import magesft.crearusuario.CrearUsuario;
+import magesft2.crearusuario.CrearUsuario;
 import magesft2.loginusuario.LoginUsuario;
 
 /**
@@ -114,9 +114,9 @@ JFrame jf, jfMn;
 
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
         // TODO add your handling code here:
-        CrearUsuario l = new CrearUsuario(this);
-        l.setVisible(true);
-        this.setVisible(false);
+       CrearUsuario c=new CrearUsuario(this, 0);
+       c.setVisible(true);
+       this.setVisible(false);
         
     }//GEN-LAST:event_btnRegistrarteActionPerformed
 

@@ -11,7 +11,6 @@ import javax.swing.JFrame;
 import magesft.buscarcanciones.BuscarCanciones;
 import magesft.eliminarusuario.EliminarUsuario;
 import magesft.reproductor.Reproductor;
-import magesft.enviarmensajes.BuzonDeEntrada;
 
 /**
  *
@@ -103,9 +102,7 @@ public class MenuUsuario extends javax.swing.JFrame {
 
     private void bntBEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBEntradaActionPerformed
         // TODO add your handling code here:
-        BuzonDeEntrada b = new BuzonDeEntrada();
-        this.setVisible(false);
-        b.setVisible(true);
+        
     }//GEN-LAST:event_bntBEntradaActionPerformed
 
     private void BtneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtneliminarActionPerformed

@@ -5,10 +5,15 @@
  */
 package magesft2.crearusuario;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import jdk.net.Sockets;
 import magesft.clases.Usuario;
 import magesft2.conectar.Conexion_BBDD;
 
@@ -17,16 +22,20 @@ import magesft2.conectar.Conexion_BBDD;
  * @author ivan
  */
 public class CrearUsuario extends javax.swing.JFrame {
-
+int rol_padre;
     /**
      * Creates new form CrearUsuario
      */
     public CrearUsuario() {
         initComponents();
     }
-    public CrearUsuario(JFrame fr) {
+    public CrearUsuario(JFrame fr, int rol_padre) {
         initComponents();
         this.fr = fr;
+        this.rol_padre=rol_padre;
+        if(rol_padre==0){
+            cmbRol.setEnabled(false);
+        }
     }
 
     /**
@@ -50,6 +59,7 @@ public class CrearUsuario extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         cmbRol = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,29 +92,26 @@ public class CrearUsuario extends javax.swing.JFrame {
 
         jLabel5.setText("Rol Usuario :");
 
+        jButton1.setText("Registar automatica");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblError)))
+                .addContainerGap()
+                .addComponent(lblError)
                 .addContainerGap(61, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(btnRegistrarte, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -119,8 +126,18 @@ public class CrearUsuario extends javax.swing.JFrame {
                             .addComponent(txtContraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
                             .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                            .addComponent(cmbRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                            .addComponent(cmbRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(btnRegistrarte, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton1)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,7 +165,8 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegistrarte)
-                    .addComponent(btnAtras))
+                    .addComponent(btnAtras)
+                    .addComponent(jButton1))
                 .addGap(18, 18, 18)
                 .addComponent(lblError)
                 .addContainerGap())
@@ -159,11 +177,12 @@ public class CrearUsuario extends javax.swing.JFrame {
 
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
         // TODO add your handling code here:
+        
         u = new Usuario(txtUsuario.getText(), txtContraseña.getText(), txtCorreo.getText(), cmbRol.getSelectedIndex());
         try { 
             String rol = String.valueOf(u.getRol());
             c = new Conexion_BBDD();
-            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo"};
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo","rol"};
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), rol};
             c.insertar("usuarios", campos, v_insertar);
             
@@ -178,6 +197,46 @@ public class CrearUsuario extends javax.swing.JFrame {
         fr.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {                                         
+            int iden=0;
+            try {
+                
+                String tabla="usuarios";
+                String [] campo={"Nombre_user"};
+                String condicion="";
+                Conexion_BBDD c=new Conexion_BBDD();
+                iden =((ArrayList<String[]>) c.consulta(tabla, campo, condicion)).size();
+                
+            }catch(Exception ex){
+                
+            }
+            
+            
+            
+            Usuario u = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com",0,cmbRol.getSelectedIndex());
+            
+            Conexion_BBDD c2=new Conexion_BBDD();
+            
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo", "rol"};
+            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()),String.valueOf(u.getRol())};//valores a insertar
+            c2.insertar("usuarios", campos, v_insertar);
+            
+            
+            
+            
+        }catch(ClassNotFoundException ex){
+        Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (SQLException ex) {
+        Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+            
+        
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +277,7 @@ public class CrearUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnRegistrarte;
     private javax.swing.JComboBox<String> cmbRol;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

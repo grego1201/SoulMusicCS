@@ -5,7 +5,6 @@
  */
 package magesft.crearusuario;
 
-import magesft.clases.Usuario;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -15,24 +14,29 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import magesft.sockets.Sockets;
+import jdk.net.Sockets;
+import magesft.clases.Usuario;
+import magesft2.conectar.Conexion_BBDD;
 
 /**
  *
- * @author 9alej
+ * @author ivan
  */
 public class CrearUsuario extends javax.swing.JFrame {
-    JFrame jf;
+int rol_padre;
     /**
      * Creates new form CrearUsuario
      */
-    public CrearUsuario(JFrame jf) {
-        initComponents();
-        lblError.setText("");
-        this.jf=jf;
-    }
     public CrearUsuario() {
         initComponents();
+    }
+    public CrearUsuario(JFrame fr, int rol_padre) {
+        initComponents();
+        this.fr = fr;
+        this.rol_padre=rol_padre;
+        if(rol_padre==0){
+            cmbRol.setEnabled(false);
+        }
     }
 
     /**
@@ -44,27 +48,21 @@ public class CrearUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtContraseña = new javax.swing.JTextField();
-        txtUsuario = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         btnRegistrarte = new javax.swing.JButton();
         lblError = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtContrasenia = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cmbRol = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Usuario :");
-
-        jLabel2.setText("Contraseña :");
-
-        jLabel3.setText("Direccion de correo electronico: ");
-
-        jLabel4.setText("Introduzca los datos :");
 
         btnRegistrarte.setText("Registrarte");
         btnRegistrarte.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +81,19 @@ public class CrearUsuario extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Registro automatico");
+        jLabel1.setText("Usuario :");
+
+        jLabel2.setText("Password: ");
+
+        jLabel3.setText("Direccion de correo electronico: ");
+
+        jLabel4.setText("Introduzca los datos :");
+
+        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Administrador" }));
+
+        jLabel5.setText("Rol Usuario :");
+
+        jButton1.setText("Registar automatica");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -95,36 +105,40 @@ public class CrearUsuario extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblError)
+                .addContainerGap(61, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jLabel4))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(29, 29, 29)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                            .addComponent(cmbRol, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblError)))
+                        .addComponent(btnAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(btnRegistrarte, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(68, 68, 68)
-                        .addComponent(btnAtras)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnRegistrarte)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(27, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(60, 60, 60)
+                .addComponent(jLabel4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,7 +152,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,14 +160,17 @@ public class CrearUsuario extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegistrarte)
                     .addComponent(btnAtras)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnRegistrarte)
-                        .addComponent(jButton1)))
-                .addGap(21, 21, 21)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
                 .addComponent(lblError)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -161,14 +178,14 @@ public class CrearUsuario extends javax.swing.JFrame {
 
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
         // TODO add your handling code here:
-        u = new Usuario(txtUsuario.getText(), txtContraseña.getText(), txtCorreo.getText(),0);
+         u = new Usuario(txtUsuario.getText(), txtContrasenia.getText(), txtCorreo.getText(),0,cmbRol.getSelectedIndex());
 
-        Sockets so = new Sockets();
+        magesft.sockets.Sockets so = new magesft.sockets.Sockets();
         ObjectInputStream in = so.getIn();
         ObjectOutputStream out = so.getOut();
         Socket s = so.getS();
         try {
-            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo"};
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo", "rol"};
 
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -176,7 +193,7 @@ public class CrearUsuario extends javax.swing.JFrame {
             out.writeObject(0);//opcion insertar
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que insertar
-            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo())};//valores a insertar
+            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,17 +213,16 @@ public class CrearUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarteActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        jf.setVisible(true);
+        fr.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         int iden=0;
         String tabla="usuarios";
         String [] campo={"Nombre_user"};
         String condicion="";
-        Sockets so=new Sockets();
+        magesft.sockets.Sockets so=new magesft.sockets.Sockets();
         ObjectInputStream in= so.getIn();
         ObjectOutputStream out= so.getOut();
         Socket s=so.getS();
@@ -225,14 +241,14 @@ public class CrearUsuario extends javax.swing.JFrame {
         
         
         
-        u = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com",0);
+        u = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com",0,cmbRol.getSelectedIndex());
 
-        so = new Sockets();
+        so = new magesft.sockets.Sockets();
         in = so.getIn();
         out = so.getOut();
         s = so.getS();
         try {
-            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo"};
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo","rol"};
 
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -240,7 +256,7 @@ public class CrearUsuario extends javax.swing.JFrame {
             out.writeObject(0);//opcion insertar
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que insertar
-            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo())};//valores a insertar
+            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -257,6 +273,7 @@ public class CrearUsuario extends javax.swing.JFrame {
                 Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -297,16 +314,19 @@ public class CrearUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnRegistrarte;
+    private javax.swing.JComboBox<String> cmbRol;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblError;
-    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-
     private Usuario u;
+    JFrame fr;
+    private Conexion_BBDD c;
 }

@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>MaGeSft</groupId>
-        <artifactId>SoulMusic</artifactId>
+        <groupId>MaGeSft2</groupId>
+        <artifactId>Serv_Mus</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>CrearMusica</artifactId>
+    <artifactId>EliminarCanciones</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
@@ -16,8 +16,13 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Sockets</artifactId>
+            <artifactId>Clases</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>MaGeSft</groupId>
+            <artifactId>Sockets</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <properties>

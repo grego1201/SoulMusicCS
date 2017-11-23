@@ -5,14 +5,16 @@
  */
 package magesft2.servidor;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import magesft.buscarcanciones.BuscarCanciones;
 import magesft.crearmusica.CrearMusica;
-import magesft.crearusuario.CrearUsuario;
 import magesft.eliminarusuario.EliminarUsuario;
+import magesft2.crearusuario.CrearUsuario;
+import magesft2.serv_func.funcion;
 
 /**
  *
@@ -27,8 +29,12 @@ public class MenuServidor extends javax.swing.JFrame {
         initComponents();
     }
     public MenuServidor(JFrame jf) {
-        initComponents();
-        this.jf=jf;
+    
+            initComponents();
+            this.jf=jf;
+            
+            
+        
     }
 
 
@@ -109,7 +115,7 @@ public class MenuServidor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtncrearusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtncrearusuarioActionPerformed
-        CrearUsuario c=new CrearUsuario(this);
+        CrearUsuario c=new CrearUsuario(this,1);
         c.setVisible(true);
         this.setVisible(false);
         
@@ -172,6 +178,8 @@ public class MenuServidor extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuServidor().setVisible(true);
+                funcion f=new funcion();
+                f.start();
             }
         });
     }

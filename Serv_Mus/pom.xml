@@ -9,8 +9,13 @@
         <module>Conectar</module>
         <module>Serv_func</module>
         <module>Servidor</module>
-        <module>CrearUsuario</module>
         <module>Mensajes</module>
+        <module>Clases</module>
+        <module>CrearUsuario</module>
+        <module>CrearArtistas</module>
+        <module>CrearMusica</module>
+        <module>EliminarCanciones</module>
+        <module>EliminarUsuario</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

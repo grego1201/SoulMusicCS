@@ -242,10 +242,10 @@ public class CrearMusica extends javax.swing.JFrame {
             }
         
             try {
-                CrearMusica c=new CrearMusica(this);
-                
-                c.setVisible(true);
+                CrearMusica c=new CrearMusica(jf);
                 this.setVisible(false);
+                c.setVisible(true);
+                
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(CrearMusica.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {

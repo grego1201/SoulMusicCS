@@ -23,9 +23,21 @@ import magesft2.conectar.Conexion_BBDD;
  *
  * @author Gonzalo
  */
-public class funcion {
+public class funcion extends Thread{
+    
+    public void run() {
+        try {
+                 funcion();
+        } catch (IOException ex) {
+            Logger.getLogger(funcion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(funcion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(funcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 
-    public funcion() throws IOException, ClassNotFoundException, SQLException {
+    public void funcion() throws IOException, ClassNotFoundException, SQLException {
         ServerSocket listener = new ServerSocket(4445);
         ObjectOutputStream out=null;
         ObjectInputStream in=null;

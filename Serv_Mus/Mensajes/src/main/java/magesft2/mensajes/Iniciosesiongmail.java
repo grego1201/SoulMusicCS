@@ -5,17 +5,21 @@
  */
 package magesft2.mensajes;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Address;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import magesft.clases.Usuario;
 
 /**
  *
@@ -23,11 +27,22 @@ import javax.swing.JOptionPane;
  */
 public class Iniciosesiongmail extends javax.swing.JFrame {
 
+    JFrame jf;
+    Usuario u;
+
     /**
      * Creates new form Iniciosesiongmail
      */
     public Iniciosesiongmail() {
         initComponents();
+
+    }
+
+    public Iniciosesiongmail(JFrame jf, Usuario u) {
+        initComponents();
+        this.jf = jf;
+        this.u = u;
+
     }
 
     /**
@@ -41,6 +56,7 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
 
         txtUser = new javax.swing.JTextField();
         BtnEnviar = new javax.swing.JButton();
+        contrasenia = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,8 +76,13 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(BtnEnviar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(BtnEnviar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -69,7 +90,9 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
+                .addComponent(contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(BtnEnviar)
                 .addGap(59, 59, 59))
         );
@@ -78,67 +101,57 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnviarActionPerformed
-        Properties props=new Properties();
-        props.setProperty("mail.smtp.host","smtp.gmail.com");
-        props.setProperty("mail.smtp.startls.enable","true");
-        props.setProperty("mail.smtp.port","587");
-        props.setProperty("mail.smtp.auth","true");
-        
-        Session session=Session.getDefaultInstance(props);
-        
-        String correoremitente="ivanillan31@gmail.com";
-        String password="orianna5005";
-        String correodestinatario=txtUser.getText();
-        String asunto="funciona";
-        String text="Soy un Dios";
-        
-        MimeMessage message=new MimeMessage(session);
         try {
-            message.setFrom(new InternetAddress(correoremitente));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(correodestinatario));
-            message.setSubject(asunto);
-            message.setText(text);
             
-            Transport t=session.getTransport("smtp");
-            t.connect(correoremitente, password);
-            t.sendMessage(message,message.getRecipients(Message.RecipientType.TO));
-            t.close();
-            JOptionPane.showMessageDialog(null,"Correo Electronico enviado");
-        } catch (AddressException ex) {
-            Logger.getLogger(Iniciosesiongmail.class.getName()).log(Level.SEVERE, null, ex);
+            String destinatario = "gonchysuper.94@gmail.com"; //A quien le quieres escribir.
+            String asunto = "Correo de prueba enviado desde Java";
+            String cuerpo = "Esta es una prueba de correo...";
+
+            enviarConGMail(destinatario, asunto, cuerpo);
         } catch (MessagingException ex) {
             Logger.getLogger(Iniciosesiongmail.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
-    
-    
+
     }//GEN-LAST:event_BtnEnviarActionPerformed
+
+    private void enviarConGMail(String destinatario, String asunto, String cuerpo) throws MessagingException {
+        // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
+        // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
+        String remitente = "gonzalo.perez.fdz@gmail.com";  //Para la dirección nomcuenta@gmail.com
+
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.clave", contrasenia.getText().trim());    //La clave de la cuenta
+        props.put("mail.smtp.auth", "true");    //Usar autenticación mediante usuario y clave
+        props.put("mail.smtp.starttls.enable", "true"); //Para conectar de manera segura al servidor SMTP
+        props.put("mail.smtp.port", "587"); //El puerto SMTP seguro de Google
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(remitente));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario, "Gonzalo"));   //Se podrían añadir varios de la misma manera
+            message.setSubject(asunto);
+            message.setText(cuerpo);
+            Transport transport = session.getTransport("smtp");
+            transport.connect("smtp.gmail.com", remitente, contrasenia.getText().trim());
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        } catch (MessagingException me) {
+            me.printStackTrace();   //Si se produce un error
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Iniciosesiongmail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Iniciosesiongmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Iniciosesiongmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Iniciosesiongmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Iniciosesiongmail.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
+
         //</editor-fold>
 
         /* Create and display the form */
@@ -151,6 +164,7 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEnviar;
+    private javax.swing.JTextField contrasenia;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }
