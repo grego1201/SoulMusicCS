@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 import magesft.buscarcanciones.BuscarCanciones;
 import magesft.crearartistas.CrearArtistas;
 import magesft.crearmusica.CrearMusica;
-import magesft.eliminarcanciones.EliminarCanciones;
+import magesft2.eliminarcanciones.EliminarCanciones;
 import magesft.eliminarusuario.EliminarUsuario;
 import magesft2.crearusuario.CrearUsuario;
 import magesft2.mensajes.Iniciosesiongmail;
