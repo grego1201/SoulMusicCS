@@ -11,10 +11,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import magesft.buscarcanciones.BuscarCanciones;
+import magesft.crearartistas.CrearArtistas;
 import magesft.crearmusica.CrearMusica;
+import magesft.eliminarcanciones.EliminarCanciones;
 import magesft.eliminarusuario.EliminarUsuario;
 import magesft2.crearusuario.CrearUsuario;
+import magesft2.mensajes.Iniciosesiongmail;
 import magesft2.serv_func.funcion;
+
 
 /**
  *
@@ -51,6 +55,9 @@ public class MenuServidor extends javax.swing.JFrame {
         BtnMusica = new javax.swing.JButton();
         BtnBuscarCanciones = new javax.swing.JButton();
         BtnEliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        BtnEliminarcancioens = new javax.swing.JButton();
+        BtnCrearArtista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,19 +89,44 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Enviar Mensajes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        BtnEliminarcancioens.setText("Eliminar Canciones");
+        BtnEliminarcancioens.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarcancioensActionPerformed(evt);
+            }
+        });
+
+        BtnCrearArtista.setText("Crear Artistas");
+        BtnCrearArtista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCrearArtistaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Btncrearusuario)
-                    .addComponent(BtnBuscarCanciones))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnCrearArtista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(BtnBuscarCanciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BtnEliminarcancioens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Btncrearusuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BtnMusica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(93, 93, 93))
         );
         layout.setVerticalGroup(
@@ -108,7 +140,13 @@ public class MenuServidor extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnBuscarCanciones)
                     .addComponent(BtnEliminar))
-                .addContainerGap(179, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(BtnEliminarcancioens))
+                .addGap(35, 35, 35)
+                .addComponent(BtnCrearArtista)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,6 +184,25 @@ public class MenuServidor extends javax.swing.JFrame {
         e.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BtnEliminarActionPerformed
+
+    private void BtnEliminarcancioensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarcancioensActionPerformed
+        EliminarCanciones e=new EliminarCanciones(this);
+        e.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_BtnEliminarcancioensActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Iniciosesiongmail m=new Iniciosesiongmail(this);
+        m.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void BtnCrearArtistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearArtistaActionPerformed
+        CrearArtistas a=new CrearArtistas(this);
+        a.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_BtnCrearArtistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -186,8 +243,11 @@ public class MenuServidor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscarCanciones;
+    private javax.swing.JButton BtnCrearArtista;
     private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnEliminarcancioens;
     private javax.swing.JButton BtnMusica;
     private javax.swing.JButton Btncrearusuario;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
