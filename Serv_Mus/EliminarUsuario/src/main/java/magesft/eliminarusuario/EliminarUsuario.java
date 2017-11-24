@@ -32,8 +32,9 @@ JFrame jf;
      */
     public EliminarUsuario(JFrame jf) {
         this.jf=jf;
+        initComponents();
         try {
-            initComponents();
+            
             Sockets so=new Sockets();
             dfm=new DefaultListModel<>();
             l_user=new LinkedList<>();

@@ -5,7 +5,13 @@
  */
 package magesft2.mensajes;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,23 +24,56 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import magesft.clases.Usuario;
+import magesft.sockets.Sockets;
 
 /**
  *
  * @author ivan
  */
 public class Iniciosesiongmail extends javax.swing.JFrame {
-
+    DefaultListModel<Usuario> dfm;
+    LinkedList<Usuario> l_user;
     JFrame jf;
     Usuario u;
 
     /**
      * Creates new form Iniciosesiongmail
      */
-    public Iniciosesiongmail() {
+    public Iniciosesiongmail(JFrame jf) {
+        this.jf=jf;
         initComponents();
+        try {
+            
+            Sockets so=new Sockets();
+            dfm=new DefaultListModel<>();
+            l_user=new LinkedList<>();
+            Socket s=so.getS();
+            ObjectInputStream in=so.getIn();
+            ObjectOutputStream out=so.getOut();
+            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo","rol"};
+            
+            System.out.println(in.readObject());
+            out.writeObject(1);
+            out.writeObject("usuarios");
+            out.writeObject(campos);
+            out.writeObject("");
+            ArrayList<String[]> arr=(ArrayList<String[]>) in.readObject();
+            for (int i = 0; i < arr.size(); i++) {
+                
+                Usuario u = new Usuario(((String[])arr.get(i))[0], ((String[])arr.get(i))[1], ((String[])arr.get(i))[2], Float.parseFloat(((String[])arr.get(i))[3]), Integer.parseInt(((String[])arr.get(i))[4]));
+                l_user.add(u);
+                dfm.add(i, u);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Iniciosesiongmail.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Iniciosesiongmail.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        lista_user.setModel(dfm);
+ 
 
     }
 
@@ -57,6 +96,9 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
         txtUser = new javax.swing.JTextField();
         BtnEnviar = new javax.swing.JButton();
         contrasenia = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lista_user = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,34 +109,52 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Atrás");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jScrollPane1.setViewportView(lista_user);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(49, Short.MAX_VALUE)
-                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(BtnEnviar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(97, 97, 97)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton1)
+                            .addComponent(BtnEnviar)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
-                .addComponent(BtnEnviar)
-                .addGap(59, 59, 59))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(BtnEnviar)
+                        .addGap(33, 33, 33)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,6 +173,11 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_BtnEnviarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         jf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void enviarConGMail(String destinatario, String asunto, String cuerpo) throws MessagingException {
         // Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el remitente también.
@@ -150,21 +215,14 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
 
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Iniciosesiongmail().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEnviar;
     private javax.swing.JTextField contrasenia;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<Usuario> lista_user;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

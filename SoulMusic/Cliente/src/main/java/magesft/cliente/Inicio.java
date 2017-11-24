@@ -7,7 +7,7 @@ package magesft.cliente;
 
 import javax.swing.JFrame;
 import magesft2.crearusuario.CrearUsuario;
-import magesft2.loginusuario.LoginUsuario;
+import magesft.loginusuario.LoginUsuario;
 
 /**
  *

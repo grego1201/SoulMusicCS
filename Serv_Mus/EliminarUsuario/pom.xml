@@ -15,13 +15,13 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>Sockets</artifactId>
-            <version>${project.version}</version>
+            <groupId>MaGeSft2</groupId>
+            <artifactId>Clases</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Clases</artifactId>
+            <artifactId>Sockets</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

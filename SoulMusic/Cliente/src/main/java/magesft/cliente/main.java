@@ -6,7 +6,7 @@
 package magesft.cliente;
 
 import javax.swing.UIManager;
-import magesft2.loginusuario.LoginUsuario;
+import magesft.loginusuario.LoginUsuario;
 
 /**
  *

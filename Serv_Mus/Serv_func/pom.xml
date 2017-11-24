@@ -12,9 +12,9 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>MaGeSft2</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>Conectar</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <properties>
