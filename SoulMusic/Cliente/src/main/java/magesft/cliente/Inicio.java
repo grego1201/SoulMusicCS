@@ -127,8 +127,8 @@ JFrame jf, jfMn;
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
-        jfMn = new MenuUsuario();
-        LoginUsuario n=new LoginUsuario(this, jfMn);
+        
+        LoginUsuario n=new LoginUsuario(this);
         n.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnLoginActionPerformed

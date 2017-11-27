@@ -3,14 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package magesft.cliente;
+package magesft.loginusuario;
 
 import java.awt.LayoutManager;
 import java.awt.Panel;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import magesft.buscarcanciones.BuscarCanciones;
-import magesft.eliminarusuario.EliminarUsuario;
+import magesft.clases.Usuario;
+import magesft.comprar.Comprar;
 import magesft.reproductor.Reproductor;
+import magesft.sockets.Sockets;
+import magesft2.mensajes.Iniciosesiongmail;
 
 /**
  *
@@ -18,6 +26,7 @@ import magesft.reproductor.Reproductor;
  */
 public class MenuUsuario extends javax.swing.JFrame {
     JFrame fp;
+    Usuario u;
     /**
      * Creates new form MenuUsuario
      */
@@ -25,9 +34,10 @@ public class MenuUsuario extends javax.swing.JFrame {
         initComponents();
     }
     
-    public MenuUsuario(JFrame reproductor){
+    public MenuUsuario(JFrame fp, Usuario u){
         initComponents();
-        this.fp=reproductor;
+        this.fp=fp;
+        this.u=u;
     }
 
     /**
@@ -42,6 +52,7 @@ public class MenuUsuario extends javax.swing.JFrame {
         bntBEntrada = new javax.swing.JButton();
         btnReproductor = new javax.swing.JButton();
         Btneliminar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,10 +70,17 @@ public class MenuUsuario extends javax.swing.JFrame {
             }
         });
 
-        Btneliminar.setText("Eliminar Usuario");
+        Btneliminar.setText("Darse de baja");
         Btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtneliminarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Comprar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -72,12 +90,14 @@ public class MenuUsuario extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Btneliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bntBEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bntBEntrada)
+                    .addComponent(Btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
-                .addComponent(btnReproductor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReproductor, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,9 +106,11 @@ public class MenuUsuario extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bntBEntrada)
                     .addComponent(btnReproductor))
-                .addGap(41, 41, 41)
-                .addComponent(Btneliminar)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btneliminar)
+                    .addComponent(jButton1))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pack();
@@ -102,14 +124,37 @@ public class MenuUsuario extends javax.swing.JFrame {
 
     private void bntBEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBEntradaActionPerformed
         // TODO add your handling code here:
-        
+        Iniciosesiongmail gm=new Iniciosesiongmail(this);
+        gm.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_bntBEntradaActionPerformed
 
     private void BtneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtneliminarActionPerformed
-        EliminarUsuario e=new EliminarUsuario(this);
-        e.setVisible(true);
-        this.setVisible(false);
+        try {
+            Sockets so=new Sockets();
+            ObjectInputStream in=so.getIn();
+            ObjectOutputStream out=so.getOut();
+            
+            System.out.println(in.readObject());
+            out.writeObject(3);
+            out.writeObject("usuarios");
+            out.writeObject("Nombre_user='"+u.getUsuario()+"'");
+            fp.setVisible(true);
+            this.setVisible(false);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BtneliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Comprar comp=new Comprar(this, u);
+        comp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,5 +195,6 @@ public class MenuUsuario extends javax.swing.JFrame {
     private javax.swing.JButton Btneliminar;
     private javax.swing.JButton bntBEntrada;
     private javax.swing.JButton btnReproductor;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

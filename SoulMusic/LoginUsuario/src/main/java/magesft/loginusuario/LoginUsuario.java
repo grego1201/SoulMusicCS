@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import magesft.clases.Usuario;
 import magesft.sockets.Sockets;
 
 /**
@@ -22,15 +23,16 @@ import magesft.sockets.Sockets;
  * @author Gonzalo
  */
 public class LoginUsuario extends javax.swing.JFrame {
-    JFrame jf, jfMn;
+    JFrame jf;
+    
     /**
      * Creates new form LoginUsuario
      */
-    public LoginUsuario(JFrame jf, JFrame jfMn) {
+    public LoginUsuario(JFrame jf) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.jf=jf;
-        this.jfMn=jfMn;
+        
 
     }
     public LoginUsuario() {
@@ -132,7 +134,9 @@ public class LoginUsuario extends javax.swing.JFrame {
         ObjectInputStream in = so.getIn();
         ObjectOutputStream out = so.getOut();
         Socket s = so.getS();
-        String[] campos = {};
+        String[] campos = {"Nombre_user","Contrasenia","Correo","saldo","rol"};
+        ArrayList<String[]> arr = null;
+        Usuario u = null;
         try {
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -141,10 +145,15 @@ public class LoginUsuario extends javax.swing.JFrame {
             out.writeObject(campos);// campos sobre los que conusltar
             String condicion = "WHERE Nombre_user = '" + txtUsuario.getText() + "' AND Contrasenia = '" + txtPass.getText() + "'";//Condicion
             out.writeObject(condicion);
-            ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+            arr = (ArrayList<String[]>) in.readObject();
             if (arr.size() == 1) {
                 //siguiente ventana
                 System.out.println("correcto");
+                String [] datos_u=arr.get(0);
+                u=new Usuario(datos_u[0], datos_u[1], datos_u[2], Float.parseFloat(datos_u[3]), Integer.parseInt(datos_u[4]));
+                MenuUsuario m=new MenuUsuario(this,u);
+                m.setVisible(true);
+                this.setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(this, "No existe el Usuario,\n intentelo de nuevo");
             }
@@ -160,12 +169,14 @@ public class LoginUsuario extends javax.swing.JFrame {
                 out.close();
                 in.close();
                 s.close();
-                jfMn.setVisible(true);
-                this.setVisible(false);
+                
+                
+                
             } catch (IOException ex) {
                 Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
