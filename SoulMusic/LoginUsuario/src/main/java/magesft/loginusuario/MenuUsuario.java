@@ -134,6 +134,16 @@ public class MenuUsuario extends javax.swing.JFrame {
             Sockets so=new Sockets();
             ObjectInputStream in=so.getIn();
             ObjectOutputStream out=so.getOut();
+            System.out.println(in.readObject());
+            out.writeObject(3);
+            out.writeObject("usuariocancion");
+            out.writeObject("Usuario='"+u.getUsuario()+"'");
+            
+            
+            
+            so=new Sockets();
+            in=so.getIn();
+            out=so.getOut();
             
             System.out.println(in.readObject());
             out.writeObject(3);

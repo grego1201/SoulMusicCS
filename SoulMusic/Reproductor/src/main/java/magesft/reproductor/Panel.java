@@ -144,6 +144,8 @@ public class Panel extends javax.swing.JFrame {
             indice = 0;
         }
         System.out.println("Indice: " + indice);
+        pausado = false;
+        continuar = false;
 
     }
 
@@ -153,6 +155,8 @@ public class Panel extends javax.swing.JFrame {
             indice = lista.size() - 1;
         }
         System.out.println("Indice: " + indice);
+        pausado = false;
+            continuar = false;
     }
 
     /**
@@ -313,6 +317,8 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPausaActionPerformed
 
     private void buttonContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonContinuarActionPerformed
+        if(rp.getStatus()==2){}
+        else {
         try {
             // TODO add your handling code here:
             //rp.Continuar();
@@ -323,6 +329,9 @@ public class Panel extends javax.swing.JFrame {
         } catch (Exception ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        }
+        
+        
     }//GEN-LAST:event_buttonContinuarActionPerformed
 
     private void buttonPararActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPararActionPerformed

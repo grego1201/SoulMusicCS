@@ -35,6 +35,7 @@ public class BuscarCanciones extends javax.swing.JFrame {
         this.jf=jf;
         try {
             initComponents();
+            b_cargar.setEnabled(false);
             dfm=new DefaultListModel<>();
             l_musica = new LinkedList<>();
             Sockets so = new Sockets();
@@ -99,7 +100,7 @@ public class BuscarCanciones extends javax.swing.JFrame {
         l_titulo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         list_musica = new javax.swing.JList<>();
-        jButton2 = new javax.swing.JButton();
+        b_cargar = new javax.swing.JButton();
         Btnatras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -125,10 +126,10 @@ public class BuscarCanciones extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(list_musica);
 
-        jButton2.setText("Cargar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        b_cargar.setText("Cargar");
+        b_cargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                b_cargarActionPerformed(evt);
             }
         });
 
@@ -166,7 +167,7 @@ public class BuscarCanciones extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(44, 44, 44)
-                        .addComponent(jButton2)))
+                        .addComponent(b_cargar)))
                 .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(43, Short.MAX_VALUE))
@@ -193,7 +194,7 @@ public class BuscarCanciones extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton2)
+                            .addComponent(b_cargar)
                             .addComponent(Btnatras)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -310,16 +311,18 @@ public class BuscarCanciones extends javax.swing.JFrame {
                     dfm.add(i, m);
                 }
                 list_musica.setModel(dfm);
-                
+          if(l_musica.size()>0){
+              b_cargar.setEnabled(true);
+          }      
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void b_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cargarActionPerformed
         // TODO add your handling code here:
         Panel p=new Panel(l_musica,this);
         p.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_b_cargarActionPerformed
 
     private void BtnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnatrasActionPerformed
         jf.setVisible(true);
@@ -332,10 +335,10 @@ public class BuscarCanciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btnatras;
+    private javax.swing.JButton b_cargar;
     private javax.swing.JComboBox<String> c_album;
     private javax.swing.JComboBox<String> c_artistas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

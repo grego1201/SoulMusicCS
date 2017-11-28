@@ -26,7 +26,7 @@ public class Sockets {
         String[] campos = {};
         boolean no_preparado = false;
         try {
-            String serverAddress = "192.168.0.31";
+            String serverAddress = "localhost";
             do {
                 try {
                     s = new Socket(serverAddress, 4445);

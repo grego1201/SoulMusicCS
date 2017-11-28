@@ -26,19 +26,21 @@ import magesft.sockets.Sockets;
  * @author Gonzalo
  */
 public class Comprar extends javax.swing.JFrame {
+
     DefaultListModel<Musica> dfm;
     LinkedList<Musica> l_musica;
     JFrame jf;
     Usuario u;
+
     /**
      * Creates new form BuscarCanciones
      */
-    public Comprar(JFrame jf,Usuario u) {
-        this.jf=jf;
-        this.u=u;
+    public Comprar(JFrame jf, Usuario u) {
+        this.jf = jf;
+        this.u = u;
         try {
             initComponents();
-            dfm=new DefaultListModel<>();
+            dfm = new DefaultListModel<>();
             l_musica = new LinkedList<>();
             Sockets so = new Sockets();
 
@@ -102,7 +104,7 @@ public class Comprar extends javax.swing.JFrame {
         l_titulo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         list_musica = new javax.swing.JList<>();
-        jButton2 = new javax.swing.JButton();
+        boton_comprar = new javax.swing.JButton();
         Btnatras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,10 +130,11 @@ public class Comprar extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(list_musica);
 
-        jButton2.setText("Comprar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        boton_comprar.setText("Comprar");
+        boton_comprar.setEnabled(false);
+        boton_comprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                boton_comprarActionPerformed(evt);
             }
         });
 
@@ -168,9 +171,9 @@ public class Comprar extends javax.swing.JFrame {
                         .addComponent(Btnatras)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
-                        .addGap(44, 44, 44)
-                        .addComponent(jButton2)))
-                .addGap(50, 50, 50)
+                        .addGap(43, 43, 43)
+                        .addComponent(boton_comprar)))
+                .addGap(51, 51, 51)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
@@ -196,7 +199,7 @@ public class Comprar extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jButton2)
+                            .addComponent(boton_comprar)
                             .addComponent(Btnatras)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,45 +211,41 @@ public class Comprar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        l_musica=new LinkedList<>();
-        dfm = new DefaultListModel<>();
-        Sockets so = new Sockets();
-        ArrayList<String[]> musica = new ArrayList<>();
-        Socket s = so.getS();
-        ObjectInputStream in = so.getIn();
-        ObjectOutputStream out = so.getOut();
-        
-        String artistas = (String) c_artistas.getSelectedItem();
-        String album = (String) c_album.getSelectedItem();
-        String nombre = l_titulo.getText();
+        try {
+            // TODO add your handling code here:
+            l_musica = new LinkedList<>();
+            dfm = new DefaultListModel<>();
 
-        if (nombre.compareToIgnoreCase("") != 0) {
-            try {
-                String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace","Precio"};
-                String condicion = " where Nombre_cancion='" + nombre + "'";
-                System.out.println(in.readObject());
-                out.writeObject(1);
-                out.writeObject("musica");
-                out.writeObject(campos);
-                out.writeObject(condicion);
-                ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
-                for (int i = 0; i < arr.size(); i++) {
-                    musica.add(arr.get(i));
-                }
-                   
+            Sockets so = new Sockets();
+            ArrayList<String[]> musica = new ArrayList<>();
+            ObjectInputStream in = so.getIn();
+            ObjectOutputStream out = so.getOut();
 
-            } catch (IOException ex) {
-                Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+            String[] camp = {"Cancion"};
+
+            System.out.println(in.readObject());
+            out.writeObject(1);
+            out.writeObject("usuariocancion");
+            out.writeObject(camp);
+            out.writeObject(" where Usuario='" + u.getUsuario() + "'");
+            ArrayList<String[]> compradas = (ArrayList<String[]>) in.readObject();
+
+            so = new Sockets();
+            in = so.getIn();
+            out = so.getOut();
+
+            String artistas = (String) c_artistas.getSelectedItem();
+            String album = (String) c_album.getSelectedItem();
+            String nombre = l_titulo.getText();
+            String cond_id = " ";
+            for (int i = 0; i < compradas.size(); i++) {
+                cond_id = cond_id + " and ID <>'" + ((String[]) compradas.get(i))[0] + "'";
+
             }
-        } else {
-            if (artistas.compareToIgnoreCase("") != 0) {
-
+            if (nombre.compareToIgnoreCase("") != 0) {
                 try {
-                    String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion","enlace","Precio"};
-                    String condicion = " where Autor='" + artistas + "'";
+                    String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace", "Precio"};
+                    String condicion = " where Nombre_cancion='" + nombre + "'" + cond_id;
                     System.out.println(in.readObject());
                     out.writeObject(1);
                     out.writeObject("musica");
@@ -256,43 +255,26 @@ public class Comprar extends javax.swing.JFrame {
                     for (int i = 0; i < arr.size(); i++) {
                         musica.add(arr.get(i));
                     }
-                    
+
                 } catch (IOException ex) {
                     Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                if (album.compareToIgnoreCase("") != 0) {
+                if (artistas.compareToIgnoreCase("") != 0) {
+
                     try {
-                        String[] campos = {"ID_Musica"};
-                        String condicion = " where ID_Album='" + album.substring(0, album.indexOf("-")) + "'";
+                        String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace", "Precio"};
+                        String condicion = " where Autor='" + artistas + "'" + cond_id;
                         System.out.println(in.readObject());
                         out.writeObject(1);
-                        out.writeObject("linea_album");
+                        out.writeObject("musica");
                         out.writeObject(campos);
                         out.writeObject(condicion);
                         ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
-
-
-                        String[] campos2 = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace","Precio"};
                         for (int i = 0; i < arr.size(); i++) {
-                            so = new Sockets();
-
-                            s = so.getS();
-                            in = so.getIn();
-                            out = so.getOut();
-                            condicion = " where ID='"+((String[])arr.get(i))[0]+"'";
-                            System.out.println(in.readObject());
-                            out.writeObject(1);
-                            out.writeObject("musica");
-                            out.writeObject(campos2);
-                            out.writeObject(condicion);
-                            arr = (ArrayList<String[]>) in.readObject();
-                            musica.add(arr.get(0));
-                        }
-                        for (int i = 0; i < musica.size(); i++) {
-                            System.out.println(((String[])musica.get(i))[0]);
+                            musica.add(arr.get(i));
                         }
 
                     } catch (IOException ex) {
@@ -301,47 +283,135 @@ public class Comprar extends javax.swing.JFrame {
                         Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "Rellena alguno de los campos");
+                    if (album.compareToIgnoreCase("") != 0) {
+                        try {
+                            String[] campos = {"ID_Musica"};
+                            String condicion = " where ID_Album='" + album.substring(0, album.indexOf("-")) + "'";
+                            System.out.println(in.readObject());
+                            out.writeObject(1);
+                            out.writeObject("linea_album");
+                            out.writeObject(campos);
+                            out.writeObject(condicion);
+                            ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+
+                            String[] campos2 = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace", "Precio"};
+                            for (int i = 0; i < arr.size(); i++) {
+                                so = new Sockets();
+
+                                in = so.getIn();
+                                out = so.getOut();
+                                condicion = " where ID='" + ((String[]) arr.get(i))[0] + "'" + cond_id;
+                                System.out.println(in.readObject());
+                                out.writeObject(1);
+                                out.writeObject("musica");
+                                out.writeObject(campos2);
+                                out.writeObject(condicion);
+                                arr = (ArrayList<String[]>) in.readObject();
+                                musica.add(arr.get(0));
+                            }
+                            for (int i = 0; i < musica.size(); i++) {
+                                System.out.println(((String[]) musica.get(i))[0]);
+                            }
+
+                        } catch (IOException ex) {
+                            Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Rellena alguno de los campos");
+                    }
+
                 }
-                
             }
-        }
-        for (int i = 0; i < musica.size(); i++) {
-                    String cancion="";
-                    Musica m=new Musica(((String[])musica.get(i))[0], ((String[])musica.get(i))[1], ((String[])musica.get(i))[2], ((String[])musica.get(i))[3], ((String[])musica.get(i))[4], ((String[])musica.get(i))[5]);
-                    l_musica.add(m);
-                    dfm.add(i, m);
-                }
-                list_musica.setModel(dfm);
-                
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        for (int i = 0; i < l_musica.size(); i++) {
-            try {
-            // TODO add your handling code here:
-            Sockets so=new Sockets();
-            ObjectInputStream in=so.getIn();
-            ObjectOutputStream out=so.getOut();
-            
-            String [] campos = {"Usuario","Cancion"};
-            String [] insertar = {u.getUsuario(),l_musica.get(i).getIden()};
-            String tabla="usuariocancion";
-            System.out.println(in.readObject());
-            out.writeObject(0);
-            out.writeObject(tabla);
-            out.writeObject(campos);
-            out.writeObject(insertar);
-            
+            for (int i = 0; i < musica.size(); i++) {
+                String cancion = "";
+                Musica m = new Musica(((String[]) musica.get(i))[0], ((String[]) musica.get(i))[1], ((String[]) musica.get(i))[2], ((String[]) musica.get(i))[3], ((String[]) musica.get(i))[4], ((String[]) musica.get(i))[5]);
+                l_musica.add(m);
+                dfm.add(i, m);
+            }
+            list_musica.setModel(dfm);
         } catch (IOException ex) {
             Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (l_musica.size() > 0) {
+            boton_comprar.setEnabled(true);
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void boton_comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_comprarActionPerformed
+        try {
+            Sockets so = new Sockets();
+            ObjectInputStream in = so.getIn();
+            ObjectOutputStream out = so.getOut();
+
+            String[] campos1 = {"saldo"};
+            System.out.println(in.readObject());
+            out.writeObject(1);
+            out.writeObject("usuarios");
+            out.writeObject(campos1);
+            out.writeObject(" where Nombre_user='" + u.getUsuario() + "'");
+            ArrayList<String[]> arr_saldo = (ArrayList<String[]>) in.readObject();
+            float saldo = Float.parseFloat(((String[]) arr_saldo.get(0))[0]);
+            float total_precio = 0;
+            for (int i = 0; i < l_musica.size(); i++) {
+                total_precio += Float.parseFloat(l_musica.get(i).getPrecio());
+            }
+            if (saldo >= total_precio) {
+                for (int i = 0; i < l_musica.size(); i++) {
+                    try {
+                        // TODO add your handling code here:
+                        so = new Sockets();
+                        in = so.getIn();
+                        out = so.getOut();
+
+                        String[] campos2 = {"Usuario", "Cancion"};
+                        String[] insertar = {u.getUsuario(), l_musica.get(i).getIden()};
+                        String tabla = "usuariocancion";
+                        System.out.println(in.readObject());
+                        out.writeObject(0);
+                        out.writeObject(tabla);
+                        out.writeObject(campos2);
+                        out.writeObject(insertar);
+
+                    } catch (IOException ex) {
+                        Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                so = new Sockets();
+                in = so.getIn();
+                out = so.getOut();
+
+                String[] campos3 = {"saldo"};
+                float s_ins = saldo - total_precio;
+                String[] insertar_sal = {String.valueOf(s_ins)};
+
+                System.out.println(in.readObject());
+                out.writeObject(2);
+                out.writeObject("usuarios");
+                out.writeObject(campos3);
+                out.writeObject(insertar_sal);
+                out.writeObject(" Nombre_user='" + u.getUsuario() + "'");
+                JOptionPane.showMessageDialog(this, "Compra realizada");
+                jf.setVisible(true);
+                this.setVisible(false);
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No tienes saldo suficiente");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_boton_comprarActionPerformed
 
     private void BtnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnatrasActionPerformed
         jf.setVisible(true);
@@ -354,10 +424,10 @@ public class Comprar extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btnatras;
+    private javax.swing.JButton boton_comprar;
     private javax.swing.JComboBox<String> c_album;
     private javax.swing.JComboBox<String> c_artistas;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
