@@ -23,9 +23,21 @@ import magesft2.conectar.Conexion_BBDD;
  *
  * @author Gonzalo
  */
-public class funcion {
+public class funcion extends Thread{
+    
+    public void run() {
+        try {
+                 funcion();
+        } catch (IOException ex) {
+            Logger.getLogger(funcion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(funcion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(funcion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
 
-    public funcion() throws IOException, ClassNotFoundException, SQLException {
+    public void funcion() throws IOException, ClassNotFoundException, SQLException {
         ServerSocket listener = new ServerSocket(4445);
         ObjectOutputStream out=null;
         ObjectInputStream in=null;
@@ -45,7 +57,8 @@ public class funcion {
                     switch((int)in.readObject()){
                         case 0: insertar(in); break; 
                         case 1: consulta(in,out); break;
-                        
+                        case 2: modificar(in); break;
+                        case 3: eliminar(in); break;
                     }
 
                 } finally {
@@ -71,6 +84,17 @@ public class funcion {
         
     }
     
+    public void modificar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+        
+        String tabla = (String) in.readObject();
+        String[] valores = (String[]) in.readObject();
+        String[] v_insertar = (String[]) in.readObject();
+        String condicion = (String) in.readObject();
+        Conexion_BBDD c = new Conexion_BBDD();
+        c.update(tabla, valores, v_insertar,condicion);
+        
+    }
+    
     public void consulta(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
         
         String tabla = (String) in.readObject();
@@ -80,4 +104,14 @@ public class funcion {
         out.writeObject(c.consulta(tabla, campos, condicion));
         
     }
+    
+    public void eliminar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+        
+        String tabla = (String) in.readObject();
+        String condicion = (String) in.readObject();
+        Conexion_BBDD c = new Conexion_BBDD();
+        c.delete(tabla,condicion);
+        
+    }
+    
 }

@@ -94,7 +94,7 @@ public class Conexion_BBDD {
         String v="";
         
         for (int i = 0; i < valores.length-1; i++) {
-            v=v+valores[i]+"="+v_insertar[i]+",";
+            v=v+valores[i]+"='"+v_insertar[i]+"',";
         }
         v=v+valores[valores.length-1]+"="+"'"+v_insertar[valores.length-1]+"'";
         

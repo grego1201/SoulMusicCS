@@ -6,12 +6,14 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>CrearUsuario</module>
         <module>LoginUsuario</module>
-        <module>CrearMusica</module>
         <module>Sockets</module>
-        <module>CrearArtistas</module>
         <module>Reproductor</module>
+        <module>BuscarCanciones</module>
+        <module>Cliente</module>
+        <module>../Serv_Mus/Clases</module>
+        <module>CrearUsuario</module>
+        <module>Comprar</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
