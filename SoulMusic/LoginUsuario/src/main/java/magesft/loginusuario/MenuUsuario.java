@@ -36,6 +36,7 @@ public class MenuUsuario extends javax.swing.JFrame {
     
     public MenuUsuario(JFrame fp, Usuario u){
         initComponents();
+        this.setLocationRelativeTo(null);
         this.fp=fp;
         this.u=u;
     }

@@ -31,6 +31,7 @@ public class CrearMusica extends javax.swing.JFrame {
      */
     public CrearMusica(JFrame jf) throws ClassNotFoundException, SQLException {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.jf=jf;
         dfm=new DefaultListModel<>();
         String tabla="musica";

@@ -34,7 +34,7 @@ JFrame jf;
         this.jf=jf;
         initComponents();
         try {
-            
+            this.setLocationRelativeTo(null);
             Sockets so=new Sockets();
             dfm=new DefaultListModel<>();
             l_user=new LinkedList<>();

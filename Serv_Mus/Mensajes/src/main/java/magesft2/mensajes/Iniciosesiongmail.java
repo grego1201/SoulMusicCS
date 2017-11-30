@@ -49,7 +49,7 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
         try {
             this.jf = jf;
             initComponents();
-
+            this.setLocationRelativeTo(null);
             dfm = new DefaultListModel<>();
             l_user = new LinkedList<>();
 

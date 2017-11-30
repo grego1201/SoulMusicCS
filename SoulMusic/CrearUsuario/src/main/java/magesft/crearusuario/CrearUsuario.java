@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import jdk.net.Sockets;
 import magesft.clases.Usuario;
+import magesft.sockets.Sockets;
 import magesft2.conectar.Conexion_BBDD;
 
 /**
@@ -32,6 +32,7 @@ int rol_padre;
     }
     public CrearUsuario(JFrame fr, int rol_padre) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.fr = fr;
         this.rol_padre=rol_padre;
         if(rol_padre==0){
@@ -222,7 +223,7 @@ int rol_padre;
         String tabla="usuarios";
         String [] campo={"Nombre_user"};
         String condicion="";
-        magesft.sockets.Sockets so=new magesft.sockets.Sockets();
+        Sockets so=new Sockets();
         ObjectInputStream in= so.getIn();
         ObjectOutputStream out= so.getOut();
         Socket s=so.getS();

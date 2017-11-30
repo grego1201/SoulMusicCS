@@ -31,10 +31,12 @@ public class MenuServidor extends javax.swing.JFrame {
      */
     public MenuServidor() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     public MenuServidor(JFrame jf) {
     
             initComponents();
+            this.setLocationRelativeTo(null);
             this.jf=jf;
             
             

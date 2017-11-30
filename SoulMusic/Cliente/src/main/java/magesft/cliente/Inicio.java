@@ -6,7 +6,7 @@
 package magesft.cliente;
 
 import javax.swing.JFrame;
-import magesft2.crearusuario.CrearUsuario;
+import magesft.crearusuario.CrearUsuario;
 import magesft.loginusuario.LoginUsuario;
 
 /**
@@ -24,6 +24,7 @@ JFrame jf, jfMn;
     }
     public Inicio(JFrame jf) {
         initComponents();
+        
         this.setLocationRelativeTo(null);
         this.jf=jf;
     }

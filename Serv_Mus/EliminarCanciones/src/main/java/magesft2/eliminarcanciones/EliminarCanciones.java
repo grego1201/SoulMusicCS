@@ -37,6 +37,7 @@ public class EliminarCanciones extends javax.swing.JFrame {
         this.jf=jf;
         initComponents();
         try {
+            this.setLocationRelativeTo(null);
             album_borrar = -1;
             dfm = new DefaultListModel<>();
             l_musica = new LinkedList<>();

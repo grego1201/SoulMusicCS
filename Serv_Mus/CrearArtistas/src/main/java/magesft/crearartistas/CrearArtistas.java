@@ -26,6 +26,7 @@ public class CrearArtistas extends javax.swing.JFrame {
     public CrearArtistas(JFrame jf) {
         this.jf=jf;
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

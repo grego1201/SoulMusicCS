@@ -31,6 +31,7 @@ int rol_padre;
     }
     public CrearUsuario(JFrame fr, int rol_padre) {
         initComponents();
+        this.setLocationRelativeTo(null);
         this.fr = fr;
         this.rol_padre=rol_padre;
         if(rol_padre==0){

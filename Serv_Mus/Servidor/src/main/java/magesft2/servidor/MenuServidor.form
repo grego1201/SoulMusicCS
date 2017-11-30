@@ -27,11 +27,9 @@
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="BtnCrearArtista" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="BtnBuscarCanciones" alignment="0" max="32767" attributes="0"/>
-                      <Component id="BtnEliminarcancioens" alignment="0" max="32767" attributes="0"/>
-                      <Component id="Btncrearusuario" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="BtnBuscarCanciones" alignment="0" max="32767" attributes="0"/>
+                  <Component id="BtnEliminarcancioens" alignment="0" max="32767" attributes="0"/>
+                  <Component id="Btncrearusuario" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="40" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">

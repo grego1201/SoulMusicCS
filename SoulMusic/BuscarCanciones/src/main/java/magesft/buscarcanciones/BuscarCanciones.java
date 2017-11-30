@@ -35,6 +35,7 @@ public class BuscarCanciones extends javax.swing.JFrame {
         this.jf=jf;
         try {
             initComponents();
+            this.setLocationRelativeTo(null);
             b_cargar.setEnabled(false);
             dfm=new DefaultListModel<>();
             l_musica = new LinkedList<>();

@@ -40,6 +40,7 @@ public class Comprar extends javax.swing.JFrame {
         this.u = u;
         try {
             initComponents();
+            this.setLocationRelativeTo(null);
             dfm = new DefaultListModel<>();
             l_musica = new LinkedList<>();
             Sockets so = new Sockets();
