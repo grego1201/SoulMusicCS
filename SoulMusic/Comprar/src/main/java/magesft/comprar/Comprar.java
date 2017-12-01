@@ -107,14 +107,25 @@ public class Comprar extends javax.swing.JFrame {
         list_musica = new javax.swing.JList<>();
         boton_comprar = new javax.swing.JButton();
         Btnatras = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(681, 415));
+        setMinimumSize(new java.awt.Dimension(681, 415));
+        setPreferredSize(new java.awt.Dimension(681, 415));
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Buscar canciones:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(432, 26, 190, 14);
 
         c_artistas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        getContentPane().add(c_artistas);
+        c_artistas.setBounds(101, 64, 119, 20);
 
         jLabel2.setText("Artista:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(22, 67, 80, 14);
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -122,14 +133,27 @@ public class Comprar extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(100, 360, 90, 23);
 
         jLabel3.setText("Album:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(22, 119, 80, 14);
 
         c_album.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        getContentPane().add(c_album);
+        c_album.setBounds(101, 116, 119, 20);
 
         jLabel4.setText("Titulo: ");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(22, 175, 80, 14);
+        getContentPane().add(l_titulo);
+        l_titulo.setBounds(101, 172, 119, 20);
 
         jScrollPane1.setViewportView(list_musica);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(319, 64, 331, 307);
 
         boton_comprar.setText("Comprar");
         boton_comprar.setEnabled(false);
@@ -138,6 +162,8 @@ public class Comprar extends javax.swing.JFrame {
                 boton_comprarActionPerformed(evt);
             }
         });
+        getContentPane().add(boton_comprar);
+        boton_comprar.setBounds(200, 360, 90, 23);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -145,68 +171,13 @@ public class Comprar extends javax.swing.JFrame {
                 BtnatrasActionPerformed(evt);
             }
         });
+        getContentPane().add(Btnatras);
+        Btnatras.setBounds(10, 360, 80, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(163, 163, 163))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(c_artistas, 0, 119, Short.MAX_VALUE)
-                            .addComponent(c_album, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(l_titulo)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Btnatras)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(43, 43, 43)
-                        .addComponent(boton_comprar)))
-                .addGap(51, 51, 51)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(c_artistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(c_album, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(l_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(boton_comprar)
-                            .addComponent(Btnatras)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 20, Short.MAX_VALUE)))
-                .addGap(8, 8, 8))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(-6, 0, 690, 400);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -433,6 +404,7 @@ public class Comprar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField l_titulo;
     private javax.swing.JList<Musica> list_musica;

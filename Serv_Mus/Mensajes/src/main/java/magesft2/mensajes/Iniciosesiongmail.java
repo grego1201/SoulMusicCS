@@ -95,11 +95,21 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         t_mensaje = new javax.swing.JTextArea();
         t_contrasenia = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         jPasswordField1.setText("jPasswordField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(580, 470));
+        setMinimumSize(new java.awt.Dimension(580, 470));
+        setPreferredSize(new java.awt.Dimension(580, 470));
+        setResizable(false);
+        getContentPane().setLayout(null);
+        getContentPane().add(motivo);
+        motivo.setBounds(315, 25, 265, 30);
 
         BtnEnviar.setText("Enviar");
         BtnEnviar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +117,8 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
                 BtnEnviarActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnEnviar);
+        BtnEnviar.setBounds(389, 253, 80, 23);
 
         jButton1.setText("Atrás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -114,62 +126,39 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(389, 310, 80, 23);
 
         jScrollPane1.setViewportView(lista_user);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(0, 11, 309, 322);
 
         t_mensaje.setColumns(20);
         t_mensaje.setRows(5);
         jScrollPane2.setViewportView(t_mensaje);
 
-        jLabel1.setText("Password");
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(310, 80, 265, 169);
+        getContentPane().add(t_contrasenia);
+        t_contrasenia.setBounds(123, 352, 144, 20);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(t_contrasenia)
-                        .addGap(42, 42, 42)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(BtnEnviar)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(motivo, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2)))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(motivo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnEnviar)
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(t_contrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addContainerGap(76, Short.MAX_VALUE))
-        );
+        jLabel4.setText("Mensaje");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(420, 60, 130, 14);
+
+        jLabel3.setText("Asunto");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(420, 10, 150, 14);
+
+        jLabel1.setText("Password");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(25, 355, 80, 14);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(-6, -10, 590, 460);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,6 +226,9 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
     private javax.swing.JButton BtnEnviar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

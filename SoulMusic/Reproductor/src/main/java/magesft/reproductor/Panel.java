@@ -176,8 +176,13 @@ public class Panel extends javax.swing.JFrame {
         buttonAnterior = new javax.swing.JButton();
         labelCancion = new javax.swing.JLabel();
         Btnatras = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(390, 315));
+        setMinimumSize(new java.awt.Dimension(390, 315));
+        setPreferredSize(new java.awt.Dimension(390, 315));
+        getContentPane().setLayout(null);
 
         buttonReproducir.setText("|>");
         buttonReproducir.addActionListener(new java.awt.event.ActionListener() {
@@ -185,6 +190,8 @@ public class Panel extends javax.swing.JFrame {
                 buttonReproducirActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonReproducir);
+        buttonReproducir.setBounds(148, 50, 71, 46);
 
         buttonPausa.setText("| |");
         buttonPausa.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +199,8 @@ public class Panel extends javax.swing.JFrame {
                 buttonPausaActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonPausa);
+        buttonPausa.setBounds(155, 126, 43, 23);
 
         buttonContinuar.setText("||>");
         buttonContinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +208,8 @@ public class Panel extends javax.swing.JFrame {
                 buttonContinuarActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonContinuar);
+        buttonContinuar.setBounds(249, 126, 49, 23);
 
         buttonParar.setText("|_|");
         buttonParar.addActionListener(new java.awt.event.ActionListener() {
@@ -206,6 +217,8 @@ public class Panel extends javax.swing.JFrame {
                 buttonPararActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonParar);
+        buttonParar.setBounds(57, 126, 47, 23);
 
         buttonSiguiente.setText(">");
         buttonSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +226,8 @@ public class Panel extends javax.swing.JFrame {
                 buttonSiguienteActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonSiguiente);
+        buttonSiguiente.setBounds(225, 179, 41, 23);
 
         buttonAnterior.setText("<");
         buttonAnterior.addActionListener(new java.awt.event.ActionListener() {
@@ -220,8 +235,14 @@ public class Panel extends javax.swing.JFrame {
                 buttonAnteriorActionPerformed(evt);
             }
         });
+        getContentPane().add(buttonAnterior);
+        buttonAnterior.setBounds(104, 179, 41, 23);
 
         labelCancion.setText("Cancion");
+        getContentPane().add(labelCancion);
+        labelCancion.setBounds(155, 254, 160, 14);
+        labelCancion.getAccessibleContext().setAccessibleName("labelCancion");
+        labelCancion.getAccessibleContext().setAccessibleDescription("labelCancion");
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -229,61 +250,13 @@ public class Panel extends javax.swing.JFrame {
                 BtnatrasActionPerformed(evt);
             }
         });
+        getContentPane().add(Btnatras);
+        Btnatras.setBounds(10, 250, 80, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(buttonReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(buttonAnterior)
-                        .addGap(80, 80, 80)
-                        .addComponent(buttonSiguiente))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(57, 57, 57)
-                                .addComponent(buttonParar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(Btnatras)))
-                        .addGap(51, 51, 51)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCancion)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buttonPausa)
-                                .addGap(51, 51, 51)
-                                .addComponent(buttonContinuar)))))
-                .addContainerGap(92, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(buttonReproducir, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonPausa)
-                    .addComponent(buttonParar)
-                    .addComponent(buttonContinuar))
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAnterior)
-                    .addComponent(buttonSiguiente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCancion)
-                    .addComponent(Btnatras))
-                .addGap(25, 25, 25))
-        );
-
-        labelCancion.getAccessibleContext().setAccessibleName("labelCancion");
-        labelCancion.getAccessibleContext().setAccessibleDescription("labelCancion");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(4, 0, 390, 300);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -420,6 +393,7 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JButton buttonPausa;
     private javax.swing.JButton buttonReproducir;
     private javax.swing.JButton buttonSiguiente;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelCancion;
     // End of variables declaration//GEN-END:variables
 

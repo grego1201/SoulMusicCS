@@ -108,24 +108,54 @@ public class CrearMusica extends javax.swing.JFrame {
         list_autores = new javax.swing.JList<>();
         jButton1 = new javax.swing.JButton();
         Btnatras = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(830, 430));
+        setMinimumSize(new java.awt.Dimension(830, 430));
+        setPreferredSize(new java.awt.Dimension(830, 430));
+        getContentPane().setLayout(null);
 
         t_id.setEditable(false);
+        getContentPane().add(t_id);
+        t_id.setBounds(186, 50, 53, 33);
 
         jLabel1.setText("Identificador");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(43, 59, 120, 14);
 
         jLabel2.setText("Insertar canciones:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(134, 18, 200, 14);
 
         jLabel3.setText("Nombre cancion:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(43, 118, 120, 14);
 
         jLabel4.setText("Duracion:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(43, 178, 130, 14);
 
         jLabel5.setText("Enlace:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(43, 237, 130, 14);
 
         jLabel6.setText("Precio:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(45, 283, 120, 14);
+        getContentPane().add(l_nombre);
+        l_nombre.setBounds(180, 110, 146, 33);
+        getContentPane().add(l_duracion);
+        l_duracion.setBounds(186, 169, 52, 33);
+        getContentPane().add(l_enlace);
+        l_enlace.setBounds(186, 229, 201, 30);
+        getContentPane().add(l_precio);
+        l_precio.setBounds(186, 273, 58, 34);
 
         jScrollPane1.setViewportView(list_autores);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(505, 50, 281, 257);
 
         jButton1.setText("Alta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +163,8 @@ public class CrearMusica extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(420, 323, 51, 23);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -140,75 +172,13 @@ public class CrearMusica extends javax.swing.JFrame {
                 BtnatrasActionPerformed(evt);
             }
         });
+        getContentPane().add(Btnatras);
+        Btnatras.setBounds(593, 323, 59, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel6)
-                                .addComponent(jLabel5)))
-                        .addGap(63, 63, 63)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(l_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_enlace, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(t_id, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(l_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(118, 118, 118)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(420, 420, 420)
-                        .addComponent(jButton1)
-                        .addGap(122, 122, 122)
-                        .addComponent(Btnatras)))
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(t_id, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(l_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(l_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(l_enlace, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(l_precio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1))
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(Btnatras))
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        jLabel7.setText("jLabel7");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(4, -2, 830, 390);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -277,6 +247,7 @@ public class CrearMusica extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField l_duracion;
     private javax.swing.JTextField l_enlace;

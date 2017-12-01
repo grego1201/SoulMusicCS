@@ -60,96 +60,105 @@ public class MenuServidor extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         BtnEliminarcancioens = new javax.swing.JButton();
         BtnCrearArtista = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(815, 350));
+        setMinimumSize(new java.awt.Dimension(815, 350));
+        setPreferredSize(new java.awt.Dimension(815, 350));
+        getContentPane().setLayout(null);
 
+        Btncrearusuario.setBackground(new java.awt.Color(51, 255, 255));
+        Btncrearusuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/006-sign.png"))); // NOI18N
         Btncrearusuario.setText("Crear Usuario");
         Btncrearusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtncrearusuarioActionPerformed(evt);
             }
         });
+        getContentPane().add(Btncrearusuario);
+        Btncrearusuario.setBounds(30, 150, 170, 33);
 
+        BtnMusica.setBackground(new java.awt.Color(51, 255, 255));
+        BtnMusica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/004-add-song.png"))); // NOI18N
         BtnMusica.setText("Crear Musica");
         BtnMusica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnMusicaActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnMusica);
+        BtnMusica.setBounds(210, 150, 170, 33);
 
+        BtnBuscarCanciones.setBackground(new java.awt.Color(51, 255, 255));
+        BtnBuscarCanciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-video-player.png"))); // NOI18N
         BtnBuscarCanciones.setText("Buscar Canciones");
         BtnBuscarCanciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnBuscarCancionesActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnBuscarCanciones);
+        BtnBuscarCanciones.setBounds(210, 230, 170, 33);
 
+        BtnEliminar.setBackground(new java.awt.Color(51, 255, 255));
+        BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-delete.png"))); // NOI18N
         BtnEliminar.setText("Eliminar Usuario");
         BtnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnEliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnEliminar);
+        BtnEliminar.setBounds(30, 190, 170, 33);
 
+        jButton1.setBackground(new java.awt.Color(51, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/002-send.png"))); // NOI18N
         jButton1.setText("Enviar Mensajes");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(99, 280, 230, 33);
 
+        BtnEliminarcancioens.setBackground(new java.awt.Color(51, 255, 255));
+        BtnEliminarcancioens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/001-delete-song-interface-symbol.png"))); // NOI18N
         BtnEliminarcancioens.setText("Eliminar Canciones");
         BtnEliminarcancioens.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnEliminarcancioensActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnEliminarcancioens);
+        BtnEliminarcancioens.setBounds(210, 190, 170, 33);
 
+        BtnCrearArtista.setBackground(new java.awt.Color(51, 255, 255));
+        BtnCrearArtista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/006-sign.png"))); // NOI18N
         BtnCrearArtista.setText("Crear Artistas");
         BtnCrearArtista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnCrearArtistaActionPerformed(evt);
             }
         });
+        getContentPane().add(BtnCrearArtista);
+        BtnCrearArtista.setBounds(30, 230, 170, 33);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnCrearArtista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(BtnBuscarCanciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnEliminarcancioens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Btncrearusuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BtnMusica, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(BtnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(93, 93, 93))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Btncrearusuario)
-                    .addComponent(BtnMusica))
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnBuscarCanciones)
-                    .addComponent(BtnEliminar))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(BtnEliminarcancioens))
-                .addGap(35, 35, 35)
-                .addComponent(BtnCrearArtista)
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SoulMusic.JPG"))); // NOI18N
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 40, 530, 70);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconomage.JPG"))); // NOI18N
+        jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(550, 10, 240, 140);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(-16, -20, 830, 350);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -251,5 +260,8 @@ public class MenuServidor extends javax.swing.JFrame {
     private javax.swing.JButton BtnMusica;
     private javax.swing.JButton Btncrearusuario;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }

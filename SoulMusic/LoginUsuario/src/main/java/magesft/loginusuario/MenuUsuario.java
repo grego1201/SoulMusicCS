@@ -57,76 +57,64 @@ public class MenuUsuario extends javax.swing.JFrame {
         btnReproductor = new javax.swing.JButton();
         Btneliminar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(775, 331));
+        setMinimumSize(new java.awt.Dimension(775, 331));
+        setPreferredSize(new java.awt.Dimension(775, 331));
+        getContentPane().setLayout(null);
 
+        bntBEntrada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/002-send.png"))); // NOI18N
         bntBEntrada.setText("Buzon de Entrada");
         bntBEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bntBEntradaActionPerformed(evt);
             }
         });
+        getContentPane().add(bntBEntrada);
+        bntBEntrada.setBounds(50, 210, 200, 43);
 
+        btnReproductor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-video-player.png"))); // NOI18N
         btnReproductor.setText("Reproductor");
         btnReproductor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReproductorActionPerformed(evt);
             }
         });
+        getContentPane().add(btnReproductor);
+        btnReproductor.setBounds(400, 130, 200, 43);
 
+        Btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-delete.png"))); // NOI18N
         Btneliminar.setText("Darse de baja");
         Btneliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtneliminarActionPerformed(evt);
             }
         });
+        getContentPane().add(Btneliminar);
+        Btneliminar.setBounds(50, 130, 200, 43);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/004-add-song.png"))); // NOI18N
         jButton1.setText("Comprar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(400, 210, 200, 43);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/002-send.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SoulMusic.JPG"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(280, 10, 480, 70);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bntBEntrada)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReproductor, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnReproductor, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bntBEntrada, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Btneliminar)
-                    .addComponent(jButton1))
-                .addGap(163, 163, 163))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(-6, 0, 780, 330);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -222,5 +210,6 @@ public class MenuUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnReproductor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

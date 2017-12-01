@@ -45,14 +45,29 @@ public class CrearArtistas extends javax.swing.JFrame {
         l_fecha = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         Btnatras = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(381, 310));
+        setMinimumSize(new java.awt.Dimension(381, 310));
+        setPreferredSize(new java.awt.Dimension(381, 310));
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Nuevos Artistas");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(137, 27, 150, 14);
 
         jLabel2.setText("Nombre del grupo:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(60, 80, 140, 14);
+        getContentPane().add(l_nombre);
+        l_nombre.setBounds(189, 71, 145, 31);
 
         jLabel3.setText("Fecha de inicio:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(58, 128, 120, 14);
+        getContentPane().add(l_fecha);
+        l_fecha.setBounds(189, 120, 145, 30);
 
         jButton1.setText("Alta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -60,6 +75,8 @@ public class CrearArtistas extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(264, 226, 70, 23);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -67,51 +84,13 @@ public class CrearArtistas extends javax.swing.JFrame {
                 BtnatrasActionPerformed(evt);
             }
         });
+        getContentPane().add(Btnatras);
+        Btnatras.setBounds(10, 226, 100, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(137, 137, 137)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(l_nombre)
-                            .addComponent(l_fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Btnatras)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(l_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(l_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(Btnatras))
-                .addGap(47, 47, 47))
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        jLabel4.setText("jLabel4");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(-6, 0, 390, 300);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,6 +137,7 @@ public class CrearArtistas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JTextField l_fecha;
     private javax.swing.JTextField l_nombre;
     // End of variables declaration//GEN-END:variables
