@@ -50,7 +50,6 @@ int rol_padre;
     private void initComponents() {
 
         btnRegistrarte = new javax.swing.JButton();
-        lblError = new javax.swing.JLabel();
         btnAtras = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -71,9 +70,6 @@ int rol_padre;
                 btnRegistrarteActionPerformed(evt);
             }
         });
-
-        lblError.setForeground(new java.awt.Color(255, 0, 0));
-        lblError.setText("Esto se quejara si el usuario ya esta en uso y le pedira que lo cambie");
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -106,11 +102,7 @@ int rol_padre;
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblError)
-                .addContainerGap(61, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -135,7 +127,7 @@ int rol_padre;
                         .addComponent(btnRegistrarte, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
                         .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addComponent(jLabel4)
@@ -169,9 +161,7 @@ int rol_padre;
                     .addComponent(btnRegistrarte)
                     .addComponent(btnAtras)
                     .addComponent(jButton1))
-                .addGap(18, 18, 18)
-                .addComponent(lblError)
-                .addContainerGap())
+                .addGap(47, 47, 47))
         );
 
         pack();
@@ -322,7 +312,6 @@ int rol_padre;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel lblError;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtUsuario;
