@@ -27,12 +27,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Clases</artifactId>
+            <artifactId>Conectar</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>Conectar</artifactId>
+            <artifactId>Clases</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

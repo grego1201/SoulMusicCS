@@ -13,6 +13,16 @@
             <groupId>MaGeSft</groupId>
             <artifactId>BuscarCanciones</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>MaGeSft</groupId>
+                    <artifactId>Clases</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>MaGeSft2</groupId>
+                    <artifactId>Clases</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -23,11 +33,23 @@
             <groupId>MaGeSft2</groupId>
             <artifactId>CrearUsuario</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>MaGeSft2</groupId>
+                    <artifactId>Clases</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>MaGeSft</groupId>
             <artifactId>EliminarUsuario</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>MaGeSft2</groupId>
+                    <artifactId>Clases</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -38,6 +60,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>Mensajes</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>MaGeSft2</groupId>
+                    <artifactId>Clases</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -52,6 +80,17 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>EliminarCanciones</artifactId>
+            <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>MaGeSft2</groupId>
+                    <artifactId>Clases</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>Clases</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
