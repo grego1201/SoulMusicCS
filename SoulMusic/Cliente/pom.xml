@@ -4,7 +4,7 @@
     <parent>
         <groupId>MaGeSft</groupId>
         <artifactId>SoulMusic</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>Cliente</artifactId>
     <packaging>jar</packaging>
@@ -56,7 +56,7 @@
         <dependency>
             <groupId>MaGeSft2</groupId>
             <artifactId>Mensajes</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <groupId>MaGeSft2</groupId>
@@ -78,7 +78,7 @@
         <dependency>
             <groupId>MaGeSft2</groupId>
             <artifactId>Clases</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <properties>

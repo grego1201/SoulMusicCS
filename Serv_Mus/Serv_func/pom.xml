@@ -4,11 +4,11 @@
     <parent>
         <groupId>MaGeSft2</groupId>
         <artifactId>Serv_Mus</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <groupId>MaGeSft2</groupId>
     <artifactId>Serv_func</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

@@ -4,7 +4,7 @@
     <parent>
         <groupId>MaGeSft2</groupId>
         <artifactId>Serv_Mus</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>EliminarCanciones</artifactId>
     <packaging>jar</packaging>
@@ -12,7 +12,7 @@
         <dependency>
             <groupId>MaGeSft2</groupId>
             <artifactId>Conectar</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -22,7 +22,7 @@
         <dependency>
             <groupId>MaGeSft</groupId>
             <artifactId>Sockets</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <properties>

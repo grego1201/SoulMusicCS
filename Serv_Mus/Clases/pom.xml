@@ -4,7 +4,7 @@
     <parent>
         <groupId>MaGeSft2</groupId>
         <artifactId>Serv_Mus</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>Clases</artifactId>
     <packaging>jar</packaging>
