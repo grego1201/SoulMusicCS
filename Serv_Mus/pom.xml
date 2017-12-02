@@ -9,13 +9,13 @@
         <module>Serv_func</module>
         <module>Servidor</module>
         <module>Mensajes</module>
-        <module>Clases</module>
         <module>CrearUsuario</module>
         <module>CrearArtistas</module>
         <module>CrearMusica</module>
         <module>EliminarCanciones</module>
         <module>EliminarUsuario</module>
         <module>Conectar</module>
+        <module>Clases</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
