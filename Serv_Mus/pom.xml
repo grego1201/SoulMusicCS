@@ -6,7 +6,6 @@
     <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>Conectar</module>
         <module>Serv_func</module>
         <module>Servidor</module>
         <module>Mensajes</module>
@@ -16,6 +15,7 @@
         <module>CrearMusica</module>
         <module>EliminarCanciones</module>
         <module>EliminarUsuario</module>
+        <module>Conectar</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
