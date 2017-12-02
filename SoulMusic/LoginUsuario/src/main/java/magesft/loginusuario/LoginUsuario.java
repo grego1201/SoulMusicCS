@@ -32,11 +32,13 @@ public class LoginUsuario extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.jf=jf;
-        
+        this.setSize(fondo.getSize());
 
     }
     public LoginUsuario() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setSize(fondo.getSize());
     }
 
     /**
@@ -55,30 +57,30 @@ public class LoginUsuario extends javax.swing.JFrame {
         txtPass = new javax.swing.JPasswordField();
         btnAtras = new javax.swing.JButton();
         btnEntrar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(347, 180));
-        setMinimumSize(new java.awt.Dimension(347, 180));
-        setPreferredSize(new java.awt.Dimension(347, 180));
+        setMaximumSize(new java.awt.Dimension(1325, 1024));
+        setMinimumSize(new java.awt.Dimension(1325, 1024));
+        setPreferredSize(new java.awt.Dimension(1325, 1024));
         setResizable(false);
         getContentPane().setLayout(null);
 
         jLabel1.setText("Introduzca sus credenciales y pulse Entrar para acceder a SoulMusic");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 11, 327, 14);
+        jLabel1.setBounds(10, 11, 392, 16);
 
         jLabel2.setText("Usuario :");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(43, 46, 43, 14);
+        jLabel2.setBounds(43, 46, 52, 16);
 
         jLabel3.setText("Contraseña :");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(23, 84, 63, 14);
+        jLabel3.setBounds(23, 84, 74, 16);
         getContentPane().add(txtUsuario);
-        txtUsuario.setBounds(104, 43, 209, 20);
+        txtUsuario.setBounds(130, 50, 209, 22);
         getContentPane().add(txtPass);
-        txtPass.setBounds(104, 81, 209, 20);
+        txtPass.setBounds(130, 90, 209, 22);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -87,21 +89,24 @@ public class LoginUsuario extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnAtras);
-        btnAtras.setBounds(29, 119, 133, 41);
+        btnAtras.setBounds(30, 150, 133, 41);
 
         btnEntrar.setText("Entrar");
+        btnEntrar.setMaximumSize(new java.awt.Dimension(100, 100));
+        btnEntrar.setMinimumSize(new java.awt.Dimension(100, 100));
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEntrarActionPerformed(evt);
             }
         });
         getContentPane().add(btnEntrar);
-        btnEntrar.setBounds(180, 120, 133, 39);
+        btnEntrar.setBounds(240, 150, 133, 39);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
-        jLabel4.setText("jLabel4");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(4, 0, 340, 170);
+        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
+        fondo.setText("jLabel4");
+        fondo.setPreferredSize(new java.awt.Dimension(2000, 2000));
+        getContentPane().add(fondo);
+        fondo.setBounds(4, 0, 400, 210);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -213,10 +218,10 @@ public class LoginUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnEntrar;
+    private javax.swing.JLabel fondo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
