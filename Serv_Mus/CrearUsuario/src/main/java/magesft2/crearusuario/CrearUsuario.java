@@ -76,7 +76,7 @@ int rol_padre;
             }
         });
         getContentPane().add(btnRegistrarte);
-        btnRegistrarte.setBounds(140, 248, 107, 23);
+        btnRegistrarte.setBounds(140, 248, 107, 29);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +85,7 @@ int rol_padre;
             }
         });
         getContentPane().add(btnAtras);
-        btnAtras.setBounds(10, 248, 107, 23);
+        btnAtras.setBounds(10, 248, 107, 29);
 
         jLabel1.setText("Usuario :");
         getContentPane().add(jLabel1);
@@ -97,25 +97,25 @@ int rol_padre;
 
         jLabel3.setText("Direccion de correo electronico: ");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 145, 154, 25);
+        jLabel3.setBounds(10, 145, 227, 25);
         getContentPane().add(txtContraseña);
-        txtContraseña.setBounds(174, 105, 202, 34);
+        txtContraseña.setBounds(240, 100, 202, 34);
         getContentPane().add(txtUsuario);
-        txtUsuario.setBounds(174, 63, 202, 31);
+        txtUsuario.setBounds(240, 60, 202, 31);
         getContentPane().add(txtCorreo);
-        txtCorreo.setBounds(174, 146, 202, 29);
+        txtCorreo.setBounds(240, 150, 202, 29);
 
         jLabel4.setText("Introduzca los datos :");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 31, 105, 14);
+        jLabel4.setBounds(60, 31, 146, 17);
 
         cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Administrador" }));
         getContentPane().add(cmbRol);
-        cmbRol.setBounds(174, 186, 202, 20);
+        cmbRol.setBounds(240, 190, 202, 27);
 
         jLabel5.setText("Rol Usuario :");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(84, 189, 61, 14);
+        jLabel5.setBounds(84, 189, 83, 17);
 
         jButton1.setText("Registar automatica");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ int rol_padre;
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(260, 250, 160, 23);
+        jButton1.setBounds(260, 250, 160, 29);
         getContentPane().add(jLabel6);
         jLabel6.setBounds(256, 289, 0, 0);
 

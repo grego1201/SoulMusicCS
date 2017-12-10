@@ -9,14 +9,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import magesft.clases.Usuario;
 import magesft.sockets.Sockets;
+import magesft2.conectar.Conexion_BBDD;
 
 
 /**
@@ -93,7 +96,7 @@ JFrame jf;
 
         jLabel1.setText("Eliminar Usuario:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(188, 27, 130, 14);
+        jLabel1.setBounds(188, 27, 130, 17);
 
         jButton1.setText("Eliminar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +105,7 @@ JFrame jf;
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(330, 310, 110, 23);
+        jButton1.setBounds(330, 310, 110, 29);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -111,7 +114,7 @@ JFrame jf;
             }
         });
         getContentPane().add(Btnatras);
-        Btnatras.setBounds(10, 310, 110, 23);
+        Btnatras.setBounds(10, 310, 110, 29);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
@@ -125,18 +128,14 @@ JFrame jf;
     try {
         // TODO add your handling code here:
         Usuario u=lista_user.getSelectedValue();
-        Sockets so=new Sockets();
-        Socket s=so.getS();
-        ObjectInputStream in=so.getIn();
-        ObjectOutputStream out=so.getOut();
         
-        System.out.println(in.readObject());
-        out.writeObject(3);
-        out.writeObject("usuarios");
-        out.writeObject(" Nombre_user='"+u.getUsuario()+"'");
-    } catch (IOException ex) {
+        Conexion_BBDD c=new Conexion_BBDD();
+        if(!c.delete("usuarios", " Nombre_user='"+u.getUsuario()+"'")){
+            JOptionPane.showMessageDialog(this, "No se ha podido eliminar el usuario");
+        }
+    }  catch (ClassNotFoundException ex) {
         Logger.getLogger(EliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (ClassNotFoundException ex) {
+    } catch (SQLException ex) {
         Logger.getLogger(EliminarUsuario.class.getName()).log(Level.SEVERE, null, ex);
     }
     EliminarUsuario el=new EliminarUsuario(jf);

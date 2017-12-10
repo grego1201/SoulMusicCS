@@ -35,6 +35,9 @@ public class Comprar extends javax.swing.JFrame {
     /**
      * Creates new form BuscarCanciones
      */
+    public Comprar(){
+        initComponents();
+    }
     public Comprar(JFrame jf, Usuario u) {
         this.jf = jf;
         this.u = u;
@@ -117,15 +120,15 @@ public class Comprar extends javax.swing.JFrame {
 
         jLabel1.setText("Buscar canciones:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(432, 26, 190, 14);
+        jLabel1.setBounds(432, 26, 190, 17);
 
         c_artistas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         getContentPane().add(c_artistas);
-        c_artistas.setBounds(101, 64, 119, 20);
+        c_artistas.setBounds(101, 64, 119, 27);
 
         jLabel2.setText("Artista:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(22, 67, 80, 14);
+        jLabel2.setBounds(22, 67, 80, 17);
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -134,21 +137,21 @@ public class Comprar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(100, 360, 90, 23);
+        jButton1.setBounds(100, 360, 90, 29);
 
         jLabel3.setText("Album:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(22, 119, 80, 14);
+        jLabel3.setBounds(22, 119, 80, 17);
 
         c_album.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
         getContentPane().add(c_album);
-        c_album.setBounds(101, 116, 119, 20);
+        c_album.setBounds(101, 116, 119, 27);
 
         jLabel4.setText("Titulo: ");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(22, 175, 80, 14);
+        jLabel4.setBounds(22, 175, 80, 17);
         getContentPane().add(l_titulo);
-        l_titulo.setBounds(101, 172, 119, 20);
+        l_titulo.setBounds(101, 172, 119, 27);
 
         jScrollPane1.setViewportView(list_musica);
 
@@ -163,7 +166,7 @@ public class Comprar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(boton_comprar);
-        boton_comprar.setBounds(200, 360, 90, 23);
+        boton_comprar.setBounds(200, 360, 90, 29);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -172,7 +175,7 @@ public class Comprar extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Btnatras);
-        Btnatras.setBounds(10, 360, 80, 23);
+        Btnatras.setBounds(10, 360, 80, 29);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel5.setText("jLabel5");
@@ -316,6 +319,7 @@ public class Comprar extends javax.swing.JFrame {
 
     private void boton_comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_comprarActionPerformed
         try {
+            boolean error = false;
             Sockets so = new Sockets();
             ObjectInputStream in = so.getIn();
             ObjectOutputStream out = so.getOut();
@@ -348,31 +352,39 @@ public class Comprar extends javax.swing.JFrame {
                         out.writeObject(tabla);
                         out.writeObject(campos2);
                         out.writeObject(insertar);
-
+                        if (!(boolean) in.readObject()) {
+                            error = true;
+                        }
                     } catch (IOException ex) {
                         Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                so = new Sockets();
-                in = so.getIn();
-                out = so.getOut();
+                if (error == true) {
+                    JOptionPane.showMessageDialog(this, "Eror al comprobar precio");
+                } else {
+                    so = new Sockets();
+                    in = so.getIn();
+                    out = so.getOut();
 
-                String[] campos3 = {"saldo"};
-                float s_ins = saldo - total_precio;
-                String[] insertar_sal = {String.valueOf(s_ins)};
+                    String[] campos3 = {"saldo"};
+                    float s_ins = saldo - total_precio;
+                    String[] insertar_sal = {String.valueOf(s_ins)};
 
-                System.out.println(in.readObject());
-                out.writeObject(2);
-                out.writeObject("usuarios");
-                out.writeObject(campos3);
-                out.writeObject(insertar_sal);
-                out.writeObject(" Nombre_user='" + u.getUsuario() + "'");
-                JOptionPane.showMessageDialog(this, "Compra realizada");
-                jf.setVisible(true);
-                this.setVisible(false);
-
+                    System.out.println(in.readObject());
+                    out.writeObject(2);
+                    out.writeObject("usuarios");
+                    out.writeObject(campos3);
+                    out.writeObject(insertar_sal);
+                    out.writeObject(" Nombre_user='" + u.getUsuario() + "'");
+                    if(!(boolean)in.readObject()){
+                        JOptionPane.showMessageDialog(this, "Error al comprobar saldo");
+                    }
+                    JOptionPane.showMessageDialog(this, "Compra realizada");
+                    jf.setVisible(true);
+                    this.setVisible(false);
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "No tienes saldo suficiente");
             }
@@ -381,7 +393,7 @@ public class Comprar extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
 
     }//GEN-LAST:event_boton_comprarActionPerformed
 
@@ -393,6 +405,37 @@ public class Comprar extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Comprar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Comprar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Comprar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Comprar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Comprar().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btnatras;

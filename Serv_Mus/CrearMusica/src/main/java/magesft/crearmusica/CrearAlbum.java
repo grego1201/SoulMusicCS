@@ -13,28 +13,38 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import magesft.sockets.Sockets;
+import magesft2.conectar.Conexion_BBDD;
 
 /**
  *
  * @author Gonzalo
  */
 public class CrearAlbum extends javax.swing.JFrame {
-DefaultListModel dfm;
+
+    DefaultListModel dfm;
+    JFrame jf;
+
     /**
      * Creates new form CrearAlbum
      */
     public CrearAlbum() {
         initComponents();
-        dfm=new DefaultListModel<>();
-        String tabla="album";
-        String [] campo={"ID"};
-        String condicion="";
-        Sockets so=new Sockets();
-        ObjectInputStream in= so.getIn();
-        ObjectOutputStream out= so.getOut();
-        Socket s=so.getS();
+    }
+
+    public CrearAlbum(JFrame jf) {
+        initComponents();
+        this.jf = jf;
+        dfm = new DefaultListModel<>();
+        String tabla = "album";
+        String[] campo = {"ID"};
+        String condicion = "";
+        Sockets so = new Sockets();
+        ObjectInputStream in = so.getIn();
+        ObjectOutputStream out = so.getOut();
+        Socket s = so.getS();
         try {
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -42,20 +52,20 @@ DefaultListModel dfm;
             out.writeObject(tabla);
             out.writeObject(campo);
             out.writeObject(condicion);
-            int iden=((ArrayList<String[]>)in.readObject()).size();
+            int iden = maximoID((ArrayList<String[]>) in.readObject()) + 1;
             l_iden.setText(String.valueOf(iden));
-        }catch(Exception ex){
+        } catch (Exception ex) {
             l_iden.setText("0");
         }
-        
+
         ArrayList autores;
-        String tabla2="autor";
-        String [] campo2={"Nombre"};
-        String condicion2="";
-        so=new Sockets();
-        in= so.getIn();
-        out= so.getOut();
-        s=so.getS();
+        String tabla2 = "autor";
+        String[] campo2 = {"Nombre"};
+        String condicion2 = "";
+        so = new Sockets();
+        in = so.getIn();
+        out = so.getOut();
+        s = so.getS();
         try {
             String recibido = (String) in.readObject();
             System.out.println(recibido);
@@ -63,19 +73,29 @@ DefaultListModel dfm;
             out.writeObject(tabla2);
             out.writeObject(campo2);
             out.writeObject(condicion2);
-            autores=(ArrayList<String[]>)in.readObject();
+            autores = (ArrayList<String[]>) in.readObject();
             for (int i = 0; i < autores.size(); i++) {
-                dfm.add(i, ((String)((String[])(autores.get(i)))[0]));
+                dfm.add(i, ((String) ((String[]) (autores.get(i)))[0]));
             }
             list_cancion.setModel(dfm);
             list_cancion.updateUI();
-            if(autores.size()==0){
+            if (autores.size() == 0) {
                 JOptionPane.showMessageDialog(this, "No hay canciones");
                 //IR ATRAS
             }
-        }catch(Exception ex){
-            
+        } catch (Exception ex) {
+
         }
+    }
+
+    public int maximoID(ArrayList<String[]> arr) {
+        int maximo = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            if (maximo < Integer.parseInt(((String[]) arr.get(i))[0])) {
+                maximo = Integer.parseInt(((String[]) arr.get(i))[0]);
+            }
+        }
+        return maximo;
     }
 
     /**
@@ -94,6 +114,7 @@ DefaultListModel dfm;
         jLabel2 = new javax.swing.JLabel();
         l_nombre = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,21 +127,21 @@ DefaultListModel dfm;
         ist_canciones.setViewportView(list_cancion);
 
         getContentPane().add(ist_canciones);
-        ist_canciones.setBounds(308, 34, 251, 312);
+        ist_canciones.setBounds(320, 40, 251, 312);
 
         jLabel1.setText("ID:");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 69, 15, 14);
+        jLabel1.setBounds(10, 69, 18, 17);
 
         l_iden.setEditable(false);
         getContentPane().add(l_iden);
-        l_iden.setBounds(86, 59, 46, 34);
+        l_iden.setBounds(120, 60, 46, 34);
 
         jLabel2.setText("Nombre album:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(10, 121, 72, 14);
+        jLabel2.setBounds(10, 121, 107, 17);
         getContentPane().add(l_nombre);
-        l_nombre.setBounds(86, 111, 195, 34);
+        l_nombre.setBounds(120, 110, 195, 34);
 
         jButton1.setText("Alta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +150,16 @@ DefaultListModel dfm;
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(166, 323, 51, 23);
+        jButton1.setBounds(160, 330, 90, 29);
+
+        jButton2.setText("Atras");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(50, 330, 90, 29);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel3.setText("jLabel3");
@@ -141,35 +171,37 @@ DefaultListModel dfm;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String iden=l_iden.getText();
-        String nombre=l_nombre.getText();
-        String cancion=list_cancion.getSelectedValue();
-        String tabla="album";
-        String [] campos={"ID","Nombre_album","Autor"};
-        String [] insertar={iden,nombre,cancion};
-        if(list_cancion.getSelectedIndex()!=-1){
-            Sockets so=new Sockets();
-            ObjectInputStream in=so.getIn();
-            ObjectOutputStream out=so.getOut();
-            Socket s=so.getS();
+        String iden = l_iden.getText();
+        String nombre = l_nombre.getText();
+        String cancion = list_cancion.getSelectedValue();
+        String tabla = "album";
+        String[] campos = {"ID", "Nombre_album", "Autor"};
+        String[] insertar = {iden, nombre, cancion};
+        if (list_cancion.getSelectedIndex() != -1) {
 
-            try{
-                System.out.println(in.readObject());
-                out.writeObject(0);
-                out.writeObject(tabla);
-                out.writeObject(campos);
-                out.writeObject(insertar);
-            }catch(Exception ex){
+            try {
+
+                Conexion_BBDD c = new Conexion_BBDD();
+                if (!c.insertar(tabla, campos, insertar)) {
+                    JOptionPane.showMessageDialog(this, "Error al crear album");
+                }
+            } catch (Exception ex) {
 
             }
-        
-            CrearAlbum c=new CrearAlbum();
+
+            CrearAlbum c = new CrearAlbum(jf);
             this.setVisible(false);
             c.setVisible(true);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(this, "Selecciona un autor");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,6 +241,7 @@ DefaultListModel dfm;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ist_canciones;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

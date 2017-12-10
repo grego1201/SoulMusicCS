@@ -48,7 +48,9 @@ public class CrearMusica extends javax.swing.JFrame {
             out.writeObject(tabla);
             out.writeObject(campo);
             out.writeObject(condicion);
-            int iden=((ArrayList<String[]>)in.readObject()).size();
+            int iden=maximoID(((ArrayList<String[]>)in.readObject()))+1;
+            
+            
             t_id.setText(String.valueOf(iden));
         }catch(Exception ex){
             t_id.setText("0");
@@ -83,7 +85,15 @@ public class CrearMusica extends javax.swing.JFrame {
         }
                 
     }
-     
+     public int maximoID(ArrayList<String[]> arr){
+         int maximo=0;
+         for (int i = 0; i < arr.size(); i++) {
+             if(maximo<Integer.parseInt(((String[])arr.get(i))[0])){
+                 maximo=Integer.parseInt(((String[])arr.get(i))[0]);
+             }
+         }
+         return maximo;
+     }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,27 +132,27 @@ public class CrearMusica extends javax.swing.JFrame {
 
         jLabel1.setText("Identificador");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(43, 59, 120, 14);
+        jLabel1.setBounds(43, 59, 120, 17);
 
         jLabel2.setText("Insertar canciones:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(134, 18, 200, 14);
+        jLabel2.setBounds(134, 18, 200, 17);
 
         jLabel3.setText("Nombre cancion:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(43, 118, 120, 14);
+        jLabel3.setBounds(43, 118, 120, 17);
 
         jLabel4.setText("Duracion:");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(43, 178, 130, 14);
+        jLabel4.setBounds(43, 178, 130, 17);
 
         jLabel5.setText("Enlace:");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(43, 237, 130, 14);
+        jLabel5.setBounds(43, 237, 130, 17);
 
         jLabel6.setText("Precio:");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(45, 283, 120, 14);
+        jLabel6.setBounds(45, 283, 120, 17);
         getContentPane().add(l_nombre);
         l_nombre.setBounds(180, 110, 146, 33);
         getContentPane().add(l_duracion);
@@ -164,7 +174,7 @@ public class CrearMusica extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(420, 323, 51, 23);
+        jButton1.setBounds(420, 323, 39, 29);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +183,7 @@ public class CrearMusica extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Btnatras);
-        Btnatras.setBounds(593, 323, 59, 23);
+        Btnatras.setBounds(593, 323, 48, 29);
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel7.setText("jLabel7");
@@ -197,17 +207,13 @@ public class CrearMusica extends javax.swing.JFrame {
         String [] campos={"Nombre_cancion","Autor","ID","Duracion","enlace","precio"};
         String [] insertar={nombre,autor,iden,duracion,enlace,precio};
         if(list_autores.getSelectedIndex()!=-1){
-            Sockets so=new Sockets();
-            ObjectInputStream in=so.getIn();
-            ObjectOutputStream out=so.getOut();
-            Socket s=so.getS();
+            
 
             try{
-                System.out.println(in.readObject());
-                out.writeObject(0);
-                out.writeObject(tabla);
-                out.writeObject(campos);
-                out.writeObject(insertar);
+                Conexion_BBDD c=new Conexion_BBDD();
+                if(!c.insertar(tabla, campos, insertar)){
+                    JOptionPane.showMessageDialog(this, "Error al crear la cancion");
+                }
             }catch(Exception ex){
 
             }

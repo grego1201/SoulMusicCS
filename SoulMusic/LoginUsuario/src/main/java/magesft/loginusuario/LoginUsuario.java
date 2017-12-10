@@ -68,19 +68,19 @@ public class LoginUsuario extends javax.swing.JFrame {
 
         jLabel1.setText("Introduzca sus credenciales y pulse Entrar para acceder a SoulMusic");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 11, 392, 16);
+        jLabel1.setBounds(10, 11, 468, 17);
 
         jLabel2.setText("Usuario :");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(43, 46, 52, 16);
+        jLabel2.setBounds(43, 46, 59, 17);
 
         jLabel3.setText("Contraseña :");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(23, 84, 74, 16);
+        jLabel3.setBounds(23, 84, 88, 17);
         getContentPane().add(txtUsuario);
-        txtUsuario.setBounds(130, 50, 209, 22);
+        txtUsuario.setBounds(130, 50, 209, 27);
         getContentPane().add(txtPass);
-        txtPass.setBounds(130, 90, 209, 22);
+        txtPass.setBounds(130, 90, 209, 27);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {

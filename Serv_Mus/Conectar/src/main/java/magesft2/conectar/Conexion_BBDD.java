@@ -17,6 +17,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -31,96 +33,118 @@ public class Conexion_BBDD {
                 
     }
     
-    public ArrayList<String[]> consulta(String tabla, String [] valores, String condicion) throws ClassNotFoundException, SQLException{
+    public ArrayList<String[]> consulta(String tabla, String [] valores, String condicion){
     
-        ArrayList<String[]> arr=new ArrayList<>();
-        Statement s = con.createStatement(); 
-        String v="";
-        if(valores.length==0){
-            v="*";
-        }else{
-            for (int i = 0; i < valores.length-1; i++) {
+        try {
+            ArrayList<String[]> arr=new ArrayList<>();
+            Statement s = con.createStatement();
+            String v="";
+            if(valores.length==0){
+                v="*";
+            }else{
+                for (int i = 0; i < valores.length-1; i++) {
                     v=v+valores[i]+",";
+                }
+                v=v+valores[valores.length-1];
+            }
+            String url = "select "+v+" from "+tabla+" "+condicion;
+            ResultSet rs = s.executeQuery (url);
+            
+            
+            while (rs.next())
+            {
+                String [] linea=new String [valores.length];
+                for (int i = 0; i < linea.length; i++) {
+                    linea[i]=rs.getString(valores[i]);
+                }
+                arr.add(linea);
+            }
+            con.close();
+            
+            return arr;
+        } catch (SQLException ex) {
+            return null;
+        }
+        
+    }
+    
+    public boolean insertar(String tabla, String [] valores, String [] v_insertar){
+   
+        try {
+            String v="";
+            String m="";
+            
+            for (int i = 0; i < valores.length-1; i++) {
+                v=v+valores[i]+",";
             }
             v=v+valores[valores.length-1];
-        }
-        String url = "select "+v+" from "+tabla+" "+condicion;
-        ResultSet rs = s.executeQuery (url);
-
-
-        while (rs.next()) 
-        { 
-            String [] linea=new String [valores.length];
-            for (int i = 0; i < linea.length; i++) {
-                linea[i]=rs.getString(valores[i]);
-            }
-            arr.add(linea);
-        }
-        con.close();
-        
-        return arr;
-    }
-    
-    public void insertar(String tabla, String [] valores, String [] v_insertar) throws ClassNotFoundException, SQLException{
-   
-        String v="";
-        String m="";
-        
-        for (int i = 0; i < valores.length-1; i++) {
-            v=v+valores[i]+",";
-        }
-        v=v+valores[valores.length-1];
-        
-        
-        for (int i = 0; i < v_insertar.length-1; i++) {
-            m=m+"'"+v_insertar[i]+"'"+",";
-        }
-        m=m+"'"+v_insertar[v_insertar.length-1]+"'";
             
-        String query = "insert into "+tabla+" ("+v+")"
-        + " values ("+m+");";
-
-        Statement st= con.createStatement();
-        st.executeUpdate(query);
-
-        con.close();
-        
-    }
-    
-    public ArrayList<String[]> update(String tabla, String [] valores,String [] v_insertar, String condicion) throws ClassNotFoundException, SQLException{
-
-        ArrayList<String[]> arr=new ArrayList<>();
-        Statement s = con.createStatement(); 
-        String v="";
-        
-        for (int i = 0; i < valores.length-1; i++) {
-            v=v+valores[i]+"='"+v_insertar[i]+"',";
+            
+            for (int i = 0; i < v_insertar.length-1; i++) {
+                m=m+"'"+v_insertar[i]+"'"+",";
+            }
+            m=m+"'"+v_insertar[v_insertar.length-1]+"'";
+            
+            String query = "insert into "+tabla+" ("+v+")"
+                    + " values ("+m+");";
+            
+            Statement st= con.createStatement();
+            st.executeUpdate(query);
+            
+            con.close();
+            return true;
+        } catch (SQLException ex) {
+            return false;
         }
-        v=v+valores[valores.length-1]+"="+"'"+v_insertar[valores.length-1]+"'";
         
-        String url = "update "+tabla+" set "+v+" where "+condicion;
         
-        Statement st= con.createStatement();
-        st.executeUpdate(url);
-        
-        con.close();
-        
-        return arr;
     }
     
-    public ArrayList<String[]> delete(String tabla, String condicion) throws ClassNotFoundException, SQLException{
+    public boolean update(String tabla, String [] valores,String [] v_insertar, String condicion){
+
+        try {
+            
+            Statement s = con.createStatement();
+            String v="";
+            
+            for (int i = 0; i < valores.length-1; i++) {
+                v=v+valores[i]+"='"+v_insertar[i]+"',";
+            }
+            v=v+valores[valores.length-1]+"="+"'"+v_insertar[valores.length-1]+"'";
+            
+            String url = "update "+tabla+" set "+v+" where "+condicion;
+            
+            Statement st= con.createStatement();
+            st.executeUpdate(url);
+            
+            con.close();
+            
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
+        
+    }
+    
+    public  boolean delete(String tabla, String condicion){
      
-        ArrayList<String[]> arr=new ArrayList<>();
-        Statement s = con.createStatement(); 
+        try {
+            
+            Statement s = con.createStatement();
+            
+            String url = "delete from "+tabla+" where "+condicion;
+            
+            Statement st= con.createStatement();
+            st.executeUpdate(url);
+            
+            con.close();
+            
+            return true;
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
         
-        String url = "delete from "+tabla+" where "+condicion;
-        
-        Statement st= con.createStatement();
-        st.executeUpdate(url);
-        
-        con.close();
-        
-        return arr;
     }
     
     

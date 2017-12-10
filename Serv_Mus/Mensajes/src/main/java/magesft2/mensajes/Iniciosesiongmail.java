@@ -118,7 +118,7 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnEnviar);
-        BtnEnviar.setBounds(389, 253, 80, 23);
+        BtnEnviar.setBounds(389, 253, 80, 29);
 
         jButton1.setText("Atrás");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +127,7 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(389, 310, 80, 23);
+        jButton1.setBounds(389, 310, 80, 29);
 
         jScrollPane1.setViewportView(lista_user);
 
@@ -141,19 +141,19 @@ public class Iniciosesiongmail extends javax.swing.JFrame {
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(310, 80, 265, 169);
         getContentPane().add(t_contrasenia);
-        t_contrasenia.setBounds(123, 352, 144, 20);
+        t_contrasenia.setBounds(123, 352, 144, 27);
 
         jLabel4.setText("Mensaje");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(420, 60, 130, 14);
+        jLabel4.setBounds(420, 60, 130, 17);
 
         jLabel3.setText("Asunto");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(420, 10, 150, 14);
+        jLabel3.setBounds(420, 10, 150, 17);
 
         jLabel1.setText("Password");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(25, 355, 80, 14);
+        jLabel1.setBounds(25, 355, 80, 17);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");

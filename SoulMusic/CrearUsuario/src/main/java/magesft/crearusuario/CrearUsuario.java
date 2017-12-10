@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import magesft.clases.Usuario;
 import magesft.sockets.Sockets;
 import magesft2.conectar.Conexion_BBDD;
@@ -77,7 +78,7 @@ int rol_padre;
             }
         });
         getContentPane().add(btnRegistrarte);
-        btnRegistrarte.setBounds(150, 234, 107, 23);
+        btnRegistrarte.setBounds(150, 234, 107, 29);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +87,7 @@ int rol_padre;
             }
         });
         getContentPane().add(btnAtras);
-        btnAtras.setBounds(20, 234, 107, 23);
+        btnAtras.setBounds(20, 234, 107, 29);
 
         jLabel1.setText("Usuario :");
         getContentPane().add(jLabel1);
@@ -108,15 +109,15 @@ int rol_padre;
 
         jLabel4.setText("Introduzca los datos :");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 25, 105, 14);
+        jLabel4.setBounds(60, 25, 146, 17);
 
         cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Administrador" }));
         getContentPane().add(cmbRol);
-        cmbRol.setBounds(184, 180, 202, 20);
+        cmbRol.setBounds(184, 180, 202, 27);
 
         jLabel5.setText("Rol Usuario :");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(94, 183, 170, 14);
+        jLabel5.setBounds(94, 183, 170, 17);
 
         jButton1.setText("Registar automatica");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +126,7 @@ int rol_padre;
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(271, 234, 160, 23);
+        jButton1.setBounds(271, 234, 160, 29);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
@@ -154,6 +155,9 @@ int rol_padre;
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
+            if(!(boolean)in.readObject()){
+                JOptionPane.showMessageDialog(this, "Comprueba los datos");
+            }
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -217,6 +221,9 @@ int rol_padre;
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
+            if(!(boolean)in.readObject()){
+                JOptionPane.showMessageDialog(this, "No se ha podido crear usuario");
+            }
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
 

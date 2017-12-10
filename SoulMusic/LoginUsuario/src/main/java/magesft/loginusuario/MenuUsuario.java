@@ -14,6 +14,7 @@ import java.io.ObjectOutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import magesft.buscarcanciones.BuscarCanciones;
 import magesft.clases.Usuario;
 import magesft.comprar.Comprar;
@@ -26,23 +27,24 @@ import magesft2.mensajes.Iniciosesiongmail;
  * @author ivan
  */
 public class MenuUsuario extends javax.swing.JFrame {
+
     JFrame fp;
     Usuario u;
+
     /**
      * Creates new form MenuUsuario
      */
     public MenuUsuario() {
         initComponents();
     }
-    
-    public MenuUsuario(JFrame fp, Usuario u){
+
+    public MenuUsuario(JFrame fp, Usuario u) {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        this.fp=fp;
-        this.u=u;
+
+        this.fp = fp;
+        this.u = u;
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,41 +122,46 @@ public class MenuUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReproductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReproductorActionPerformed
-        BuscarCanciones c=new BuscarCanciones(this);
+        BuscarCanciones c = new BuscarCanciones(this);
         c.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnReproductorActionPerformed
 
     private void bntBEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBEntradaActionPerformed
         // TODO add your handling code here:
-        Iniciosesiongmail gm=new Iniciosesiongmail(this);
+        Iniciosesiongmail gm = new Iniciosesiongmail(this);
         gm.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bntBEntradaActionPerformed
 
     private void BtneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtneliminarActionPerformed
         try {
-            Sockets so=new Sockets();
-            ObjectInputStream in=so.getIn();
-            ObjectOutputStream out=so.getOut();
+            Sockets so = new Sockets();
+            ObjectInputStream in = so.getIn();
+            ObjectOutputStream out = so.getOut();
             System.out.println(in.readObject());
             out.writeObject(3);
             out.writeObject("usuariocancion");
-            out.writeObject("Usuario='"+u.getUsuario()+"'");
-            
-            
-            
-            so=new Sockets();
-            in=so.getIn();
-            out=so.getOut();
-            
-            System.out.println(in.readObject());
-            out.writeObject(3);
-            out.writeObject("usuarios");
-            out.writeObject("Nombre_user='"+u.getUsuario()+"'");
-            fp.setVisible(true);
-            this.setVisible(false);
-            
+            out.writeObject("Usuario='" + u.getUsuario() + "'");
+
+            if ((boolean) in.readObject()) {
+
+                so = new Sockets();
+                in = so.getIn();
+                out = so.getOut();
+
+                System.out.println(in.readObject());
+                out.writeObject(3);
+                out.writeObject("usuarios");
+                out.writeObject("Nombre_user='" + u.getUsuario() + "'");
+                if(!(boolean)in.readObject()){
+                    JOptionPane.showMessageDialog(this, "Error al eliminar");
+                }
+                fp.setVisible(true);
+                this.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(this, "Error al eliminar");
+            }
         } catch (IOException ex) {
             Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -164,7 +171,7 @@ public class MenuUsuario extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Comprar comp=new Comprar(this, u);
+        Comprar comp = new Comprar(this, u);
         comp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

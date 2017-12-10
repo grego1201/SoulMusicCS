@@ -9,10 +9,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import magesft.sockets.Sockets;
+import magesft2.conectar.Conexion_BBDD;
 
 /**
  *
@@ -55,17 +58,17 @@ public class CrearArtistas extends javax.swing.JFrame {
 
         jLabel1.setText("Nuevos Artistas");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(137, 27, 150, 14);
+        jLabel1.setBounds(137, 27, 150, 17);
 
         jLabel2.setText("Nombre del grupo:");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(60, 80, 140, 14);
+        jLabel2.setBounds(60, 80, 140, 17);
         getContentPane().add(l_nombre);
         l_nombre.setBounds(189, 71, 145, 31);
 
         jLabel3.setText("Fecha de inicio:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(58, 128, 120, 14);
+        jLabel3.setBounds(58, 128, 120, 17);
         getContentPane().add(l_fecha);
         l_fecha.setBounds(189, 120, 145, 30);
 
@@ -76,7 +79,7 @@ public class CrearArtistas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(264, 226, 70, 23);
+        jButton1.setBounds(264, 226, 70, 29);
 
         Btnatras.setText("Atrás");
         Btnatras.addActionListener(new java.awt.event.ActionListener() {
@@ -85,7 +88,7 @@ public class CrearArtistas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Btnatras);
-        Btnatras.setBounds(10, 226, 100, 23);
+        Btnatras.setBounds(10, 226, 100, 29);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
@@ -103,20 +106,18 @@ public class CrearArtistas extends javax.swing.JFrame {
             if(fecha.contains("/")){
                 fecha=fecha.replace("/", "-");
             }
-            Sockets so=new Sockets();
-            ObjectInputStream in=so.getIn();
-            ObjectOutputStream out=so.getOut();
-            Socket s=so.getS();
+            
             String [] campos={"Nombre","Fecha_inicio"};
             String [] insertar={nombre,fecha};
-            System.out.println((String)in.readObject());
-            out.writeObject(0);
-            out.writeObject("autor");
-            out.writeObject(campos);
-            out.writeObject(insertar);
-        } catch (IOException ex) {
-            Logger.getLogger(CrearArtistas.class.getName()).log(Level.SEVERE, null, ex);
+            
+            Conexion_BBDD c=new Conexion_BBDD();
+            boolean correcto=c.insertar("autor", campos, insertar);
+            if(!correcto){
+                JOptionPane.showMessageDialog(this, "Error al crear artista");
+            }
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CrearArtistas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(CrearArtistas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed

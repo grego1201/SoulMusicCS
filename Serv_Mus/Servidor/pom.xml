@@ -10,21 +10,6 @@
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
-            <groupId>MaGeSft</groupId>
-            <artifactId>BuscarCanciones</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>MaGeSft</groupId>
-                    <artifactId>Clases</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>MaGeSft2</groupId>
-                    <artifactId>Clases</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>Serv_func</artifactId>
             <version>${project.version}</version>
@@ -92,6 +77,12 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>Clases</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>MaGeSft</groupId>
+            <artifactId>BuscarCanciones</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

@@ -55,10 +55,10 @@ public class funcion extends Thread{
                     in = new ObjectInputStream(socket.getInputStream());
                     
                     switch((int)in.readObject()){
-                        case 0: insertar(in); break; 
+                        case 0: insertar(in,out); break; 
                         case 1: consulta(in,out); break;
-                        case 2: modificar(in); break;
-                        case 3: eliminar(in); break;
+                        case 2: modificar(in,out); break;
+                        case 3: eliminar(in,out); break;
                     }
 
                 } finally {
@@ -74,24 +74,26 @@ public class funcion extends Thread{
         }
     }
 
-    public void insertar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+    public void insertar(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
         
         String tabla = (String) in.readObject();
         String[] valores = (String[]) in.readObject();
         String[] v_insertar = (String[]) in.readObject();
         Conexion_BBDD c = new Conexion_BBDD();
-        c.insertar(tabla, valores, v_insertar);
+        boolean correcto=c.insertar(tabla, valores, v_insertar);
+        out.writeObject(correcto);
         
     }
     
-    public void modificar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+    public void modificar(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
         
         String tabla = (String) in.readObject();
         String[] valores = (String[]) in.readObject();
         String[] v_insertar = (String[]) in.readObject();
         String condicion = (String) in.readObject();
         Conexion_BBDD c = new Conexion_BBDD();
-        c.update(tabla, valores, v_insertar,condicion);
+        boolean correcto=c.update(tabla, valores, v_insertar,condicion);
+        out.writeObject(correcto);
         
     }
     
@@ -105,13 +107,13 @@ public class funcion extends Thread{
         
     }
     
-    public void eliminar(ObjectInputStream in) throws IOException, ClassNotFoundException, SQLException {
+    public void eliminar(ObjectInputStream in, ObjectOutputStream out) throws IOException, ClassNotFoundException, SQLException {
         
         String tabla = (String) in.readObject();
         String condicion = (String) in.readObject();
         Conexion_BBDD c = new Conexion_BBDD();
-        c.delete(tabla,condicion);
-        
+        boolean correcto=c.delete(tabla,condicion);
+        out.writeObject(correcto);
     }
     
 }

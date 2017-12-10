@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import magesft.buscarcanciones.BuscarCanciones;
 import magesft.crearartistas.CrearArtistas;
+import magesft.crearmusica.CancionesAlbum;
+import magesft.crearmusica.CrearAlbum;
 import magesft.crearmusica.CrearMusica;
 import magesft2.eliminarcanciones.EliminarCanciones;
 import magesft.eliminarusuario.EliminarUsuario;
@@ -62,6 +64,8 @@ public class MenuServidor extends javax.swing.JFrame {
         BtnCrearArtista = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,7 +83,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Btncrearusuario);
-        Btncrearusuario.setBounds(30, 150, 170, 33);
+        Btncrearusuario.setBounds(30, 150, 170, 36);
 
         BtnMusica.setBackground(new java.awt.Color(51, 255, 255));
         BtnMusica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/004-add-song.png"))); // NOI18N
@@ -90,7 +94,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnMusica);
-        BtnMusica.setBounds(210, 150, 170, 33);
+        BtnMusica.setBounds(230, 150, 170, 36);
 
         BtnBuscarCanciones.setBackground(new java.awt.Color(51, 255, 255));
         BtnBuscarCanciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-video-player.png"))); // NOI18N
@@ -101,7 +105,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnBuscarCanciones);
-        BtnBuscarCanciones.setBounds(210, 230, 170, 33);
+        BtnBuscarCanciones.setBounds(230, 230, 170, 36);
 
         BtnEliminar.setBackground(new java.awt.Color(51, 255, 255));
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-delete.png"))); // NOI18N
@@ -112,7 +116,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnEliminar);
-        BtnEliminar.setBounds(30, 190, 170, 33);
+        BtnEliminar.setBounds(30, 190, 170, 36);
 
         jButton1.setBackground(new java.awt.Color(51, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/002-send.png"))); // NOI18N
@@ -123,7 +127,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(99, 280, 230, 33);
+        jButton1.setBounds(30, 280, 230, 36);
 
         BtnEliminarcancioens.setBackground(new java.awt.Color(51, 255, 255));
         BtnEliminarcancioens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/001-delete-song-interface-symbol.png"))); // NOI18N
@@ -134,7 +138,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnEliminarcancioens);
-        BtnEliminarcancioens.setBounds(210, 190, 170, 33);
+        BtnEliminarcancioens.setBounds(230, 190, 170, 36);
 
         BtnCrearArtista.setBackground(new java.awt.Color(51, 255, 255));
         BtnCrearArtista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/006-sign.png"))); // NOI18N
@@ -145,7 +149,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnCrearArtista);
-        BtnCrearArtista.setBounds(30, 230, 170, 33);
+        BtnCrearArtista.setBounds(30, 230, 170, 36);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SoulMusic.JPG"))); // NOI18N
         getContentPane().add(jLabel3);
@@ -155,6 +159,28 @@ public class MenuServidor extends javax.swing.JFrame {
         jLabel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         getContentPane().add(jLabel2);
         jLabel2.setBounds(550, 10, 240, 140);
+
+        jButton2.setBackground(new java.awt.Color(51, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/004-add-song.png"))); // NOI18N
+        jButton2.setText("Crear Album");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(570, 180, 210, 36);
+
+        jButton3.setBackground(new java.awt.Color(51, 255, 255));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/001-mark.png"))); // NOI18N
+        jButton3.setText("Añadir canciones a Album");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3);
+        jButton3.setBounds(270, 280, 270, 36);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         getContentPane().add(jLabel1);
@@ -215,6 +241,20 @@ public class MenuServidor extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnCrearArtistaActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        CrearAlbum ca=new CrearAlbum(this);
+        ca.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        CancionesAlbum ca=new CancionesAlbum(this);
+        ca.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +300,8 @@ public class MenuServidor extends javax.swing.JFrame {
     private javax.swing.JButton BtnMusica;
     private javax.swing.JButton Btncrearusuario;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

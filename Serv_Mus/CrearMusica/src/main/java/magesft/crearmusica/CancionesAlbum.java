@@ -9,12 +9,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import magesft.sockets.Sockets;
+import magesft2.conectar.Conexion_BBDD;
 
 /**
  *
@@ -24,12 +27,17 @@ public class CancionesAlbum extends javax.swing.JFrame {
 
     DefaultListModel dfm_al, dfm_mus;
     int iden = 0;
+    JFrame jf;
 
     /**
      * Creates new form CancionesAlbum
      */
     public CancionesAlbum() {
         initComponents();
+    }
+    public CancionesAlbum(JFrame jf) {
+        initComponents();
+        this.jf=jf;
         dfm_al = new DefaultListModel<>();
         dfm_mus = new DefaultListModel<>();
 
@@ -108,6 +116,7 @@ public class CancionesAlbum extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         list_canciones = new javax.swing.JScrollPane();
         lis_canciones = new javax.swing.JList<>();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -131,6 +140,13 @@ public class CancionesAlbum extends javax.swing.JFrame {
 
         list_canciones.setViewportView(lis_canciones);
 
+        jButton2.setText("Atras");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -142,15 +158,14 @@ public class CancionesAlbum extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(138, 138, 138))
             .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(list_canciones, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(list_canciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -165,7 +180,9 @@ public class CancionesAlbum extends javax.swing.JFrame {
                     .addComponent(list_canciones)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -183,22 +200,18 @@ public class CancionesAlbum extends javax.swing.JFrame {
         String[] campos = {"ID_Musica", "ID_Album"};
         String[] insertar = {nombre_cancion, nombre_album};
         if (list_album.getSelectedIndex() != -1 || lis_canciones.getSelectedIndex() == -1) {
-            Sockets so = new Sockets();
-            ObjectInputStream in = so.getIn();
-            ObjectOutputStream out = so.getOut();
-            Socket s = so.getS();
+            
 
             try {
-                System.out.println(in.readObject());
-                out.writeObject(0);
-                out.writeObject(tabla);
-                out.writeObject(campos);
-                out.writeObject(insertar);
+                Conexion_BBDD c=new Conexion_BBDD();
+                if(!c.insertar(tabla, campos, insertar)){
+                    JOptionPane.showMessageDialog(this, "Error al meter canciones al album");
+                }
             } catch (Exception ex) {
 
             }
 
-            CancionesAlbum c = new CancionesAlbum();
+            CancionesAlbum c = new CancionesAlbum(jf);
             this.setVisible(false);
             c.setVisible(true);
         } else {
@@ -210,25 +223,14 @@ public class CancionesAlbum extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             dfm_mus = new DefaultListModel();
-            Sockets so = new Sockets();
-            Socket s = so.getS();
-            ObjectInputStream in = so.getIn();
-            ObjectOutputStream out = so.getOut();
+            
 
             String[] campos = {"ID_Musica"};
             String condicion = "where ID_Album='" + list_album.getSelectedValue().substring(0, list_album.getSelectedValue().indexOf("\n")).trim() + "'";
 
-            out.writeObject(1);
-            System.out.println(in.readObject());
-            out.writeObject("linea_album");
-            out.writeObject(campos);
-            out.writeObject(condicion);
-            ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+            Conexion_BBDD c=new Conexion_BBDD();
+            ArrayList<String[]> arr = c.consulta("linea_album", campos, condicion);
 
-            so = new Sockets();
-            s = so.getS();
-            in = so.getIn();
-            out = so.getOut();
 
             String[] campos2 = {"ID", "Nombre_cancion"};
             String condicion2 = "";
@@ -240,12 +242,9 @@ public class CancionesAlbum extends javax.swing.JFrame {
                 condicion2 = condicion2 + "ID <> '" + (String) ((String[]) arr.get(arr.size() - 1))[0] + "'";
             }
 
-            out.writeObject(1);
-            System.out.println(in.readObject());
-            out.writeObject("musica");
-            out.writeObject(campos2);
-            out.writeObject(condicion2);
-            ArrayList<String[]> arr2 = (ArrayList<String[]>) in.readObject();
+            
+            c=new Conexion_BBDD();
+            ArrayList<String[]> arr2 = c.consulta("musica", campos2, condicion2);
 
             for (int i = 0; i < arr2.size(); i++) {
                 dfm_mus.add(i, ((String) ((String[]) (arr2.get(i)))[0]) + "\n -" + ((String) ((String[]) (arr2.get(i)))[1]));
@@ -253,12 +252,18 @@ public class CancionesAlbum extends javax.swing.JFrame {
             lis_canciones.setModel(dfm_mus);
             list_canciones.updateUI();
 
-        } catch (IOException ex) {
-            Logger.getLogger(CancionesAlbum.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CancionesAlbum.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(CancionesAlbum.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_list_albumValueChanged
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        jf.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -297,6 +302,7 @@ public class CancionesAlbum extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
