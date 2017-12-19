@@ -122,12 +122,79 @@ public class TestLoginUsuario {
             assertTrue(false);
         } 
     }
-    
+    @Test
+    public void Logearse_bien2() {
+        try {
+            Usuario u = new Usuario("Gonzalo", null, "Gonzalo@gmail.com", 0, 1);
+            Sockets so=new Sockets();
+            ObjectOutputStream out=so.getOut();
+            ObjectInputStream in=so.getIn();
+            String campos[]={"Nombre_user","Contrasenia"};
+            String condicion = "WHERE Nombre_user = '" + u.getUsuario() + "' AND Contrasenia = '" + u.getContrasenia() + "'";
+            
+            System.out.println((String)in.readObject());
+            out.writeObject(1);
+            out.writeObject("usuarios");
+            out.writeObject(campos);
+            out.writeObject(condicion);
+            if(((ArrayList<String[]>)in.readObject()).size()!=1){
+                assertTrue(false);
+            }
+        } catch (Exception ex) {
+            assertTrue(false);
+        } 
+    } 
     @Test
     public void Logearse_mal() {
         try {
             EliminarUsuario();
             Usuario u = new Usuario("Gonzalo", "Gonzalo", "Gonzalo@gmail.com", 0, 1);
+            Sockets so=new Sockets();
+            ObjectOutputStream out=so.getOut();
+            ObjectInputStream in=so.getIn();
+            String campos[]={"Nombre_user","Contrasenia"};
+            String condicion = "WHERE Nombre_user = '" + u.getUsuario() + "' AND Contrasenia = '" + u.getContrasenia() + "'";
+            
+            System.out.println((String)in.readObject());
+            out.writeObject(1);
+            out.writeObject("usuarios");
+            out.writeObject(campos);
+            out.writeObject(condicion);
+            if(((ArrayList<String[]>)in.readObject()).size()==1){
+                assertTrue(false);
+            }
+        } catch (Exception ex) {
+            assertTrue(true);
+        } 
+    }
+    @Test
+    public void Logearse_mal2() {
+        try {
+            EliminarUsuario();
+            Usuario u = new Usuario(null, "Gonzalo", "Gonzalo@gmail.com", 0, 1);
+            Sockets so=new Sockets();
+            ObjectOutputStream out=so.getOut();
+            ObjectInputStream in=so.getIn();
+            String campos[]={"Nombre_user","Contrasenia"};
+            String condicion = "WHERE Nombre_user = '" + u.getUsuario() + "' AND Contrasenia = '" + u.getContrasenia() + "'";
+            
+            System.out.println((String)in.readObject());
+            out.writeObject(1);
+            out.writeObject("usuarios");
+            out.writeObject(campos);
+            out.writeObject(condicion);
+            if(((ArrayList<String[]>)in.readObject()).size()==1){
+                assertTrue(false);
+            }
+        } catch (Exception ex) {
+            assertTrue(true);
+        } 
+    }
+    @Test
+    public void Logearse_mal3() {
+        try {
+            EliminarUsuario();
+            Usuario u = new Usuario(null, null, "Gonzalo@gmail.com", 0, 1);
             Sockets so=new Sockets();
             ObjectOutputStream out=so.getOut();
             ObjectInputStream in=so.getIn();

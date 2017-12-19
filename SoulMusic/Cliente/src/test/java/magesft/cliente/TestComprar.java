@@ -112,4 +112,28 @@ public class TestComprar {
                     assertTrue(false);
                 } 
     }
+        @Test
+    public void Comprar_mal() {
+        Sockets so = new Sockets();
+            ObjectInputStream in = so.getIn();
+            ObjectOutputStream out = so.getOut();
+
+            Usuario u = new Usuario("Comprador", "Comprador", "Comprador@gmail.com", 0, 0);
+            Musica c=new Musica("in the end", "Linkin Park", "6", "4", "../../../../Musica/in_the_end.mp3", "4");
+                try {
+                    String[] campos = {"Cancion", "Usuario"};
+                    String [] insertar = {c.getIden(),u.getUsuario()};
+                    System.out.println(in.readObject());
+                    out.writeObject(0);
+                    out.writeObject("usuariocancion");
+                    out.writeObject(campos);
+                    out.writeObject(insertar);
+                    if((boolean)in.readObject()){
+                        assertTrue(false);
+                    }
+
+                } catch (Exception ex) {
+                    assertTrue(false);
+                } 
+    }
 }
