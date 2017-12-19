@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package magesft.cliente;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,12 +25,12 @@ import static org.junit.Assert.*;
  *
  * @author gonzalo
  */
-public class elimarUser {
+public class TestEliminarUsuario {
     
-    public elimarUser() {
+    public TestEliminarUsuario() {
     }
     
-    @BeforeClass
+   @BeforeClass
     public static void CrearUser() {
         Usuario u = new Usuario("Gonzalo", "Gonzalo", "Gonzalo@gmail.com", 0, 1);
         Sockets so = new Sockets();
@@ -48,11 +48,11 @@ public class elimarUser {
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if (!(boolean) in.readObject()) {
-                assertTrue(false);
+            if ((boolean) in.readObject()) {
+                System.out.println("creado");
             }
         } catch (Exception ex) {
-            assertTrue(false);
+            System.out.println("ya esta creado");
 
         }  finally {
             try {
@@ -84,14 +84,12 @@ public class elimarUser {
             out.writeObject(" Nombre_user='" + u.getUsuario() + "'");// campos sobre los que insertar
 
             if (!(boolean) in.readObject()) {
-                System.out.println("No hay nada que borrar");
+                assertTrue(false);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            assertTrue(false);
 
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        }  finally {
             try {
                 out.flush();
                 out.close();
@@ -102,5 +100,4 @@ public class elimarUser {
             }
         }
     }
-
 }

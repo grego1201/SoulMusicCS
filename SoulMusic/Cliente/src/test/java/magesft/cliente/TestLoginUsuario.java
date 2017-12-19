@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package test;
+package magesft.cliente;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -26,9 +26,9 @@ import static org.junit.Assert.*;
  *
  * @author gonzalo
  */
-public class loginUser {
+public class TestLoginUsuario {
     
-    public loginUser() {
+    public TestLoginUsuario() {
     }
     
     @BeforeClass
@@ -139,12 +139,11 @@ public class loginUser {
             out.writeObject("usuarios");
             out.writeObject(campos);
             out.writeObject(condicion);
-            if(((ArrayList<String[]>)in.readObject()).size()!=1){
-                assertTrue(true);
+            if(((ArrayList<String[]>)in.readObject()).size()==1){
+                assertTrue(false);
             }
         } catch (Exception ex) {
             assertTrue(true);
         } 
     }
-    
 }

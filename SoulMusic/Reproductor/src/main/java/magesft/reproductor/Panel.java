@@ -200,7 +200,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buttonPausa);
-        buttonPausa.setBounds(155, 126, 43, 23);
+        buttonPausa.setBounds(155, 126, 23, 29);
 
         buttonContinuar.setText("||>");
         buttonContinuar.addActionListener(new java.awt.event.ActionListener() {
@@ -209,7 +209,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buttonContinuar);
-        buttonContinuar.setBounds(249, 126, 49, 23);
+        buttonContinuar.setBounds(249, 126, 28, 29);
 
         buttonParar.setText("|_|");
         buttonParar.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +218,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buttonParar);
-        buttonParar.setBounds(57, 126, 47, 23);
+        buttonParar.setBounds(57, 126, 27, 29);
 
         buttonSiguiente.setText(">");
         buttonSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +227,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buttonSiguiente);
-        buttonSiguiente.setBounds(225, 179, 41, 23);
+        buttonSiguiente.setBounds(225, 179, 20, 29);
 
         buttonAnterior.setText("<");
         buttonAnterior.addActionListener(new java.awt.event.ActionListener() {
@@ -236,11 +236,11 @@ public class Panel extends javax.swing.JFrame {
             }
         });
         getContentPane().add(buttonAnterior);
-        buttonAnterior.setBounds(104, 179, 41, 23);
+        buttonAnterior.setBounds(104, 179, 20, 29);
 
         labelCancion.setText("Cancion");
         getContentPane().add(labelCancion);
-        labelCancion.setBounds(155, 254, 160, 14);
+        labelCancion.setBounds(155, 254, 160, 17);
         labelCancion.getAccessibleContext().setAccessibleName("labelCancion");
         labelCancion.getAccessibleContext().setAccessibleDescription("labelCancion");
 
@@ -251,7 +251,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Btnatras);
-        Btnatras.setBounds(10, 250, 80, 23);
+        Btnatras.setBounds(10, 250, 80, 29);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel2.setText("jLabel2");
