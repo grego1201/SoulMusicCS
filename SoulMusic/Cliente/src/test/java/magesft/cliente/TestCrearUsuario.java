@@ -95,7 +95,7 @@ public class TestCrearUsuario {
     }
     @Test
     public void CrearUser_bien2() {
-        Usuario u = new Usuario("Gonzalo", "Gonzalo", "Gonzalo@gmail.com", -2, 0);
+       Usuario u = new Usuario("Gonzalo", "Gonzalo", "Gonzalo@gmail.com", 0, 1);
         Sockets so = new Sockets();
         ObjectInputStream in = so.getIn();
         ObjectOutputStream out = so.getOut();
@@ -111,8 +111,8 @@ public class TestCrearUsuario {
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if (!(boolean) in.readObject()) {
-                assertTrue(false);
+            if ((boolean) in.readObject()) {
+                assertTrue(true);
             }
         } catch (Exception ex) {
             assertTrue(false);
@@ -146,8 +146,8 @@ public class TestCrearUsuario {
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if (!(boolean) in.readObject()) {
-                assertTrue(false);
+            if ((boolean) in.readObject()) {
+                assertTrue(true);
             }
         } catch (Exception ex) {
             assertTrue(false);
@@ -181,8 +181,8 @@ public class TestCrearUsuario {
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if (!(boolean) in.readObject()) {
-                assertTrue(false);
+            if ((boolean) in.readObject()) {
+                assertTrue(true);
             }
         } catch (Exception ex) {
             assertTrue(false);
@@ -216,8 +216,8 @@ public class TestCrearUsuario {
             out.writeObject(campos);// campos sobre los que insertar
             String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if (!(boolean) in.readObject()) {
-                assertTrue(false);
+            if ((boolean) in.readObject()) {
+                assertTrue(true);
             }
         } catch (Exception ex) {
             assertTrue(false);
