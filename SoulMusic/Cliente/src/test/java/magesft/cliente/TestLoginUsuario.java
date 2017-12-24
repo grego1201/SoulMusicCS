@@ -31,8 +31,8 @@ public class TestLoginUsuario {
     public TestLoginUsuario() {
     }
     
-    @BeforeClass
-    public static void CrearUser_bien() {
+    @Before
+    public void CrearUser_bien() {
         Usuario u = new Usuario("Gonzalo", "Gonzalo", "Gonzalo@gmail.com", 0, 1);
         Sockets so = new Sockets();
         ObjectInputStream in = so.getIn();
@@ -65,7 +65,7 @@ public class TestLoginUsuario {
             }
         }
     }
-    
+    @Before
     public void EliminarUsuario() {
         Usuario u = new Usuario("Gonzalo", "Gonzalo", "Gonzalo@gmail.com", 0, 1);
         Sockets so = new Sockets();
@@ -123,7 +123,7 @@ public class TestLoginUsuario {
         } 
     }
     @Test
-    public void Logearse_bien2() {
+    public void Logearse_malconCONTRASENIA() {
         try {
             Usuario u = new Usuario("Gonzalo", null, "Gonzalo@gmail.com", 0, 1);
             Sockets so=new Sockets();
@@ -137,7 +137,7 @@ public class TestLoginUsuario {
             out.writeObject("usuarios");
             out.writeObject(campos);
             out.writeObject(condicion);
-            if(((ArrayList<String[]>)in.readObject()).size()!=1){
+            if(((ArrayList<String[]>)in.readObject()).size()==1){
                 assertTrue(false);
             }
         } catch (Exception ex) {
