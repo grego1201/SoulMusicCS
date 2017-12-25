@@ -65,9 +65,7 @@ int rol_padre;
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(452, 320));
         setMinimumSize(new java.awt.Dimension(452, 320));
-        setPreferredSize(new java.awt.Dimension(452, 320));
         setResizable(false);
         getContentPane().setLayout(null);
 
@@ -78,7 +76,7 @@ int rol_padre;
             }
         });
         getContentPane().add(btnRegistrarte);
-        btnRegistrarte.setBounds(150, 234, 107, 29);
+        btnRegistrarte.setBounds(150, 234, 107, 23);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +85,7 @@ int rol_padre;
             }
         });
         getContentPane().add(btnAtras);
-        btnAtras.setBounds(20, 234, 107, 29);
+        btnAtras.setBounds(20, 234, 107, 23);
 
         jLabel1.setText("Usuario :");
         getContentPane().add(jLabel1);
@@ -99,7 +97,7 @@ int rol_padre;
 
         jLabel3.setText("Direccion de correo electronico: ");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(10, 140, 370, 25);
+        jLabel3.setBounds(10, 140, 160, 25);
         getContentPane().add(txtContrasenia);
         txtContrasenia.setBounds(184, 99, 202, 34);
         getContentPane().add(txtUsuario);
@@ -109,15 +107,20 @@ int rol_padre;
 
         jLabel4.setText("Introduzca los datos :");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(60, 25, 146, 17);
+        jLabel4.setBounds(60, 25, 105, 14);
 
         cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Usuario", "Administrador" }));
+        cmbRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRolActionPerformed(evt);
+            }
+        });
         getContentPane().add(cmbRol);
-        cmbRol.setBounds(184, 180, 202, 27);
+        cmbRol.setBounds(184, 180, 202, 20);
 
         jLabel5.setText("Rol Usuario :");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(94, 183, 170, 17);
+        jLabel5.setBounds(94, 183, 170, 14);
 
         jButton1.setText("Registar automatica");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +129,7 @@ int rol_padre;
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(271, 234, 160, 29);
+        jButton1.setBounds(271, 234, 160, 23);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         jLabel6.setText("jLabel6");
@@ -137,7 +140,12 @@ int rol_padre;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarteActionPerformed
-        // TODO add your handling code here:
+       metodocrearusuarionormal();
+    }//GEN-LAST:event_btnRegistrarteActionPerformed
+
+    public boolean metodocrearusuarionormal(){
+         // TODO add your handling code here:
+         boolean usuariocreado=true;
          u = new Usuario(txtUsuario.getText(), txtContrasenia.getText(), txtCorreo.getText(),0,cmbRol.getSelectedIndex());
 
         magesft.sockets.Sockets so = new magesft.sockets.Sockets();
@@ -157,12 +165,16 @@ int rol_padre;
             out.writeObject(v_insertar);
             if(!(boolean)in.readObject()){
                 JOptionPane.showMessageDialog(this, "Comprueba los datos");
+                usuariocreado=false;
+                
             }
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+             usuariocreado=false;
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+             usuariocreado=false;
         } finally {
             try {
                 out.flush();
@@ -171,16 +183,19 @@ int rol_padre;
                 s.close();
             } catch (IOException ex) {
                 Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                usuariocreado=false;
             }
         }
-    }//GEN-LAST:event_btnRegistrarteActionPerformed
-
+        return usuariocreado;
+    }    
+    
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        fr.setVisible(true);
+         fr.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    
+    public boolean metodocrearautomatico(){
+        boolean usuariocreado=true;
         int iden=0;
         String tabla="usuarios";
         String [] campo={"Nombre_user"};
@@ -199,7 +214,7 @@ int rol_padre;
             iden =((ArrayList<String[]>)in.readObject()).size();
             
         }catch(Exception ex){
-            
+           usuariocreado=false; 
         }
         
         
@@ -223,12 +238,14 @@ int rol_padre;
             out.writeObject(v_insertar);
             if(!(boolean)in.readObject()){
                 JOptionPane.showMessageDialog(this, "No se ha podido crear usuario");
+                usuariocreado=true;
             }
         } catch (IOException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
-
+            usuariocreado=true;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            usuariocreado=true;
         } finally {
             try {
                 out.flush();
@@ -237,10 +254,19 @@ int rol_padre;
                 s.close();
             } catch (IOException ex) {
                 Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                usuariocreado=true;
             }
         }
-       
+        return usuariocreado;
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        metodocrearautomatico();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cmbRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRolActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRolActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,17 +306,17 @@ int rol_padre;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnRegistrarte;
-    private javax.swing.JComboBox<String> cmbRol;
+    public javax.swing.JComboBox<String> cmbRol;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField txtContrasenia;
-    private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtContrasenia;
+    public javax.swing.JTextField txtCorreo;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
     private Usuario u;
     JFrame fr;

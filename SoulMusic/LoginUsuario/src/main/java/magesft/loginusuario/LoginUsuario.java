@@ -60,27 +60,25 @@ public class LoginUsuario extends javax.swing.JFrame {
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1325, 1024));
         setMinimumSize(new java.awt.Dimension(1325, 1024));
-        setPreferredSize(new java.awt.Dimension(1325, 1024));
         setResizable(false);
         getContentPane().setLayout(null);
 
         jLabel1.setText("Introduzca sus credenciales y pulse Entrar para acceder a SoulMusic");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(10, 11, 468, 17);
+        jLabel1.setBounds(10, 11, 327, 14);
 
         jLabel2.setText("Usuario :");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(43, 46, 59, 17);
+        jLabel2.setBounds(43, 46, 43, 14);
 
         jLabel3.setText("Contraseña :");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(23, 84, 88, 17);
+        jLabel3.setBounds(23, 84, 63, 14);
         getContentPane().add(txtUsuario);
-        txtUsuario.setBounds(130, 50, 209, 27);
+        txtUsuario.setBounds(130, 50, 209, 20);
         getContentPane().add(txtPass);
-        txtPass.setBounds(130, 90, 209, 27);
+        txtPass.setBounds(130, 90, 209, 20);
 
         btnAtras.setText("Atras");
         btnAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -112,8 +110,13 @@ public class LoginUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+
+        login();
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    public boolean login(){
         // TODO add your handling code here:
-        
+        boolean usuariologueado=true;
         Sockets so = new Sockets();
         ObjectInputStream in = so.getIn();
         ObjectOutputStream out = so.getOut();
@@ -139,14 +142,16 @@ public class LoginUsuario extends javax.swing.JFrame {
                 m.setVisible(true);
                 this.setVisible(false);
             } else {
+                usuariologueado=false;
                 JOptionPane.showMessageDialog(this, "No existe el Usuario,\n intentelo de nuevo");
             }
 
         } catch (IOException ex) {
             Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
-
+             usuariologueado=false;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
+             usuariologueado=false;
         } finally {
             try {
                 out.flush();
@@ -158,11 +163,12 @@ public class LoginUsuario extends javax.swing.JFrame {
                 
             } catch (IOException ex) {
                 Logger.getLogger(LoginUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                 usuariologueado=false;
             }
         }
-        
-    }//GEN-LAST:event_btnEntrarActionPerformed
-
+        return usuariologueado;
+    }
+    
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
         // TODO add your handling code here:
         /*Inicio i = new Inicio(); //Importar desde el modulo crear usuario el JFrame Inicio
@@ -222,7 +228,7 @@ public class LoginUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField txtPass;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JPasswordField txtPass;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
