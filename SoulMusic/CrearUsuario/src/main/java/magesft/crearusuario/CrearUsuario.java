@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,10 +30,10 @@ int rol_padre;
     public CrearUsuario() {
         initComponents();
     }
-    public CrearUsuario(JFrame fr, int rol_padre) {
+    public CrearUsuario(final JFrame frame, final int rol_padre) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.fr = fr;
+        this.frame = frame;
         this.rol_padre=rol_padre;
         if(rol_padre==0){
             cmbRol.setEnabled(false);
@@ -146,24 +145,24 @@ int rol_padre;
     public boolean metodocrearusuarionormal(){
          // TODO add your handling code here:
          boolean usuariocreado=true;
-         u = new Usuario(txtUsuario.getText(), txtContrasenia.getText(), txtCorreo.getText(),0,cmbRol.getSelectedIndex());
+         usuario = new Usuario(txtUsuario.getText(), txtContrasenia.getText(), txtCorreo.getText(),0,cmbRol.getSelectedIndex());
 
-        magesft.sockets.Sockets so = new magesft.sockets.Sockets();
-        ObjectInputStream in = so.getIn();
-        ObjectOutputStream out = so.getOut();
-        Socket s = so.getS();
+        final magesft.sockets.Sockets socket = new magesft.sockets.Sockets();
+        final ObjectInputStream inputstream = socket.getIn();
+        final ObjectOutputStream out = socket.getOut();
+        final Socket stream = socket.getS();
         try {
-            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo", "rol"};
+            final String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo", "rol"};
 
-            String recibido = (String) in.readObject();
+            final String recibido = (String) inputstream.readObject();
             System.out.println(recibido);
 
             out.writeObject(0);//opcion insertar
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que insertar
-            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
+            final String[] v_insertar = {usuario.getUsuario(), usuario.getContrasenia(), usuario.getCorreo(), String.valueOf(usuario.getSaldo()), String.valueOf(usuario.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if(!(boolean)in.readObject()){
+            if(!(boolean)inputstream.readObject()){
                 JOptionPane.showMessageDialog(this, "Comprueba los datos");
                 usuariocreado=false;
                 
@@ -179,8 +178,8 @@ int rol_padre;
             try {
                 out.flush();
                 out.close();
-                in.close();
-                s.close();
+                inputstream.close();
+                stream.close();
             } catch (IOException ex) {
                 Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 usuariocreado=false;
@@ -190,53 +189,53 @@ int rol_padre;
     }    
     
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-         fr.setVisible(true);
+         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
     
     public boolean metodocrearautomatico(){
         boolean usuariocreado=true;
         int iden=0;
-        String tabla="usuarios";
-        String [] campo={"Nombre_user"};
-        String condicion="";
-        Sockets so=new Sockets();
-        ObjectInputStream in= so.getIn();
-        ObjectOutputStream out= so.getOut();
-        Socket s=so.getS();
+        final String tabla="usuarios";
+        final String [] campo={"Nombre_user"};
+        final String condicion="";
+        Sockets socket=new Sockets();
+        ObjectInputStream inputStream= socket.getIn();
+        ObjectOutputStream out= socket.getOut();
+        Socket stream=socket.getS();
         try {
-            String recibido = (String) in.readObject();
+            final String recibido = (String) inputStream.readObject();
             System.out.println(recibido);
             out.writeObject(1);
             out.writeObject(tabla);
             out.writeObject(campo);
             out.writeObject(condicion);
-            iden =((ArrayList<String[]>)in.readObject()).size();
+            iden =((ArrayList<String[]>)inputStream.readObject()).size();
             
-        }catch(Exception ex){
+        }catch(IOException | ClassNotFoundException ex){
            usuariocreado=false; 
         }
         
         
         
-        u = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com",0,cmbRol.getSelectedIndex());
+        usuario = new Usuario("MageSft"+iden, "MageSft"+iden, "MageSft"+iden+"@MageSft.com",0,cmbRol.getSelectedIndex());
 
-        so = new magesft.sockets.Sockets();
-        in = so.getIn();
-        out = so.getOut();
-        s = so.getS();
+        socket = new magesft.sockets.Sockets();
+        inputStream = socket.getIn();
+        out = socket.getOut();
+        stream = socket.getS();
         try {
-            String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo","rol"};
+            final String[] campos = {"Nombre_user", "Contrasenia", "Correo", "saldo","rol"};
 
-            String recibido = (String) in.readObject();
+            final String recibido = (String) inputStream.readObject();
             System.out.println(recibido);
 
             out.writeObject(0);//opcion insertar
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que insertar
-            String[] v_insertar = {u.getUsuario(), u.getContrasenia(), u.getCorreo(), String.valueOf(u.getSaldo()), String.valueOf(u.getRol())};//valores a insertar
+            final String[] v_insertar = {usuario.getUsuario(), usuario.getContrasenia(), usuario.getCorreo(), String.valueOf(usuario.getSaldo()), String.valueOf(usuario.getRol())};//valores a insertar
             out.writeObject(v_insertar);
-            if(!(boolean)in.readObject()){
+            if(!(boolean)inputStream.readObject()){
                 JOptionPane.showMessageDialog(this, "No se ha podido crear usuario");
                 usuariocreado=true;
             }
@@ -250,8 +249,8 @@ int rol_padre;
             try {
                 out.flush();
                 out.close();
-                in.close();
-                s.close();
+                inputStream.close();
+                stream.close();
             } catch (IOException ex) {
                 Logger.getLogger(CrearUsuario.class.getName()).log(Level.SEVERE, null, ex);
                 usuariocreado=true;
@@ -318,7 +317,7 @@ int rol_padre;
     public javax.swing.JTextField txtCorreo;
     public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
-    private Usuario u;
-    JFrame fr;
-    private Conexion_BBDD c;
+    private Usuario usuario;
+    JFrame frame;
+    private Conexion_BBDD conexion;
 }

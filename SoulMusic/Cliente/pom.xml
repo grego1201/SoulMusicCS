@@ -32,17 +32,6 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>LoginUsuario</artifactId>
-            <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>MaGeSft2</groupId>
-                    <artifactId>Clases</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
             <groupId>MaGeSft2</groupId>
             <artifactId>Mensajes</artifactId>
             <version>1.0.1-SNAPSHOT</version>
@@ -63,11 +52,6 @@
                     <artifactId>Clases</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>MaGeSft2</groupId>
-            <artifactId>Clases</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
@@ -93,7 +77,16 @@
             <artifactId>BuscarCanciones</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>MaGeSft2</groupId>
+            <artifactId>Clases</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>LoginUsuario</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
     
 

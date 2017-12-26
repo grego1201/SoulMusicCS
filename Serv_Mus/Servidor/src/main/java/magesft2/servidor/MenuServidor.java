@@ -83,7 +83,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Btncrearusuario);
-        Btncrearusuario.setBounds(30, 150, 170, 36);
+        Btncrearusuario.setBounds(30, 150, 170, 33);
 
         BtnMusica.setBackground(new java.awt.Color(51, 255, 255));
         BtnMusica.setIcon(new javax.swing.ImageIcon(getClass().getResource("/004-add-song.png"))); // NOI18N
@@ -94,7 +94,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnMusica);
-        BtnMusica.setBounds(230, 150, 170, 36);
+        BtnMusica.setBounds(230, 150, 170, 33);
 
         BtnBuscarCanciones.setBackground(new java.awt.Color(51, 255, 255));
         BtnBuscarCanciones.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-video-player.png"))); // NOI18N
@@ -105,7 +105,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnBuscarCanciones);
-        BtnBuscarCanciones.setBounds(230, 230, 170, 36);
+        BtnBuscarCanciones.setBounds(230, 230, 170, 33);
 
         BtnEliminar.setBackground(new java.awt.Color(51, 255, 255));
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/003-delete.png"))); // NOI18N
@@ -116,7 +116,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnEliminar);
-        BtnEliminar.setBounds(30, 190, 170, 36);
+        BtnEliminar.setBounds(30, 190, 170, 33);
 
         jButton1.setBackground(new java.awt.Color(51, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/002-send.png"))); // NOI18N
@@ -127,7 +127,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(30, 280, 230, 36);
+        jButton1.setBounds(30, 280, 230, 33);
 
         BtnEliminarcancioens.setBackground(new java.awt.Color(51, 255, 255));
         BtnEliminarcancioens.setIcon(new javax.swing.ImageIcon(getClass().getResource("/001-delete-song-interface-symbol.png"))); // NOI18N
@@ -138,7 +138,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnEliminarcancioens);
-        BtnEliminarcancioens.setBounds(230, 190, 170, 36);
+        BtnEliminarcancioens.setBounds(230, 190, 170, 33);
 
         BtnCrearArtista.setBackground(new java.awt.Color(51, 255, 255));
         BtnCrearArtista.setIcon(new javax.swing.ImageIcon(getClass().getResource("/006-sign.png"))); // NOI18N
@@ -149,7 +149,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(BtnCrearArtista);
-        BtnCrearArtista.setBounds(30, 230, 170, 36);
+        BtnCrearArtista.setBounds(30, 230, 170, 33);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SoulMusic.JPG"))); // NOI18N
         getContentPane().add(jLabel3);
@@ -169,7 +169,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(570, 180, 210, 36);
+        jButton2.setBounds(570, 180, 210, 33);
 
         jButton3.setBackground(new java.awt.Color(51, 255, 255));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/001-mark.png"))); // NOI18N
@@ -180,7 +180,7 @@ public class MenuServidor extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton3);
-        jButton3.setBounds(270, 280, 270, 36);
+        jButton3.setBounds(270, 280, 270, 33);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/abstract-background-design.jpg"))); // NOI18N
         getContentPane().add(jLabel1);

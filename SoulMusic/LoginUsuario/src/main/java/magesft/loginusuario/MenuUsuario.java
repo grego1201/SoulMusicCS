@@ -5,9 +5,7 @@
  */
 package magesft.loginusuario;
 
-import java.awt.BorderLayout;
-import java.awt.LayoutManager;
-import java.awt.Panel;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -17,8 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import magesft.buscarcanciones.BuscarCanciones;
 import magesft.clases.Usuario;
-import magesft.comprar.Comprar;
-import magesft.reproductor.Reproductor;
+import magesft.comprar.Comprar; 
 import magesft.sockets.Sockets;
 import magesft2.mensajes.Iniciosesiongmail;
 
@@ -28,8 +25,8 @@ import magesft2.mensajes.Iniciosesiongmail;
  */
 public class MenuUsuario extends javax.swing.JFrame {
 
-    JFrame fp;
-    Usuario u;
+    JFrame frame;
+    Usuario usuario;
 
     /**
      * Creates new form MenuUsuario
@@ -38,12 +35,12 @@ public class MenuUsuario extends javax.swing.JFrame {
         initComponents();
     }
 
-    public MenuUsuario(JFrame fp, Usuario u) {
+    public MenuUsuario(final JFrame frame, final Usuario usuario) {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        this.fp = fp;
-        this.u = u;
+        this.frame = frame;
+        this.usuario = usuario;
     }
 
     /**
@@ -122,42 +119,42 @@ public class MenuUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReproductorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReproductorActionPerformed
-        BuscarCanciones c = new BuscarCanciones(this);
-        c.setVisible(true);
+        final BuscarCanciones canciones = new BuscarCanciones(this);
+        canciones.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnReproductorActionPerformed
 
     private void bntBEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntBEntradaActionPerformed
         // TODO add your handling code here:
-        Iniciosesiongmail gm = new Iniciosesiongmail(this);
-        gm.setVisible(true);
+        final Iniciosesiongmail gmail = new Iniciosesiongmail(this);
+        gmail.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_bntBEntradaActionPerformed
 
     private void BtneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtneliminarActionPerformed
         try {
-            Sockets so = new Sockets();
-            ObjectInputStream in = so.getIn();
-            ObjectOutputStream out = so.getOut();
-            System.out.println(in.readObject());
+            Sockets socket = new Sockets();
+            ObjectInputStream inputStream = socket.getIn();
+            ObjectOutputStream out = socket.getOut();
+            System.out.println(inputStream.readObject());
             out.writeObject(3);
             out.writeObject("usuariocancion");
-            out.writeObject("Usuario='" + u.getUsuario() + "'");
+            out.writeObject("Usuario='" + usuario.getUsuario() + "'");
 
-            if ((boolean) in.readObject()) {
+            if ((boolean) inputStream.readObject()) {
 
-                so = new Sockets();
-                in = so.getIn();
-                out = so.getOut();
+                socket = new Sockets();
+                inputStream = socket.getIn();
+                out = socket.getOut();
 
-                System.out.println(in.readObject());
+                System.out.println(inputStream.readObject());
                 out.writeObject(3);
                 out.writeObject("usuarios");
-                out.writeObject("Nombre_user='" + u.getUsuario() + "'");
-                if(!(boolean)in.readObject()){
+                out.writeObject("Nombre_user='" + usuario.getUsuario() + "'");
+                if(!(boolean)inputStream.readObject()){
                     JOptionPane.showMessageDialog(this, "Error al eliminar");
                 }
-                fp.setVisible(true);
+                frame.setVisible(true);
                 this.setVisible(false);
             }else{
                 JOptionPane.showMessageDialog(this, "Error al eliminar");
@@ -171,7 +168,7 @@ public class MenuUsuario extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Comprar comp = new Comprar(this, u);
+        final Comprar comp = new Comprar(this, usuario);
         comp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -8,7 +8,6 @@ package magesft.buscarcanciones;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -27,49 +26,49 @@ import magesft.sockets.Sockets;
 public class BuscarCanciones extends javax.swing.JFrame {
     DefaultListModel<Musica> dfm;
     LinkedList<Musica> l_musica;
-    JFrame jf;
+    JFrame frame;
     public BuscarCanciones() {
         initComponents();
     }
-    public BuscarCanciones(JFrame jf) {
-        this.jf=jf;
+    public BuscarCanciones(final JFrame frame) {
+        this.frame=frame;
         try {
             initComponents();
             this.setLocationRelativeTo(null);
             b_cargar.setEnabled(false);
             dfm=new DefaultListModel<>();
             l_musica = new LinkedList<>();
-            Sockets so = new Sockets();
+            Sockets socket = new Sockets();
 
-            Socket s = so.getS();
-            ObjectInputStream in = so.getIn();
-            ObjectOutputStream out = so.getOut();
+            
+            ObjectInputStream inputStream = socket.getIn();
+            ObjectOutputStream out = socket.getOut();
 
-            System.out.println(in.readObject());
-            String[] campos = {"Nombre"};
-            String condicion = "";
+            System.out.println(inputStream.readObject());
+            final String[] campos = {"Nombre"};
+            final String condicion = "";
             out.writeObject(1);
             out.writeObject("autor");
             out.writeObject(campos);
             out.writeObject(condicion);
-            ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+            ArrayList<String[]> arr = (ArrayList<String[]>) inputStream.readObject();
 
             for (int i = 0; i < arr.size(); i++) {
                 c_artistas.addItem(((String[]) arr.get(i))[0]);
             }
 
-            so = new Sockets();
-            s = so.getS();
-            in = so.getIn();
-            out = so.getOut();
+            socket = new Sockets();
 
-            System.out.println(in.readObject());
-            String[] campos2 = {"ID", "Nombre_album"};
+            inputStream = socket.getIn();
+            out = socket.getOut();
+
+            System.out.println(inputStream.readObject());
+            final String[] campos2 = {"ID", "Nombre_album"};
             out.writeObject(1);
             out.writeObject("album");
             out.writeObject(campos2);
             out.writeObject(condicion);
-            arr = (ArrayList<String[]>) in.readObject();
+            arr = (ArrayList<String[]>) inputStream.readObject();
 
             for (int i = 0; i < arr.size(); i++) {
                 c_album.addItem(((String[]) arr.get(i))[0] + "-" + ((String[]) arr.get(i))[1]);
@@ -211,13 +210,13 @@ public class BuscarCanciones extends javax.swing.JFrame {
 
     private void b_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_b_cargarActionPerformed
         // TODO add your handling code here:
-        Panel p=new Panel(l_musica,this);
-        p.setVisible(true);
+        final Panel panel=new Panel(l_musica,this);
+        panel.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_b_cargarActionPerformed
 
     private void BtnatrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnatrasActionPerformed
-        jf.setVisible(true);
+        frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_BtnatrasActionPerformed
  
@@ -258,9 +257,9 @@ public class BuscarCanciones extends javax.swing.JFrame {
     
 public boolean buscar(){
     // TODO add your handling code here:
-    String artistas = (String) c_artistas.getSelectedItem();
-    String album = (String) c_album.getSelectedItem();
-    String nombre = l_titulo.getText();
+    final String artistas = (String) c_artistas.getSelectedItem();
+    final String album = (String) c_album.getSelectedItem();
+    final String nombre = l_titulo.getText();
     
     if(artistas.compareToIgnoreCase("")==0 && album.compareToIgnoreCase("")==0 && nombre.compareToIgnoreCase("")==0){
             JOptionPane.showMessageDialog(null, "rellena alguno de los campos");
@@ -268,24 +267,24 @@ public boolean buscar(){
     }
         l_musica=new LinkedList<>();
         dfm = new DefaultListModel<>();
-        Sockets so = new Sockets();
-        ArrayList<String[]> musica = new ArrayList<>();
-        Socket s = so.getS();
-        ObjectInputStream in = so.getIn();
-        ObjectOutputStream out = so.getOut();
+        Sockets socket = new Sockets();
+        final ArrayList<String[]> musica = new ArrayList<>();
+
+        ObjectInputStream inputStream = socket.getIn();
+        ObjectOutputStream out = socket.getOut();
         
         
 
         if (nombre.compareToIgnoreCase("") != 0) {
             try {
-                String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace","Precio"};
-                String condicion = " where Nombre_cancion='" + nombre + "'";
-                System.out.println(in.readObject());
+                final String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace","Precio"};
+                final String condicion = " where Nombre_cancion='" + nombre + "'";
+                System.out.println(inputStream.readObject());
                 out.writeObject(1);
                 out.writeObject("musica");
                 out.writeObject(campos);
                 out.writeObject(condicion);
-                ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+                final ArrayList<String[]> arr = (ArrayList<String[]>) inputStream.readObject();
                 for (int i = 0; i < arr.size(); i++) {
                     musica.add(arr.get(i));
                 }
@@ -300,14 +299,14 @@ public boolean buscar(){
             if (artistas.compareToIgnoreCase("") != 0) {
 
                 try {
-                    String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion","enlace","Precio"};
-                    String condicion = " where Autor='" + artistas + "'";
-                    System.out.println(in.readObject());
+                    final String[] campos = {"Nombre_cancion", "Autor", "ID", "Duracion","enlace","Precio"};
+                    final String condicion = " where Autor='" + artistas + "'";
+                    System.out.println(inputStream.readObject());
                     out.writeObject(1);
                     out.writeObject("musica");
                     out.writeObject(campos);
                     out.writeObject(condicion);
-                    ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+                    final ArrayList<String[]> arr = (ArrayList<String[]>) inputStream.readObject();
                     for (int i = 0; i < arr.size(); i++) {
                         musica.add(arr.get(i));
                     }
@@ -320,30 +319,30 @@ public boolean buscar(){
             } else {
                 if (album.compareToIgnoreCase("") != 0) {
                     try {
-                        String[] campos = {"ID_Musica"};
+                        final String[] campos = {"ID_Musica"};
                         String condicion = " where ID_Album='" + album.substring(0, album.indexOf("-")) + "'";
-                        System.out.println(in.readObject());
+                        System.out.println(inputStream.readObject());
                         out.writeObject(1);
                         out.writeObject("linea_album");
                         out.writeObject(campos);
                         out.writeObject(condicion);
-                        ArrayList<String[]> arr = (ArrayList<String[]>) in.readObject();
+                        ArrayList<String[]> arr = (ArrayList<String[]>) inputStream.readObject();
 
 
-                        String[] campos2 = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace","Precio"};
+                        final String[] campos2 = {"Nombre_cancion", "Autor", "ID", "Duracion", "enlace","Precio"};
                         for (int i = 0; i < arr.size(); i++) {
-                            so = new Sockets();
+                            socket = new Sockets();
 
-                            s = so.getS();
-                            in = so.getIn();
-                            out = so.getOut();
+
+                            inputStream = socket.getIn();
+                            out = socket.getOut();
                             condicion = " where ID='"+((String[])arr.get(i))[0]+"'";
-                            System.out.println(in.readObject());
+                            System.out.println(inputStream.readObject());
                             out.writeObject(1);
                             out.writeObject("musica");
                             out.writeObject(campos2);
                             out.writeObject(condicion);
-                            arr = (ArrayList<String[]>) in.readObject();
+                            arr = (ArrayList<String[]>) inputStream.readObject();
                             musica.add(arr.get(0));
                         }
                         for (int i = 0; i < musica.size(); i++) {
@@ -360,13 +359,13 @@ public boolean buscar(){
             }
         }
         for (int i = 0; i < musica.size(); i++) {
-                    String cancion="";
-                    Musica m=new Musica(((String[])musica.get(i))[0], ((String[])musica.get(i))[1], ((String[])musica.get(i))[2], ((String[])musica.get(i))[3], ((String[])musica.get(i))[4], ((String[])musica.get(i))[5]);
-                    l_musica.add(m);
-                    dfm.add(i, m);
+                    final String cancion="";
+                    final Musica musica_cancion=new Musica(((String[])musica.get(i))[0], ((String[])musica.get(i))[1], ((String[])musica.get(i))[2], ((String[])musica.get(i))[3], ((String[])musica.get(i))[4], ((String[])musica.get(i))[5]);
+                    l_musica.add(musica_cancion);
+                    dfm.add(i, musica_cancion);
                 }
                 list_musica.setModel(dfm);
-          if(l_musica.size()>0){
+          if(!l_musica.isEmpty()){
               b_cargar.setEnabled(true);
           }      
           return true;

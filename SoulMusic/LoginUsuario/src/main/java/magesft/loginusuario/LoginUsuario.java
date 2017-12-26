@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,15 +22,15 @@ import magesft.sockets.Sockets;
  * @author Gonzalo
  */
 public class LoginUsuario extends javax.swing.JFrame {
-    JFrame jf;
+    JFrame frame;
     
     /**
      * Creates new form LoginUsuario
      */
-    public LoginUsuario(JFrame jf) {
+    public LoginUsuario(final JFrame frame) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.jf=jf;
+        this.frame=frame;
         this.setSize(fondo.getSize());
 
     }
@@ -117,29 +116,29 @@ public class LoginUsuario extends javax.swing.JFrame {
     public boolean login(){
         // TODO add your handling code here:
         boolean usuariologueado=true;
-        Sockets so = new Sockets();
-        ObjectInputStream in = so.getIn();
-        ObjectOutputStream out = so.getOut();
-        Socket s = so.getS();
-        String[] campos = {"Nombre_user","Contrasenia","Correo","saldo","rol"};
+        final Sockets socket = new Sockets();
+        final ObjectInputStream inputStream = socket.getIn();
+        final ObjectOutputStream out = socket.getOut();
+        final Socket stream = socket.getS();
+        final String[] campos = {"Nombre_user","Contrasenia","Correo","saldo","rol"};
         ArrayList<String[]> arr = null;
-        Usuario u = null;
+        Usuario usuario = null;
         try {
-            String recibido = (String) in.readObject();
+            final String recibido = (String) inputStream.readObject();
             System.out.println(recibido);
             out.writeObject(1);//Modelar en el servidor que cuando le pase 1 es consultas a BBDD
             out.writeObject("usuarios"); //tabla
             out.writeObject(campos);// campos sobre los que conusltar
-            String condicion = "WHERE Nombre_user = '" + txtUsuario.getText() + "' AND Contrasenia = '" + txtPass.getText() + "'";//Condicion
+            final String condicion = "WHERE Nombre_user = '" + txtUsuario.getText() + "' AND Contrasenia = '" + txtPass.getText() + "'";//Condicion
             out.writeObject(condicion);
-            arr = (ArrayList<String[]>) in.readObject();
+            arr = (ArrayList<String[]>) inputStream.readObject();
             if (arr.size() == 1) {
                 //siguiente ventana
                 System.out.println("correcto");
-                String [] datos_u=arr.get(0);
-                u=new Usuario(datos_u[0], datos_u[1], datos_u[2], Float.parseFloat(datos_u[3]), Integer.parseInt(datos_u[4]));
-                MenuUsuario m=new MenuUsuario(this,u);
-                m.setVisible(true);
+                final String [] datos_u=arr.get(0);
+                usuario=new Usuario(datos_u[0], datos_u[1], datos_u[2], Float.parseFloat(datos_u[3]), Integer.parseInt(datos_u[4]));
+                final MenuUsuario menuprincipal=new MenuUsuario(this,usuario);
+                menuprincipal.setVisible(true);
                 this.setVisible(false);
             } else {
                 usuariologueado=false;
@@ -156,8 +155,8 @@ public class LoginUsuario extends javax.swing.JFrame {
             try {
                 out.flush();
                 out.close();
-                in.close();
-                s.close();
+                inputStream.close();
+                stream.close();
                 
                 
                 
@@ -174,7 +173,7 @@ public class LoginUsuario extends javax.swing.JFrame {
         /*Inicio i = new Inicio(); //Importar desde el modulo crear usuario el JFrame Inicio
         i.setVisible(true);
         this.setVisible(false);*/
-        jf.setVisible(true);
+        frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAtrasActionPerformed
 
